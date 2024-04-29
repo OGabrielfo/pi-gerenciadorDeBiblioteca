@@ -1,0 +1,30 @@
+.navbar {
+    background-color: #447171;
+    display: inline-flex;
+    position: fixed;
+    justify-content: center;
+    top: 90px;
+    width: 90px;
+    height: 100%;
+}
+
+.navbar ul li div{
+    list-style-type: none;
+    background-color: #335555;
+    border-radius: 5px;
+    margin-top: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: rgb(240, 240, 240);
+}
+
+.icones {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 5px;
+}

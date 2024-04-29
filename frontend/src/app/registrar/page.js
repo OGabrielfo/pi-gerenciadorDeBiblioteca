@@ -1,9 +1,10 @@
 import styles from './registrar.module.css'
+import Header from '../../components/header'
 
 export default function registrar() {
     return(
-        <div>
-            <h1>Página de Registro</h1>
-        </div>
+        <>
+            <Header>Registrar</Header>
+        </>
     )
 }
