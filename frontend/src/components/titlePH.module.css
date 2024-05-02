@@ -9,7 +9,7 @@
   
 
 .title{
-    font-size: 4em;
+    font-size: 3em;
     color: aliceblue;
     font-family: 'Zen Maru Gothic';
     margin: 5px;
@@ -24,7 +24,7 @@
 .icone{
     position: absolute;
     margin-left: 5px;
-    width: 80px;
+    width: 60px;
     height: auto;
 }
 .divh1{
