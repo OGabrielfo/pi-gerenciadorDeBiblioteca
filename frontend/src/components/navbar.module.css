@@ -8,7 +8,7 @@
     height: 100%;
 }
 
-.navbar ul li div{
+.link{
     list-style-type: none;
     background-color: #335555;
     border-radius: 5px;
@@ -21,6 +21,35 @@
     align-items: center;
     font-size: 1em;
     color: rgb(240, 240, 240);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.link:hover {
+    background-color: #558D8D;
+    transition: 0.2s;
+}
+
+.activeLink{
+    list-style-type: none;
+    background-color: #66A9A9;
+    border-radius: 5px;
+    margin-top: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: rgb(240, 240, 240);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.activeLink:hover {
+    background-color: #558D8D;
+    transition: 0.2s;
 }
 
 .icones {
