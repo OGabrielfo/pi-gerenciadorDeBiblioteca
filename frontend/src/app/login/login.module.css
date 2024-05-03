@@ -1,63 +1,28 @@
 .body{
-    font-family:"Zen Maru Gothic", sans-serif;
+    font-family: var(--ZenMaru);
     color: #fff; 
     font-weight: lighter;   
 }
-
-@font-face {
-    font-family: 'Zen Maru Gothic';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 300;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-300-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-400-normal.woff) format('woff');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-  }
   
 .zen-maru-gothic-regular {
-    font-family: "Zen Maru Gothic", sans-serif;
+    font-family: var(--ZenMaru);
     font-weight: 400;
     font-style: normal;
   }  
 
-.input[type="text"],
-.input[type="password"] {
-    font-size: 20px;
-    padding-left: 4%;
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
-    font-family:"Zen Maru Gothic Light";
-    border: 1px solid #fff;
-    border-radius: 18px;
-    box-sizing: border-box;
-    width: 94%;
-}
-
 .h1{
     margin-left: 4%;
     margin-top: 1%;
-    font-family:"Zen Maru Gothic Light";
+    font-family: var(--ZenMaru);
     font-size: 45px;
-}
-
-.button{
-    margin-top: 5%;
-    width: 45%;
-    height: 15%;
-    background-color: #335555;
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
-    font-size: 22px;
-    border-radius: 18px;
-    font-family:"Zen Maru Gothic Light";
-    color: #fff;
-    border: none;
 }
 
 .img{
     width: 20%;
+    height: auto;
 }
 
-.checkbox-wrapper-14 {
+.checkboxWrapper14 {
     margin-top: 3%;
     margin-left: 4%;
     display: flex;
@@ -66,7 +31,7 @@
 
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
-    .checkbox-wrapper-14 input[type=checkbox] {
+    .checkboxWrapper14 input[type=checkbox] {
       --active: #335555;
       --active-inner: #fff;
       --focus: 2px rgba(34, 57, 57, .3);
@@ -88,7 +53,7 @@
       background: var(--b, var(--background));
       transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
     }
-    .checkbox-wrapper-14 input[type=checkbox]:after {
+    .checkboxWrapper14 input[type=checkbox]:after {
       content: "";
       display: block;
       left: 0;
@@ -96,51 +61,51 @@
       position: absolute;
       transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:checked {
+    .checkboxWrapper14 input[type=checkbox]:checked {
       --b: var(--active);
       --bc: var(--active);
       --d-o: .3s;
       --d-t: .6s;
       --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:disabled {
+    .checkboxWrapper14 input[type=checkbox]:disabled {
       --b: var(--disabled);
       cursor: not-allowed;
       opacity: 0.9;
     }
-    .checkbox-wrapper-14 input[type=checkbox]:disabled:checked {
+    .checkboxWrapper14 input[type=checkbox]:disabled:checked {
       --b: var(--disabled-inner);
       --bc: var(--border);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:disabled + label {
+    .checkboxWrapper14 input[type=checkbox]:disabled + label {
       cursor: not-allowed;
     }
-    .checkbox-wrapper-14 input[type=checkbox]:hover:not(:checked):not(:disabled) {
+    .checkboxWrapper14 input[type=checkbox]:hover:not(:checked):not(:disabled) {
       --bc: var(--border-hover);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:focus {
+    .checkboxWrapper14 input[type=checkbox]:focus {
       box-shadow: 0 0 0 var(--focus);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch) {
       width: 21px;
     }
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch):after {
       opacity: var(--o, 0);
     }
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch):checked {
       --o: 1;
     }
-    .checkbox-wrapper-14 input[type=checkbox] + label {
+    .checkboxWrapper14 input[type=checkbox] + label {
       display: inline-block;
       vertical-align: middle;
       cursor: pointer;
       margin-left: 4px;
     }
 
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch) {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch) {
       border-radius: 7px;
     }
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):after {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch):after {
       width: 5px;
       height: 9px;
       border: 2px solid var(--active-inner);
@@ -150,14 +115,14 @@
       top: 4px;
       transform: rotate(var(--r, 20deg));
     }
-    .checkbox-wrapper-14 input[type=checkbox]:not(.switch):checked {
+    .checkboxWrapper14 input[type=checkbox]:not(.switch):checked {
       --r: 43deg;
     }
-    .checkbox-wrapper-14 input[type=checkbox].switch {
+    .checkboxWrapper14 input[type=checkbox].switch {
       width: 38px;
       border-radius: 11px;
     }
-    .checkbox-wrapper-14 input[type=checkbox].switch:after {
+    .checkboxWrapper14 input[type=checkbox].switch:after {
       left: 2px;
       top: 2px;
       border-radius: 50%;
@@ -166,11 +131,11 @@
       background: var(--ab, var(--border));
       transform: translateX(var(--x, 0));
     }
-    .checkbox-wrapper-14 input[type=checkbox].switch:checked {
+    .checkboxWrapper14 input[type=checkbox].switch:checked {
       --ab: var(--active-inner);
       --x: 17px;
     }
-    .checkbox-wrapper-14 input[type=checkbox].switch:disabled:not(:checked):after {
+    .checkboxWrapper14 input[type=checkbox].switch:disabled:not(:checked):after {
       opacity: 0.6;
     }
   }
@@ -178,6 +143,20 @@
 
 .inputs{
     text-align: center;
+    margin-top: 5%;
+}
+
+.inputs input {
+    font-size: 20px;
+    padding-left: 4%;
+    padding-top: 1.5%;
+    padding-bottom: 1.5%;
+    font-family: var(--ZenMaru);
+    border: 1px solid #fff;
+    border-radius: 18px;
+    margin: 8px 0px;
+    box-sizing: border-box;
+    width: 94%;
 }
 
 .botao{
@@ -185,11 +164,24 @@
     justify-content: center;
 }
 
-.input-password{
+.botao button{
+  margin-top: 8%;
+  width: 45%;
+  height: 15%;
+  background-color: #335555;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+  font-size: 22px;
+  border-radius: 18px;
+  font-family: var(--ZenMaru);
+  color: #fff;
+  border: none;
+}
+
+.inputPassword{
     margin-top: 5%;
 }
 
-  
 .logo{
     height: auto;
     margin-top: 8%;
@@ -198,7 +190,7 @@
 
 }
 
-.container-login{
+.containerLogin{
     height: 60vh;
     display: flex;
     justify-content: center;
@@ -208,6 +200,7 @@
 .login{
     border-radius: 25px;
     margin-top: 0.5%;
+    padding: 5px 10px;
     width: 26%;
     height: 73%;
     background-color: #558D8D;

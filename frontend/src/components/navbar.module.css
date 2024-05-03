@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #447171;
+    background-color: var(--cor04);
     display: inline-flex;
     position: fixed;
     justify-content: center;
@@ -10,7 +10,7 @@
 
 .link{
     list-style-type: none;
-    background-color: #335555;
+    background-color: var(--cor03);
     border-radius: 5px;
     margin-top: 50px;
     width: 80px;
@@ -20,19 +20,19 @@
     justify-content: center;
     align-items: center;
     font-size: 1em;
-    color: rgb(240, 240, 240);
+    color: var(--cor08);
     text-decoration: none;
     transition: 0.2s;
 }
 
 .link:hover {
-    background-color: #558D8D;
+    background-color: var(--cor05);
     transition: 0.2s;
 }
 
 .activeLink{
     list-style-type: none;
-    background-color: #66A9A9;
+    background-color: var(--cor06);
     border-radius: 5px;
     margin-top: 50px;
     width: 80px;
@@ -48,7 +48,7 @@
 }
 
 .activeLink:hover {
-    background-color: #558D8D;
+    background-color: var(--cor05);
     transition: 0.2s;
 }
 

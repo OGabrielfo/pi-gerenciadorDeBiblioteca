@@ -13,6 +13,24 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare"
 
 export default function Navbar(){
     const pathname = usePathname();
+    var resp = ""
+    switch(pathname) {
+        case "/registrar":
+            resp = pathname
+            break;
+        case "/registrar/emprestimos":
+            resp = pathname
+            break;
+        case "/registrar/livros":
+            resp = pathname
+            break;
+        case "/registrar/usuarios":
+            resp = pathname
+            break;
+        default:
+            resp = ""
+    }
+
 
     return(
         <nav className={styles.navbar}>
@@ -24,7 +42,7 @@ export default function Navbar(){
                     </Link>
                 </li>
                 <li>
-                    <Link className={pathname == '/registrar' || '/registrar/emprestimos' || '/registrar/livros' || '/registrar/usuarios' ? styles.activeLink : styles.link} href="/registrar">
+                    <Link className={pathname === resp ? styles.activeLink : styles.link} href="/registrar">
                         <FontAwesomeIcon className={styles.icones}  icon={faUserPlus} />
                         Registrar
                     </Link>

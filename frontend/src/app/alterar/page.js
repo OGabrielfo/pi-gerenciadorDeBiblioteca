@@ -1,5 +1,5 @@
 import styles from './alterar.module.css'
-import TitlePH from '@/components/titlePH'
+import Header from '../../components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
 import BtnEfetuarPesquisa from '@/components/btnEfetuarPesquisa'
@@ -53,7 +53,7 @@ export default function alterar() {
     }
     return(
         <div>
-            <TitlePH />
+            <Header>Alterar</Header>
             <div className={styles.alterarTelas}>
                 <BtnAlterar nome="Alterar Usuario" />
                 <BtnAlterar nome="Alterar Livro" />
