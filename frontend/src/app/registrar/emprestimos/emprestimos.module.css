@@ -6,8 +6,14 @@
     justify-content: center;
 }
 
+.container form {
+    border-radius: 20px;
+    border: 2px solid var(--cor07);
+}
+
 .formTitle {
-    margin: 45px 0px;
+    margin: 45px 0px 20px 0px;
+    color: var(--cor02);
 }
 
 .formItem {
@@ -22,29 +28,39 @@
 .formItem label {
     font-size: 1.1em;
     width: 80%;
+    color: var(--cor01);
 }
 
 .formItem input {
     height: 20px;
     width: 80%;
     border-radius: 5px;
-    border-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     border-style: outset;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 1px 5px;
+    transition: 0.2s;
+}
+
+.formItem input:focus {
+    border: 1px solid var(--cor06);
+    box-shadow: 2px 2px 5px var(--cor06);
+    outline: 0px;
+    transition: 0.2s;
 }
 
 .button {
-    margin: 45px auto 0px auto;
+    margin: 30px auto 0px auto;
     justify-self: center;
-    width: 150px;
-    height: 40px;
+    width: 200px;
+    height: 50px;
     border-radius: 15px;
     border-color: transparent;
     background-color: #335555;
     text-decoration: none;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    font-weight: bold;
     color: rgb(240, 240, 240);
     transition: 0.2s;
     cursor: pointer;

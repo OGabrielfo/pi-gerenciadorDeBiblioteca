@@ -7,16 +7,16 @@
     justify-content: center;
     margin: auto;
     border-radius: 20px;
-    background-color: #335555;
+    background-color: var(--cor03);
     text-decoration: none;
     text-align: center;
     font-size: 1.2em;
-    color: rgb(240, 240, 240);
+    color: var(--cor08);
     transition: 0.2s;
 }
 
 .linkButton:hover {
-    background-color: #558D8D;
+    background-color: var(--cor05);
     transition: 0.2s;
 }
 
@@ -29,15 +29,15 @@
     justify-content: center;
     margin: auto;
     border-radius: 20px;
-    background-color: #447171;
+    background-color: var(--cor04);
     text-decoration: none;
     text-align: center;
     font-size: 1.2em;
-    color: rgb(240, 240, 240);
+    color: var(--cor08);
     transition: 0.2s;
 }
 
 .activeLinkButton:hover {
-    background-color: #558D8D;
+    background-color: var(--cor05);
     transition: 0.2s;
 }

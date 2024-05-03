@@ -31,7 +31,7 @@ export default function registrarEmprestimos() {
 
     return(
         <section className={styles.container}>
-            <h2 className={styles.formTitle}>Empréstimos</h2>
+            <h2 className={styles.formTitle}>Empréstimo</h2>
             <form onSubmit={onFinish}>
                 <div className={styles.formItem}>
                     <label htmlFor="nome">Nome</label>
