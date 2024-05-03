@@ -1,5 +1,4 @@
 import "@/app/globals.css";
-import Navbar from "../components/navbar";
 
 export const metadata = {
   title: "Gerenciador de Biblioteca",
@@ -9,8 +8,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
-      <Navbar />
-      {children}
+      <body>
+        {children}
+      </body>
     </html>
   );
 }
