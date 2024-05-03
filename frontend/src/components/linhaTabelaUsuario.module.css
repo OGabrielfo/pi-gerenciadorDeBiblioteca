@@ -17,9 +17,9 @@
 .divLinha{
     background-color: var(--color);
     display: grid;
-    grid-template-columns: 25px 70px 5fr 2fr 2fr 30px ;
+    grid-template-columns: 25px 70px 4fr 2fr 2fr 30px ;
     align-items: center;
-    width: 70vw;
+    width: 100%;
 }
 
 .item{
