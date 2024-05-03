@@ -1,0 +1,43 @@
+.linkButton {
+    padding: 10px;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 20px;
+    background-color: var(--cor03);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--cor08);
+    transition: 0.2s;
+}
+
+.linkButton:hover {
+    background-color: var(--cor05);
+    transition: 0.2s;
+}
+
+.activeLinkButton {
+    padding: 10px;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    border-radius: 20px;
+    background-color: var(--cor04);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.2em;
+    color: var(--cor08);
+    transition: 0.2s;
+}
+
+.activeLinkButton:hover {
+    background-color: var(--cor05);
+    transition: 0.2s;
+}
