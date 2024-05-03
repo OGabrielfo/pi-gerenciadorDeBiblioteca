@@ -4,8 +4,13 @@ import TrashIMG from "/public/trash.png"
 import styles from "./linhaTabelaUsuario.module.css"
 
 export default function LinhaTabelaUsuario(props) {
+    const handleRadioClick = (dados) => {
+        document.getElementById("nome").placeholder = dados.nome;
+        document.getElementById("sala").placeholder = dados.sala;
+        document.getElementById("telefone").placeholder = dados.telefone;
+    }
     let color;
-
+    
     if (props.index % 2 == 0){
         color = "#447474";
     }
@@ -48,10 +53,10 @@ export default function LinhaTabelaUsuario(props) {
             </div>
         );
     }
-    else if(props.index == (props.lenght - 1)) {
+    else if(props.index == (props.dadosLargura - 1)) {
         return (
             <div className={styles.divLinha + " " + styles.lastLine} id={props.codigo} style={{'--color' : color}}>
-                <input type="radio" name="livros" value={props.index}></input>
+                <input type="radio" name="usuarios" value={props.index} onClick={() => handleRadioClick(props.usuario)}></input>
                 <div className={styles.item + " " + styles.codigo}>{props.codigo}</div>
                 <div className={styles.item + " " + styles.nome}>{props.nome}</div>
                 <div className={styles.item + " " + styles.sala}>{props.sala}</div>
@@ -62,7 +67,7 @@ export default function LinhaTabelaUsuario(props) {
     }
     return (
         <div className={styles.divLinha} id={props.codigo} style={{'--color' : color}}>
-            <input type="radio" name="usuarios" value={props.index}></input>
+            <input type="radio" name="usuarios" value={props.index} onClick={() => handleRadioClick(props.usuario)}></input>
             <div className={styles.item + " " + styles.codigo}>{props.codigo}</div>
             <div className={styles.item + " " + styles.nome}>{props.nome}</div>
             <div className={styles.item + " " + styles.sala}>{props.sala}</div>

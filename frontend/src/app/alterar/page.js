@@ -18,7 +18,7 @@ export default function alterar() {
                   {codigo:"12", nome:"Anderson Paulo Santos", sala:"7a", telefone:""}];
     
     let livros = [{codigo:"10", titulo:"O julgamento de Sócrates", autor:"Sócrates", ano:2, genero:"Filosofia", nicho:"65", exemplaresTotais:3, ISBN:"454FG45"},
-                  {codigo:"11", titulo:"Apologia", autor:"Sócrates", autor:"Sócrates", ano:8, genero:"Filosofia", nicho:"63", exemplaresTotais:8, ISBN:"354FG45"},
+                  {codigo:"11", titulo:"Apologia", autor:"Sócrates", autor:"Sócrates", ano:8, genero:"Filosofia", nicho:"63", exemplaresTotais:2, ISBN:"354FG45"},
                   {codigo:"12", titulo:"O Críton de Sócrates", autor:"Sócrates", autor:"Sócrates", ano:1, genero:"Filosofia", nicho:"27", exemplaresTotais:1, ISBN:"454FG45"}];
    
     
@@ -32,9 +32,8 @@ export default function alterar() {
             )
         }
         else{
-            console.log(lenghtData)
             return [<LinhaTabelaLivro codigo="Código" titulo="Título" autor="Autor"></LinhaTabelaLivro>,
-            data.map((livro, index) => (<LinhaTabelaLivro key={livro.codigo} codigo={livro.codigo} titulo={livro.titulo} autor={livro.autor} index={index} lenght={lenghtData}></LinhaTabelaLivro>))]
+            data.map((livro, index) => (<LinhaTabelaLivro key={livro.codigo} codigo={livro.codigo} titulo={livro.titulo} autor={livro.autor} index={index} dadosLargura={lenghtData} livro={livro}></LinhaTabelaLivro>))]
         }
     }
 
@@ -49,7 +48,7 @@ export default function alterar() {
         }
         else{
             return [<LinhaTabelaUsuario codigo="Código" nome="Nome" sala="Sala" telefone="Telefone"></LinhaTabelaUsuario>,
-            data.map((usuario, index) => (<LinhaTabelaUsuario key={usuario.codigo} codigo={usuario.codigo} nome={usuario.nome} sala={usuario.sala} telefone={usuario.telefone} index={index} lenght={lenghtData}></LinhaTabelaUsuario>))]
+            data.map((usuario, index) => (<LinhaTabelaUsuario key={usuario.codigo} codigo={usuario.codigo} nome={usuario.nome} sala={usuario.sala} telefone={usuario.telefone} index={index} dadosLargura={lenghtData} usuario={usuario}></LinhaTabelaUsuario>))]
         }
     }
     return(
@@ -67,7 +66,7 @@ export default function alterar() {
                     <BtnEfetuarPesquisa nome="Procurar Usuários"></BtnEfetuarPesquisa>
                 </div>
                 <div className={styles.table}>
-                    {renderLinesUsuarios(usuariosVazio)}
+                    {renderLinesUsuarios(usuarios, usuarios.length)}
                 </div>
                 <div className={styles.camps}>
                     <CampoDados idInput="nome" nome="Nome" ph="Digite o nome"/>
