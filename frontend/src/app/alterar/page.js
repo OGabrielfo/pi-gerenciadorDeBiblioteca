@@ -7,21 +7,80 @@ import LinhaTabelaLivro from '@/components/linhaTabelaLivro'
 import LinhaTabelaUsuario from '@/components/linhaTabelaUsuario'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
+import TabelaAlterar from '@/components/tabelaAlterar'
 
 
 export default function alterar() {
     let livrosVazio;
     let usuariosVazio;
 
-    let usuarios = [{codigo:"10", nome:"Anderson Oliveira", sala:"Funcionario", telefone:"12-99193-3444"},
-                  {codigo:"11", nome:"Anderson Lucas Silva", sala:"9a", telefone:""},
-                  {codigo:"12", nome:"Anderson Paulo Santos", sala:"7a", telefone:""}];
+    let usuarios = [{codigo:"10", nome:"Anderson Oliveira", sala:"Funcionario", funcao:"Professor-Portugues"},
+                  {codigo:"11", nome:"Anderson Lucas Silva", sala:"9a", funcao:"Professor-Matematica"},
+                  {codigo:"12", nome:"Anderson Paulo Santos", sala:"7a", funcao:"Professor-Fisica"}];
     
     let livros = [{codigo:"10", titulo:"O julgamento de Sócrates", autor:"Sócrates", ano:2, genero:"Filosofia", nicho:"65", exemplaresTotais:3, ISBN:"454FG45"},
                   {codigo:"11", titulo:"Apologia", autor:"Sócrates", autor:"Sócrates", ano:8, genero:"Filosofia", nicho:"63", exemplaresTotais:2, ISBN:"354FG45"},
-                  {codigo:"12", titulo:"O Críton de Sócrates", autor:"Sócrates", autor:"Sócrates", ano:1, genero:"Filosofia", nicho:"27", exemplaresTotais:1, ISBN:"454FG45"}];
-   
-    
+                  {codigo:"12", titulo:"O Críton de Sócrates", autor:"Sócrates" , ano:1, genero:"Filosofia", nicho:"27", exemplaresTotais:1, ISBN:"454FG45"}];
+    return(
+        <>
+            <Header>Alterar</Header>
+            <div className={styles.mainDiv}>
+                <div className={styles.alterarTelas}>
+                    <BtnAlterar nome="Alterar Livro" estado={true} idBotao="btnLivro"/>
+                    <BtnAlterar nome="Alterar Aluno" estado={false} idBotao="btnAluno" />
+                    <BtnAlterar nome="Alterar Funcionario" estado={false} idBotao="btnFuncionario"/>
+                </div>
+                <div className={styles.alterarAluno}>
+                    <div className={styles.pesquisar}>
+                        <CampoPesquisar idInput="campoNomeAluno" campoNome="Nome" ph="Digite o nome do aluno"/>
+                        <CampoPesquisar idInput="campoSala" campoNome="Sala" ph="Digite a sala"/>
+                        <BtnEfetuarPesquisa nome="Procurar Alunos"></BtnEfetuarPesquisa>
+                    </div>
+                    <TabelaAlterar dados={usuarios} tipo="aluno"/>
+                    <div className={styles.camps}>
+                        <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
+                        <CampoDados idInput="inputSala" nome="Sala" ph="Digite a sala"/>
+                    </div>
+                    <BtnEfetuarAlteracao />
+                </div>
+                <div className={styles.alterarFuncionario}>
+                    <div className={styles.pesquisar}>
+                        <CampoPesquisar idInput="campoNomeFuncionario" campoNome="Nome" ph="Digite o nome do funcionário"/>
+                        <CampoPesquisar idInput="campoFuncao" campoNome="Função" ph="Digite a função do funcionário"/>
+                        <BtnEfetuarPesquisa nome="Procurar Funcionário"></BtnEfetuarPesquisa>
+                    </div>
+                    <TabelaAlterar dados={usuarios} tipo="funcionario"/>
+                    <div className={styles.camps}>
+                        <CampoDados idInput="inputNomeFuncionario" nome="Nome" ph="Digite o nome do funcionário"/>
+                        <CampoDados idInput="inputFuncao" nome="Função" ph="Digite a função do funcionário"/>
+                    </div>
+                    <BtnEfetuarAlteracao />
+                </div>
+                <div className={styles.alterarLivros}>
+                    <div className={styles.pesquisar}>
+                        <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
+                        <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>
+                        <BtnEfetuarPesquisa nome="Procurar Livros"></BtnEfetuarPesquisa>
+                    </div>
+                    <TabelaAlterar dados={livros} tipo="livro"/>
+                    <div className={styles.camps}>
+                        <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
+                        <CampoDados idInput="inputAutor" nome="Autor" ph="Digite o autor do livro"/>
+                        <CampoDados idInput="inputAnoPublicacao" nome="Ano de Publicação" ph="Digite o ano de publicação"/>
+                        <CampoDados idInput="inputGenero" nome="Gênero" ph="Digite o gênero do livro"/>
+                        <CampoDados idInput="inputNicho" nome="Nicho" ph="Digite o nicho"/>
+                        <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
+                        <CampoDados idInput="inputIsbn" nome="ISBN" ph="Digite o ISBN do livro"/>
+                    </div>
+                    <BtnEfetuarAlteracao />
+                </div>
+            </div>
+        </>
+        
+    )
+}
+
+/*
     function renderLinesLivros(data, lenghtData){
         if (data == null){
             return(
@@ -51,51 +110,4 @@ export default function alterar() {
             data.map((usuario, index) => (<LinhaTabelaUsuario key={usuario.codigo} codigo={usuario.codigo} nome={usuario.nome} sala={usuario.sala} telefone={usuario.telefone} index={index} dadosLargura={lenghtData} usuario={usuario}></LinhaTabelaUsuario>))]
         }
     }
-    return(
-        <div>
-            <Header>Alterar</Header>
-            <div className={styles.alterarTelas}>
-                <BtnAlterar nome="Alterar Usuario" />
-                <BtnAlterar nome="Alterar Livro" />
-            </div>
-
-            <div className={styles.alterarUsuario}>
-                <div className={styles.pesquisar}>
-                    <CampoPesquisar idInput="campoNome" campoNome="Nome" ph="Digite o nome do usuário"/>
-                    <CampoPesquisar idInput="campoSala" campoNome="Sala" ph="Digite a sala ou funcionario"/>
-                    <BtnEfetuarPesquisa nome="Procurar Usuários"></BtnEfetuarPesquisa>
-                </div>
-                <div className={styles.table}>
-                    {renderLinesUsuarios(usuarios, usuarios.length)}
-                </div>
-                <div className={styles.camps}>
-                    <CampoDados idInput="nome" nome="Nome" ph="Digite o nome"/>
-                    <CampoDados idInput="sala" nome="Sala" ph="Digite a sala ou funcionario"/>
-                    <CampoDados idInput="telefone" nome="Telefone" ph="Digite o telefone"/>
-                </div>
-                <BtnEfetuarAlteracao />
-            </div>
-            <div className={styles.alterarLivros}>
-                <div className={styles.pesquisar}>
-                    <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
-                    <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>
-                    <BtnEfetuarPesquisa nome="Procurar Livros"></BtnEfetuarPesquisa>
-                </div>
-                <div className={styles.table}>
-                    {renderLinesLivros(livros, livros.length)}
-                </div>
-                <div className={styles.camps}>
-                    <CampoDados idInput="titulo" nome="Título" ph="Digite o título do livro"/>
-                    <CampoDados idInput="autor" nome="Autor" ph="Digite o autor do livro"/>
-                    <CampoDados idInput="ano-publicacao" nome="Ano de Publicação" ph="Digite o ano de publicação"/>
-                    <CampoDados idInput="genero" nome="Gênero" ph="Digite o gênero do livro"/>
-                    <CampoDados idInput="nicho" nome="Nicho" ph="Digite o nicho"/>
-                    <CampoDados idInput="exemplares-totais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
-                    <CampoDados idInput="isbn" nome="ISBN" ph="Digite o ISBN do livro"/>
-                </div>
-                <BtnEfetuarAlteracao />
-            </div>
-
-        </div>
-    )
-}
+    */

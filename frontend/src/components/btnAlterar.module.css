@@ -7,5 +7,10 @@
     padding: 5px;
     width: 260px;
     height: 60px;
-    border-radius: 25px;
+    border-radius: 20px;
+}
+
+.botao:hover{
+    background-color : #558D8D;
+    transition: background-color 0.2s;
 }

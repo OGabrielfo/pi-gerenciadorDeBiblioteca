@@ -7,32 +7,6 @@
     unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
 }
 
-@media screen and (max-width: 750px) {
-    .pesquisar{
-        background-color: aqua;
-    }
-    .table{
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 95vw;
-    }
-}
-
-@media screen and (min-width: 750px) {
-    .table{
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 75vw;
-    }
-}
-
-
 .pesquisar{
     margin-top: 20px;
     display: flex;
@@ -41,14 +15,21 @@
     flex-wrap:wrap;
 }
 
-.alterarUsuario{
-    display: flex;
+.alterarLivros{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.alterarAluno{
+    display: none;
     flex-direction: column;
     align-items: center;
 }
 
-.alterarLivros{
-    display: none;
+.alterarFuncionario{
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -68,4 +49,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.mainDiv{
+    padding: 90px 0px 0px 90px;
 }
