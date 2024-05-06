@@ -1,16 +1,15 @@
 .botao{
     color: white;
-    background-color: hsl(180, 26%, 18%);
+    background-color: var(--color);
     font-size: 1.2em;
     margin: 10px;
     border:none;
-    padding: 5px;
     width: 260px;
     height: 60px;
     border-radius: 20px;
 }
 
 .botao:hover{
-    background-color : #558D8D;
+    background-color : hsl(180, 26%, 50%);
     transition: background-color 0.2s;
 }

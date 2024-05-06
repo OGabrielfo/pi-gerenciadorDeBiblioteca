@@ -1,10 +1,8 @@
-import styles from './alterar.module.css'
-import Header from '../../components/header'
+import styles from './funcionario.module.css'
+import Header from '@/components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
 import BtnEfetuarPesquisa from '@/components/btnEfetuarPesquisa'
-import LinhaTabelaLivro from '@/components/linhaTabelaLivro'
-import LinhaTabelaUsuario from '@/components/linhaTabelaUsuario'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
@@ -26,25 +24,20 @@ export default function alterar() {
             <Header>Alterar</Header>
             <div className={styles.mainDiv}>
                 <div className={styles.alterarTelas}>
-                    <BtnAlterar nome="Alterar Livro" estado={true} idBotao="btnLivro"/>
+                    <BtnAlterar nome="Alterar Livro" estado={false} idBotao="btnLivro"/>
                     <BtnAlterar nome="Alterar Aluno" estado={false} idBotao="btnAluno" />
-                    <BtnAlterar nome="Alterar Funcionario" estado={false} idBotao="btnFuncionario"/>
+                    <BtnAlterar nome="Alterar Funcionario" estado={true} idBotao="btnFuncionario"/>
                 </div>
-                <div className={styles.alterarLivros} id="mainLivro">
+                <div className={styles.alterarFuncionario} id="mainFuncionario">
                     <div className={styles.pesquisar}>
-                        <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
-                        <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>
-                        <BtnEfetuarPesquisa nome="Procurar Livros"></BtnEfetuarPesquisa>
+                        <CampoPesquisar idInput="campoNomeFuncionario" campoNome="Nome" ph="Digite o nome do funcionário"/>
+                        <CampoPesquisar idInput="campoFuncao" campoNome="Função" ph="Digite a função do funcionário"/>
+                        <BtnEfetuarPesquisa nome="Procurar Funcionário"></BtnEfetuarPesquisa>
                     </div>
-                    <TabelaAlterar dados={livros} tipo="livro"/>
+                    <TabelaAlterar dados={usuarios} tipo="funcionario"/>
                     <div className={styles.camps}>
-                        <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
-                        <CampoDados idInput="inputAutor" nome="Autor" ph="Digite o autor do livro"/>
-                        <CampoDados idInput="inputAnoPublicacao" nome="Ano de Publicação" ph="Digite o ano de publicação"/>
-                        <CampoDados idInput="inputGenero" nome="Gênero" ph="Digite o gênero do livro"/>
-                        <CampoDados idInput="inputNicho" nome="Nicho" ph="Digite o nicho"/>
-                        <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
-                        <CampoDados idInput="inputIsbn" nome="ISBN" ph="Digite o ISBN do livro"/>
+                        <CampoDados idInput="inputNomeFuncionario" nome="Nome" ph="Digite o nome do funcionário"/>
+                        <CampoDados idInput="inputFuncao" nome="Função" ph="Digite a função do funcionário"/>
                     </div>
                     <BtnEfetuarAlteracao />
                 </div>

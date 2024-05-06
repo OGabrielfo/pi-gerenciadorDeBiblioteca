@@ -1,5 +1,5 @@
-import styles from './alterar.module.css'
-import Header from '../../components/header'
+import styles from './aluno.module.css'
+import Header from '@/components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
 import BtnEfetuarPesquisa from '@/components/btnEfetuarPesquisa'
@@ -21,30 +21,26 @@ export default function alterar() {
     let livros = [{codigo:"10", titulo:"O julgamento de Sócrates", autor:"Sócrates", ano:2, genero:"Filosofia", nicho:"65", exemplaresTotais:3, ISBN:"454FG45"},
                   {codigo:"11", titulo:"Apologia", autor:"Sócrates", autor:"Sócrates", ano:8, genero:"Filosofia", nicho:"63", exemplaresTotais:2, ISBN:"354FG45"},
                   {codigo:"12", titulo:"O Críton de Sócrates", autor:"Sócrates" , ano:1, genero:"Filosofia", nicho:"27", exemplaresTotais:1, ISBN:"454FG45"}];
+    
     return(
         <>
             <Header>Alterar</Header>
             <div className={styles.mainDiv}>
                 <div className={styles.alterarTelas}>
-                    <BtnAlterar nome="Alterar Livro" estado={true} idBotao="btnLivro"/>
-                    <BtnAlterar nome="Alterar Aluno" estado={false} idBotao="btnAluno" />
+                    <BtnAlterar nome="Alterar Livro" estado={false} idBotao="btnLivro" />
+                    <BtnAlterar nome="Alterar Aluno" estado={true} idBotao="btnAluno" />
                     <BtnAlterar nome="Alterar Funcionario" estado={false} idBotao="btnFuncionario"/>
                 </div>
-                <div className={styles.alterarLivros} id="mainLivro">
+                <div className={styles.alterarAluno}>
                     <div className={styles.pesquisar}>
-                        <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
-                        <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>
-                        <BtnEfetuarPesquisa nome="Procurar Livros"></BtnEfetuarPesquisa>
+                        <CampoPesquisar idInput="campoNomeAluno" campoNome="Nome" ph="Digite o nome do aluno"/>
+                        <CampoPesquisar idInput="campoSala" campoNome="Sala" ph="Digite a sala"/>
+                        <BtnEfetuarPesquisa nome="Procurar Alunos"></BtnEfetuarPesquisa>
                     </div>
-                    <TabelaAlterar dados={livros} tipo="livro"/>
+                    <TabelaAlterar dados={usuarios} tipo="aluno" id="mainAluno"/>
                     <div className={styles.camps}>
-                        <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
-                        <CampoDados idInput="inputAutor" nome="Autor" ph="Digite o autor do livro"/>
-                        <CampoDados idInput="inputAnoPublicacao" nome="Ano de Publicação" ph="Digite o ano de publicação"/>
-                        <CampoDados idInput="inputGenero" nome="Gênero" ph="Digite o gênero do livro"/>
-                        <CampoDados idInput="inputNicho" nome="Nicho" ph="Digite o nicho"/>
-                        <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
-                        <CampoDados idInput="inputIsbn" nome="ISBN" ph="Digite o ISBN do livro"/>
+                        <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
+                        <CampoDados idInput="inputSala" nome="Sala" ph="Digite a sala"/>
                     </div>
                     <BtnEfetuarAlteracao />
                 </div>

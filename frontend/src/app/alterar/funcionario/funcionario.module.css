@@ -16,6 +16,19 @@
 }
 
 .alterarLivros{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.alterarAluno{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.alterarFuncionario{
     display: flex;
     flex-direction: column;
     justify-content: center;
