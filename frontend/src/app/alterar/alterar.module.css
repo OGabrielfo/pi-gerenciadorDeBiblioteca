@@ -41,3 +41,17 @@
 .mainDiv{
     padding: 90px 0px 0px 90px;
 }
+
+.btnProcurar{
+    font-family: var(--ZenMaru);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.30em;
+    padding: 0 20px 5px 20px;
+    height: 40px;
+    background-color: #335555;
+    border: none;
+    color: azure;
+    border-radius: 25px;
+    margin-top: 10px;
+}

@@ -1,26 +1,61 @@
+'use client'
 import styles from './aluno.module.css'
 import Header from '@/components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
-import BtnEfetuarPesquisa from '@/components/btnEfetuarPesquisa'
-import LinhaTabelaLivro from '@/components/linhaTabelaLivro'
-import LinhaTabelaUsuario from '@/components/linhaTabelaUsuario'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
+import React, {useState} from 'react';
 
 
 export default function alterar() {
-    let livrosVazio;
-    let usuariosVazio;
+    let usuarios = [
+        { "codigo": 1, "nome": "Ana Souza Oliveira", "sala": "8a" },
+        { "codigo": 2, "nome": "Beatriz Santos Ferreira", "sala": "7b" },
+        { "codigo": 3, "nome": "Carlos Pereira Mendes", "sala": "6c" },
+        { "codigo": 4, "nome": "Daniela Silva Costa", "sala": "5d" },
+        { "codigo": 5, "nome": "Eduardo Martins Rodrigues", "sala": "4e" },
+        { "codigo": 6, "nome": "Felipe Gomes Silva", "sala": "3f" },
+        { "codigo": 7, "nome": "Gabriela Souza Oliveira", "sala": "2g" },
+        { "codigo": 8, "nome": "Henrique Pereira Mendes", "sala": "1h" },
+        { "codigo": 9, "nome": "Isabella Santos Ferreira", "sala": "8a" },
+        { "codigo": 10, "nome": "João Silva Costa", "sala": "7b" },
+        { "codigo": 11, "nome": "Kevin Martins Rodrigues", "sala": "6c" },
+        { "codigo": 12, "nome": "Laura Gomes Silva", "sala": "5d" },
+        { "codigo": 13, "nome": "Mateus Souza Oliveira", "sala": "4e" },
+        { "codigo": 14, "nome": "Nicole Pereira Mendes", "sala": "3f" },
+        { "codigo": 15, "nome": "Olivia Santos Ferreira", "sala": "2g" },
+        { "codigo": 16, "nome": "Pedro Silva Costa", "sala": "1h" },
+        { "codigo": 17, "nome": "Rafaela Martins Rodrigues", "sala": "8a" },
+        { "codigo": 18, "nome": "Sophia Gomes Silva", "sala": "7b" },
+        { "codigo": 19, "nome": "Thomas Souza Oliveira", "sala": "6c" },
+        { "codigo": 20, "nome": "Valentina Pereira Mendes", "sala": "5d" }
+    ];
 
-    let usuarios = [{codigo:"10", nome:"Anderson Oliveira", sala:"Funcionario", funcao:"Professor-Portugues"},
-                  {codigo:"11", nome:"Anderson Lucas Silva", sala:"9a", funcao:"Professor-Matematica"},
-                  {codigo:"12", nome:"Anderson Paulo Santos", sala:"7a", funcao:"Professor-Fisica"}];
+    const [alunosPesquisa, setalunosPesquisa] = useState();
     
-    let livros = [{codigo:"10", titulo:"O julgamento de Sócrates", autor:"Sócrates", ano:2, genero:"Filosofia", nicho:"65", exemplaresTotais:3, ISBN:"454FG45"},
-                  {codigo:"11", titulo:"Apologia", autor:"Sócrates", autor:"Sócrates", ano:8, genero:"Filosofia", nicho:"63", exemplaresTotais:2, ISBN:"354FG45"},
-                  {codigo:"12", titulo:"O Críton de Sócrates", autor:"Sócrates" , ano:1, genero:"Filosofia", nicho:"27", exemplaresTotais:1, ISBN:"454FG45"}];
+    function comparar(elemento, filtro, valor){
+        return elemento[filtro].toLowerCase().includes(valor);
+    }
+
+    const handleClickProcurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
+        let valor1 = campoPesquisa1.value.toLowerCase();
+        let valor2 = campoPesquisa2.value.toLowerCase();
+        let listaTemporaria;
+        if(valor1.trim() !== ""){
+            console.log("1 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
+            listaTotal = [...listaTemporaria];
+        }
+        if(valor2.trim() != ""){
+            console.log("2 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
+        }
+        setalunosPesquisa(listaTemporaria);
+        campoPesquisa1.value = "";
+        campoPesquisa2.value = "";
+    }
     
     return(
         <>
@@ -35,9 +70,9 @@ export default function alterar() {
                     <div className={styles.pesquisar}>
                         <CampoPesquisar idInput="campoNomeAluno" campoNome="Nome" ph="Digite o nome do aluno"/>
                         <CampoPesquisar idInput="campoSala" campoNome="Sala" ph="Digite a sala"/>
-                        <BtnEfetuarPesquisa nome="Procurar Alunos"></BtnEfetuarPesquisa>
+                        <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome", "sala", usuarios)}>Procurar Aluno</button>
                     </div>
-                    <TabelaAlterar dados={usuarios} tipo="aluno" id="mainAluno"/>
+                    <TabelaAlterar dados={alunosPesquisa} tipo="aluno" id="mainAluno"/>
                     <div className={styles.camps}>
                         <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
                         <CampoDados idInput="inputSala" nome="Sala" ph="Digite a sala"/>
@@ -49,35 +84,3 @@ export default function alterar() {
         
     )
 }
-
-/*
-    function renderLinesLivros(data, lenghtData){
-        if (data == null){
-            return(
-                [<LinhaTabelaLivro codigo="Código" titulo="Título" autor="Autor"></LinhaTabelaLivro>,
-                <LinhaTabelaLivro codigo="default" index={0} ></LinhaTabelaLivro>,
-                <LinhaTabelaLivro codigo="default" index={1} ></LinhaTabelaLivro>,
-                <LinhaTabelaLivro codigo="default" index={2} ></LinhaTabelaLivro>]
-            )
-        }
-        else{
-            return [<LinhaTabelaLivro codigo="Código" titulo="Título" autor="Autor"></LinhaTabelaLivro>,
-            data.map((livro, index) => (<LinhaTabelaLivro key={livro.codigo} codigo={livro.codigo} titulo={livro.titulo} autor={livro.autor} index={index} dadosLargura={lenghtData} livro={livro}></LinhaTabelaLivro>))]
-        }
-    }
-
-    function renderLinesUsuarios(data, lenghtData){
-        if (data == null){
-            return(
-                [<LinhaTabelaUsuario codigo="Código" nome="Nome" sala="Sala" telefone="Telefone"></LinhaTabelaUsuario>,
-                <LinhaTabelaUsuario codigo="default" index={0} ></LinhaTabelaUsuario>,
-                <LinhaTabelaUsuario codigo="default" index={1} ></LinhaTabelaUsuario>,
-                <LinhaTabelaUsuario codigo="default" index={2} ></LinhaTabelaUsuario>]
-            )
-        }
-        else{
-            return [<LinhaTabelaUsuario codigo="Código" nome="Nome" sala="Sala" telefone="Telefone"></LinhaTabelaUsuario>,
-            data.map((usuario, index) => (<LinhaTabelaUsuario key={usuario.codigo} codigo={usuario.codigo} nome={usuario.nome} sala={usuario.sala} telefone={usuario.telefone} index={index} dadosLargura={lenghtData} usuario={usuario}></LinhaTabelaUsuario>))]
-        }
-    }
-    */
