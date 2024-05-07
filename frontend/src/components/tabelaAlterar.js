@@ -35,8 +35,11 @@ export default function TabelaAlterar(props) {
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>
-                                    <td className={styles.dado}>‎</td><td className={styles.dado}>‎</td><td className={styles.dado}>‎
-                                  </td></tr>)
+                                    <td className={styles.dado}>‎</td>
+                                    <td className={styles.dado}>‎</td>
+                                    <td className={styles.dado + " " + styles.terceira}>‎</td>
+                                    <td className={styles.colunaExcluir}>‎</td>
+                                  </tr>)
             }
             return(linhasVazias);
         }
