@@ -56,7 +56,7 @@
     height: 50px;
     border-radius: 15px;
     border-color: transparent;
-    background-color: #335555;
+    background-color: var(--cor03);
     text-decoration: none;
     text-align: center;
     font-size: 1.4em;
@@ -67,6 +67,6 @@
 }
 
 .button:hover {
-    background-color: #558D8D;
+    background-color: var(--cor05);
     transition: 0.2s;
 }

@@ -24,12 +24,22 @@
 * {
   margin: 0px;
   padding: 0px;
+  font-family: var(--ZenMaru);
 }
 
 h1 {
   font-size: 2.5em;
+  font-weight: bold;
 }
 
 h2 {
   font-size: 2em;
+  font-weight: bold;
 }
+
+label {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+/* TODO criar padrão de fontes */

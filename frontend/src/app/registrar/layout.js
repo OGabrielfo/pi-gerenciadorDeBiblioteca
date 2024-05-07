@@ -4,7 +4,7 @@ import NavButton from '../../components/navButton'
 
 export default function Layout({ children }) {
     return (
-        <html lang="pt-br">
+        <html lang="pt-br"> {/*TODO fazer responsividade das páginas de cadastro*/}
             <body>
                 <Header>Registrar</Header>
                 <section className={ styles.container }>

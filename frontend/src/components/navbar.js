@@ -33,7 +33,7 @@ export default function Navbar(){
 
 
     return(
-        <nav className={styles.navbar}>
+        <nav className={styles.navbar}> {/*TODO fazer responsividade da navbar*/}
             <ul>
                 <li>
                     <Link className={pathname === '/consulta' ? styles.activeLink : styles.link} href="/consulta">

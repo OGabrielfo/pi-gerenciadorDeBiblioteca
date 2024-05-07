@@ -13,7 +13,7 @@ export default function registrarEmprestimos() {
     const onFinish = (event) => {
         event.preventDefault();
         setIsLoading(true);
-        createMenu(formData)
+        createMenu(formData) //TODO arrumar função e testar sistema
             .then(() => {
             // Redireciona para a página que indica o sucesso
             router.replace("/?action=registro");
