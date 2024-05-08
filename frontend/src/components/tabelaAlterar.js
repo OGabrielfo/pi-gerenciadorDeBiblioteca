@@ -16,7 +16,6 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputIsbn").placeholder = dado.ISBN;
         }
         else if (props.tipo == "aluno"){
-            console.log("ALuno")
             document.getElementById("inputNome").placeholder = dado.nome;
             document.getElementById("inputSala").placeholder = dado.sala;
         }
@@ -24,6 +23,7 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputNomeFuncionario").placeholder = dado.nome;
             document.getElementById("inputFuncao").placeholder = dado.funcao;
         }
+        document.getElementById("codigoSelecionado").textContent = dado.codigo;
     }
 
     const handleRadioClickUsuario = (event) => {

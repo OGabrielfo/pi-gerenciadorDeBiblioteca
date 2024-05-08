@@ -78,7 +78,7 @@ export default function alterar() {
                         <CampoDados idInput="inputNomeFuncionario" nome="Nome" ph="Digite o nome do funcionário"/>
                         <CampoDados idInput="inputFuncao" nome="Função" ph="Digite a função do funcionário"/>
                     </div>
-                    <BtnEfetuarAlteracao />
+                    <BtnEfetuarAlteracao tipo="funcionario"/>
                 </div>
             </div>
         </>

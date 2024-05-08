@@ -262,6 +262,7 @@ export default function alterar() {
                         <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "titulo", "autor", livros)}>Procurar Livro</button>
                     </div>
                     <TabelaAlterar dados={livrosPesquisa} tipo="livro"/>
+                    <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
                     <div className={styles.camps}>
                         <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
                         <CampoDados idInput="inputAutor" nome="Autor" ph="Digite o autor do livro"/>
@@ -271,7 +272,7 @@ export default function alterar() {
                         <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
                         <CampoDados idInput="inputIsbn" nome="ISBN" ph="Digite o ISBN do livro"/>
                     </div>
-                    <BtnEfetuarAlteracao />
+                    <BtnEfetuarAlteracao tipo="livro"/>
                 </div>
             </div>
         </>

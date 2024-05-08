@@ -77,7 +77,7 @@ export default function alterar() {
                         <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
                         <CampoDados idInput="inputSala" nome="Sala" ph="Digite a sala"/>
                     </div>
-                    <BtnEfetuarAlteracao />
+                    <BtnEfetuarAlteracao tipo="aluno"/>
                 </div>
             </div>
         </>

@@ -55,3 +55,9 @@
     border-radius: 25px;
     margin-top: 10px;
 }
+.divRegistroSelecionado{
+    margin-top: 10px;
+    font-size: 1.3em;
+    font-family: var(--ZenMaru);
+    font-weight: 600;
+}
