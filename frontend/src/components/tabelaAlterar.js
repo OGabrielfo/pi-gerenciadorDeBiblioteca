@@ -27,7 +27,7 @@ export default function TabelaAlterar(props) {
     }
 
     const handleRadioClickUsuario = (event) => {
-        let dado = props.dados[event.target.id]
+        let dado = props.dados[event.target.id];
     }
 
     function renderLines(dados, tipo, campo1, campo2, campo3){
