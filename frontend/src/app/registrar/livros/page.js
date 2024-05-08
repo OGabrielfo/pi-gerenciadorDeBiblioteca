@@ -36,9 +36,10 @@ export default function registrarLivros() {
             <h2 className={styles.formTitle}>Livros</h2>
             <form onSubmit={onFinish}>
                 <div className={styles.formItem}>
-                    <label htmlFor="nome">Nome</label>
+                    <label htmlFor="nome">Título</label>
                     <input
                         required
+                        placeholder="Título do Livro"
                         name="nome"
                         value={formData.nome}
                         onChange={(event) =>
@@ -51,6 +52,7 @@ export default function registrarLivros() {
                     <input
                         required
                         name="autor"
+                        placeholder="Nome do Autor(a)"
                         value={formData.autor}
                         onChange={(event) =>
                         setFormData({ ...formData, autor: event.target.value })
@@ -62,6 +64,7 @@ export default function registrarLivros() {
                     <input
                         required
                         name="tipo"
+                        placeholder="Gênero do livro"
                         value={formData.price}
                         onChange={(event) =>
                         setFormData({ ...formData, tipo: event.target.value })
@@ -72,6 +75,7 @@ export default function registrarLivros() {
                     <label htmlFor="quantidade">Quantidade</label>
                     <input
                         required
+                        placeholder="3"
                         type="number"
                         name="Quantidade"
                         value={formData.price}
@@ -84,6 +88,7 @@ export default function registrarLivros() {
                     <label htmlFor="nicho">Nicho</label>
                     <input
                         required
+                        placeholder="Identificador do Nicho"
                         type="number"
                         name="nicho"
                         value={formData.nicho}

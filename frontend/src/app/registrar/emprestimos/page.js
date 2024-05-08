@@ -38,6 +38,7 @@ export default function registrarEmprestimos() {
                     <input
                         required
                         name="nome"
+                        placeholder="Nome Completo"
                         value={formData.nome}
                         onChange={(event) =>
                         setFormData({ ...formData, nome: event.target.value })
@@ -48,6 +49,7 @@ export default function registrarEmprestimos() {
                     <label htmlFor="livro">Livro</label>
                     <input
                         required
+                        placeholder="Título do Livro"
                         name="livro"
                         value={formData.livro}
                         onChange={(event) =>
@@ -59,6 +61,7 @@ export default function registrarEmprestimos() {
                     <label htmlFor="quantidade">Quantidade</label>
                     <input
                         required
+                        placeholder="1"
                         type="number"
                         name="Quantidade"
                         value={formData.price}

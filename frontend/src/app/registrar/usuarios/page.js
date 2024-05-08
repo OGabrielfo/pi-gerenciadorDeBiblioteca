@@ -2,6 +2,8 @@
 import styles from './usuarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
+import $ from 'jquery'
+import 'jquery-mask-plugin'
 
 export default function registrarUsuarios() {
     const router = useRouter();
@@ -53,6 +55,11 @@ export default function registrarUsuarios() {
                 ocupacaoInput?.removeAttribute("required")
             }
         }
+        
+        // Máscara do input Telefone
+        $(() => {
+            $('#tel').mask('(00) 00000-0000');
+          });
 
     return(
         <section className={styles.container}>
@@ -63,6 +70,7 @@ export default function registrarUsuarios() {
                     <input
                         required
                         name="nome"
+                        placeholder="Nome Completo"
                         value={formData.nome}
                         onChange={(event) =>
                         setFormData({ ...formData, nome: event.target.value })
@@ -71,19 +79,21 @@ export default function registrarUsuarios() {
                 </div>
                 <div  className={styles.checkboxWrapper14}>
                     <label htmlFor="tipoUsuario">Tipo de Usuário</label>
-                    <input
-                        className={styles.switch}
-                        type="checkbox"
-                        id="tipoUsuario"
-                        name="tipoUsuario"
-                        value={formData.tipoUsuario}
-                        onChange={(event) =>
-                            setFormData({ ...formData, tipoUsuario: event.target.value })
-                            }
-                        onClick={ tipoUsuarioSelec() }
-                    />
-                    <p className={styles.aluno}>Aluno</p>
-                    <p className={styles.funcionario}>Funcionário</p>
+                    <div>
+                        <input
+                            className={styles.switch}
+                            type="checkbox"
+                            id="tipoUsuario"
+                            name="tipoUsuario"
+                            value={formData.tipoUsuario}
+                            onChange={(event) =>
+                                setFormData({ ...formData, tipoUsuario: event.target.value })
+                                }
+                            onClick={ tipoUsuarioSelec() }
+                        />
+                        <p className={styles.aluno}>Aluno</p>
+                        <p className={styles.funcionario}>Funcionário</p>
+                    </div>
                 </div>
                 <div id="turma">
                     <div className={styles.formItem}>
@@ -91,6 +101,7 @@ export default function registrarUsuarios() {
                         <input
                             required
                             name="turma"
+                            placeholder="3º A"
                             id="turmaInput"
                             value={formData.turma}
                             onChange={(event) =>
@@ -103,7 +114,7 @@ export default function registrarUsuarios() {
                     <div className={styles.formItem}>
                         <label htmlFor="ocupacao">Ocupação</label>
                         <input
-                            
+                            placeholder="Professor de História"
                             id="ocupacaoInput"
                             name="ocupacao"
                             value={formData.ocupacao}
@@ -114,9 +125,12 @@ export default function registrarUsuarios() {
                     </div>
                 </div>
                 <div className={styles.formItem}>
-                    <label htmlFor="telefone">Telefone</label> {/* Fazer Input Mask */}
+                    <label htmlFor="telefone">Telefone</label>
                     <input
+                        required
                         name="telefone"
+                        id="tel"
+                        placeholder= "(00) 00000-0000"
                         value={formData.telefone}
                         onChange={(event) =>
                         setFormData({ ...formData, telefone: event.target.value })
@@ -127,6 +141,7 @@ export default function registrarUsuarios() {
                     <label htmlFor="email">E-mail</label>
                     <input
                         required
+                        placeholder="seuemail@email.com"
                         type="email"
                         name="email"
                         value={formData.email}

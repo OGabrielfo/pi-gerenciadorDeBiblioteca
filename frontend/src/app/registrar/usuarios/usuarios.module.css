@@ -26,14 +26,11 @@
 }
 
 .formItem label {
-    font-size: 1.1em;
-    font-weight: bold;
     width: 80%;
     color: var(--cor01);
 }
 
 .formItem input {
-    height: 20px;
     width: 80%;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -73,20 +70,39 @@
 }
 
 .checkboxWrapper14 {
-    margin: 5px 35px;
+    width: 100%;
     display: flex;
-    flex-direction: line;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.checkboxWrapper14 div {
+    width: 80%;
+    height: 33px;
+    padding: 0px 5px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-style: outset;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
+
 }
 
 .checkboxWrapper14 label{
-    margin-right: 10px;
-    
+    align-self: center;
+    margin-bottom: 2px;
+    width: 80%;
+    color: var(--cor01);
 }
 
 .checkboxWrapper14 p{
-    min-width: 81px;
+    min-width: 101px;
+    margin-left: 10px;
 }
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
@@ -211,4 +227,10 @@
     .checkboxWrapper14 input[type=checkbox] ~ .funcionario{
         display: none;
     }
+}
+
+@media (max-width:947px) {
+  .container {
+    padding: 0px;
+  }
 }

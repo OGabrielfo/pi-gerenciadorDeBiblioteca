@@ -6,7 +6,7 @@ import Logo from '../assets/Icone.png'
 export default function Header({children}) {
     return(
         <>
-            <header className={styles.header}> {/*TODO fazer responsividade do header*/}
+            <header className={styles.header}>
                 <div>
                     <Image src={ Logo } alt="Logotipo" />
                 </div>

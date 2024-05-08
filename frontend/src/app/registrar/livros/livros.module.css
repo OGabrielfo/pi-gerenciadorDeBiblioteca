@@ -32,7 +32,6 @@
 }
 
 .formItem input {
-    height: 20px;
     width: 80%;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -70,3 +69,9 @@
     background-color: var(--cor05);
     transition: 0.2s;
 }
+
+@media (max-width:947px) {
+    .container {
+      padding: 0px;
+    }
+  }
