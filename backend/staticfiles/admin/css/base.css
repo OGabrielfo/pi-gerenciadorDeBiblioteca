@@ -5,9 +5,9 @@
 /* VARIABLE DEFINITIONS */
 html[data-theme="light"],
 :root {
-    --primary: #79aec8;
-    --secondary: #417690;
-    --accent: #f5dd5d;
+    --primary: #78cece; /* Azul-Verde */
+    --secondary: #64acac; /* Azul-Petróleo */
+    --accent: #233838; /* Azul Marinho */
     --primary-fg: #fff;
 
     --body-fg: #333;
@@ -37,8 +37,8 @@ html[data-theme="light"],
     --message-warning-bg: #ffc;
     --message-error-bg: #ffefef;
 
-    --darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
-    --selected-bg: #e4e4e4; /* E.g. selected table cells */
+    --darkened-bg: #f8f8f8; /* Um pouco mais escuro que --body-bg */
+    --selected-bg: #e4e4e4; /* Por exemplo, células de tabela selecionadas */
     --selected-row: #ffc;
 
     --button-fg: #fff;
@@ -85,6 +85,7 @@ html[data-theme="light"],
         "Segoe UI Symbol",
         "Noto Color Emoji";
 }
+
 
 html, body {
     height: 100%;

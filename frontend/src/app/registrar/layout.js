@@ -8,7 +8,7 @@ export default function Layout({ children }) {
             <body>
                 <Header>Registrar</Header>
                 <section className={ styles.container }>
-                    <div>
+                    <div className={ styles.navbarRegistro }>
                         <NavButton link="/registrar/emprestimos" titulo="Registro de Empréstimos" />
                         <NavButton link="/registrar/usuarios" titulo="Registro de Usuários" />
                         <NavButton link="/registrar/livros" titulo="Registro de Livros" />

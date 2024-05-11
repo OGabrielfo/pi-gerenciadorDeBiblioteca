@@ -8,7 +8,6 @@
 }
 
 :root {
-  background-color: white;
   --cor00: rgb(10, 10, 10);
   --cor01: rgb(16, 27, 27);
   --cor02: rgb(34, 57, 57);
@@ -19,17 +18,70 @@
   --cor07: rgb(118, 197, 197);
   --cor08: rgb(240, 240, 240);
   --ZenMaru: "Zen Maru Gothic", sans-serif;
+  background-color: rgb(255, 255, 255);
 }
 
 * {
   margin: 0px;
   padding: 0px;
+  font-family: var(--ZenMaru);
+}
+
+body {
+  margin-bottom: 90px;
 }
 
 h1 {
   font-size: 2.5em;
+  font-weight: bold;
 }
 
 h2 {
+  font-size: 2.2em;
+  font-weight: bold;
+}
+
+h3 {
   font-size: 2em;
+  font-weight: bold;
+}
+
+p {
+  font-size: 20px;
+}
+
+input {
+  font-size: 20px;
+  height: auto;
+}
+
+label {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+input[type=number] { 
+ -moz-appearance: textfield;
+ appearance: textfield;
+}
+
+@media (max-width:947px) {
+  h1 {
+    font-size: 2.2em;
+    font-weight: bold;
+  }
+  
+  h2 {
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  h3 {
+    font-size: 1.8em;
+    font-weight: bold;
+  }
 }

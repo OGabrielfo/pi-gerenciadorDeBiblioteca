@@ -41,3 +41,13 @@
     background-color: var(--cor05);
     transition: 0.2s;
 }
+
+@media (max-width: 947px) {
+    .linkButton {
+        width: 200px;
+    }
+
+    .activeLinkButton {
+        width: 200px;
+    }
+}
