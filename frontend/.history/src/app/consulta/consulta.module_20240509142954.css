@@ -1,0 +1,10 @@
+.container{
+    padding-left: 120px;
+    padding-top: 120px;
+}
+
+.title, .aut, .gen{
+    display: flex;
+    flex-direction: column;
+
+}

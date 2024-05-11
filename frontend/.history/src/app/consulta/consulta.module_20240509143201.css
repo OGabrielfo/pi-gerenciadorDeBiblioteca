@@ -1,0 +1,12 @@
+.container{
+    padding-left: 120px;
+    padding-top: 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: ;
+}
+
+.title, .aut, .gen{
+    display: flex;
+    flex-direction: column;
+}
