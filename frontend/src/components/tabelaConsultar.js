@@ -41,8 +41,7 @@ export default function TabelaConsultar(props) {
             return(linhasComDados);
         }
     }
-    if (props.tipo == "livro"){
-        return (
+    return (
             <div className={styles.mainDiv}>
                 <table className={styles.tabela}>
                     <thead className={styles.thead}>
@@ -60,7 +59,6 @@ export default function TabelaConsultar(props) {
                     </tbody>
                 </table>
             </div>
-        );
-    }
+    );
     
 }
