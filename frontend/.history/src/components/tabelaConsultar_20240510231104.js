@@ -4,7 +4,7 @@ import styles from "./tabelaConsultar.module.css";
 
 export default function TabelaConsultar(props) {
     function renderLines(dados, codigo, titulo, autor, genero, nicho, disponiveis){
-        if(dados == null){
+        if(livros == null){
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>

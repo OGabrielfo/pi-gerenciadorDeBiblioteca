@@ -3,9 +3,8 @@ import Header from '../../components/header'
 import TabelaConsultar from '@/components/tabelaConsultar'
 
 export default function consulta() {
-let dados;
-
     return(
+
 
 <div>
 <Header>Consulta </Header>   
@@ -31,9 +30,9 @@ let dados;
 </div>
  </div>
 
-<TabelaConsultar dados={dados}/>
+ <TabelaConsultar dados={dados}/>
+
 
  </div>
 )
-
 }

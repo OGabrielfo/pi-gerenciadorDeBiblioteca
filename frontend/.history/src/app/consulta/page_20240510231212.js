@@ -31,7 +31,7 @@ let dados;
 </div>
  </div>
 
-<TabelaConsultar dados={dados}/>
+<TabelaConsultar dados={dadps}/>
 
  </div>
 )

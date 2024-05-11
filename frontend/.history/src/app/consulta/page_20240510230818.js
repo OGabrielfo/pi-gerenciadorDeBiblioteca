@@ -3,7 +3,7 @@ import Header from '../../components/header'
 import TabelaConsultar from '@/components/tabelaConsultar'
 
 export default function consulta() {
-let dados;
+let livros;
 
     return(
 
@@ -30,8 +30,8 @@ let dados;
 <button className={styles.button}>Consultar</button>
 </div>
  </div>
-
-<TabelaConsultar dados={dados}/>
+ 
+<TabelaConsultar dados={livros}/>
 
  </div>
 )

@@ -1,8 +1,7 @@
 'use client'
 import Image from "next/image";
-import styles from "./tabelaConsultar.module.css";
-
-export default function TabelaConsultar(props) {
+import styles from "./tabelaAlterar.module.css";
+export default function TabelaAlterar(props) {
     function renderLines(dados, codigo, titulo, autor, genero, nicho, disponiveis){
         if(dados == null){
             let linhasVazias = [];
@@ -11,6 +10,7 @@ export default function TabelaConsultar(props) {
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado + " " + styles.terceira}>‎</td>
+                                    <td className={styles.colunaExcluir}>‎</td>
                                   </tr>)
             }
             return(linhasVazias);
@@ -20,7 +20,7 @@ export default function TabelaConsultar(props) {
             linhasComDados = dados.map((dado, index) => (
                 <tr key={dado[campo1]} className={styles.linha}>
                     <td id={campo1} className={styles.dado}>
-                        {dado["codigo"]} 
+                        {dado["codigo"]} //campo1 = codigo
                     </td>
                     <td id={campo2} className={styles.dado}>
                         {dado["titulo"]}</td>
@@ -28,14 +28,8 @@ export default function TabelaConsultar(props) {
                         {dado["autor"]} 
                     </td>
                     <td id={campo3} className={styles.dado}>
-                        {dado["genero"]} 
-                    </td>
-                    <td id={campo3} className={styles.dado}>
                         {dado["nicho"]}
                     </td>      
-                    <td id={campo3} className={styles.dado}>
-                        {dado["disponiveis"]} 
-                    </td>
                 </tr>
             ))
             return(linhasComDados);
@@ -50,13 +44,14 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader + " " + styles.primeira}>Código</th>
                             <th className={styles.dadoHeader}>Título</th>
                             <th className={styles.dadoHeader}>Autor</th>
-                            <th className={styles.dadoHeader}>Gênero</th>
-                            <th className={styles.dadoHeader}>Nicho</th>
+                            <th className={styles.dadoHeader}>Autor</th>
+                            <th className={styles.dadoHeader}>Autor</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Disponíveis</th>
+                            <th className={styles.colunaExcluir}>‎</th>
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLines(props.dados)}
+                        {renderLines(props.dados, props.tipo)}
                     </tbody>
                 </table>
             </div>

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./tabelaConsultar.module.css";
 
-export default function TabelaConsultar(props) {
+export default function TabelaAlterar(props) {
     function renderLines(dados, codigo, titulo, autor, genero, nicho, disponiveis){
         if(dados == null){
             let linhasVazias = [];

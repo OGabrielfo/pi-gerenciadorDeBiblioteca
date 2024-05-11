@@ -1,8 +1,7 @@
 'use client'
 import Image from "next/image";
-import styles from "./tabelaConsultar.module.css";
-
-export default function TabelaConsultar(props) {
+import styles from "./tabelaAlterar.module.css";
+export default function TabelaAlterar(props) {
     function renderLines(dados, codigo, titulo, autor, genero, nicho, disponiveis){
         if(dados == null){
             let linhasVazias = [];
@@ -11,6 +10,7 @@ export default function TabelaConsultar(props) {
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado + " " + styles.terceira}>‎</td>
+                                    <td className={styles.colunaExcluir}>‎</td>
                                   </tr>)
             }
             return(linhasVazias);
