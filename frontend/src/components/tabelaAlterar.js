@@ -25,7 +25,7 @@ export default function TabelaAlterar(props) {
         }
         document.getElementById("codigoSelecionado").textContent = dado.codigo;
     }
-
+    
     const handleRadioClickUsuario = (event) => {
         let dado = props.dados[event.target.id];
     }

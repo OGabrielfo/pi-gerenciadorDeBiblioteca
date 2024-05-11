@@ -1,0 +1,59 @@
+'use client'
+import Image from "next/image";
+import TrashIMG from "/public/trash.png"
+import styles from "./tabelaAlterar.module.css";
+export default function TabelaAlterar(props) {
+    function renderLines(dados, tipo, campo1, campo2, campo3){
+        if(dados == null){
+            let linhasVazias = [];
+            for(let i = 0; i < 3; i++){
+                linhasVazias.push(<tr key={i} className={styles.linha}>
+                                    <td className={styles.dado}>‎</td>
+                                    <td className={styles.dado}>‎</td>
+                                    <td className={styles.dado + " " + styles.terceira}>‎</td>
+                                    <td className={styles.colunaExcluir}>‎</td>
+                                  </tr>)
+            }
+            return(linhasVazias);
+        }
+        else{
+            let linhasComDados = [];
+            linhasComDados = dados.map((dado, index) => (
+                <tr key={dado[campo1]} className={styles.linha}>
+                    <td id={campo1} className={styles.dado}>
+                        {dado["codigo"]} //campo1 = codigo
+                    </td>
+                    <td id={campo2} className={styles.dado}>
+                        {dado["titulo"]}</td>
+                    <td id={campo3} className={styles.dado}>
+                        {dado["autor"]} 
+                    </td>
+                    <td id={campo3} className={styles.dado}>
+                        {dado["nicho"]}
+                    </td>      
+                </tr>
+            ))
+            return(linhasComDados);
+        }
+    }
+    if (props.tipo == "livro"){
+        return (
+            <div className={styles.mainDiv}>
+                <table className={styles.tabela}>
+                    <thead className={styles.thead}>
+                        <tr>
+                            <th className={styles.dadoHeader + " " + styles.primeira}>Código</th>
+                            <th className={styles.dadoHeader}>Título</th>
+                            <th className={styles.dadoHeader + " " + styles.terceira}>Autor</th>
+                            <th className={styles.colunaExcluir}>‎</th>
+                        </tr>
+                    </thead>
+                    <tbody className={styles.tbody}>
+                        {renderLines(props.dados, props.tipo)}
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+    
+}

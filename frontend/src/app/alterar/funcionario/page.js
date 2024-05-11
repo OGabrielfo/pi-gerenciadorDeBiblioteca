@@ -32,7 +32,7 @@ export default function alterar() {
         { "codigo": 18, "nome": "Sophia Gomes Silva", "funcao": "Professora de Música" },
         { "codigo": 19, "nome": "Thomas Souza Oliveira", "funcao": "Professor de Geografia" },
         { "codigo": 20, "nome": "Valentina Pereira Mendes", "funcao": "Professora de Filosofia" }
-      ]
+    ]
     
     const [funcionariosPesquisa, setfuncionariosPesquisa] = useState();
     
@@ -82,6 +82,5 @@ export default function alterar() {
                 </div>
             </div>
         </>
-        
     )
 }

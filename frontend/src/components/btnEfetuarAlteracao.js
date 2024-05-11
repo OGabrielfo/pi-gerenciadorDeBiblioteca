@@ -51,7 +51,7 @@ export default function BtnEfetuarAlteracao(props) {
                 isbn = inputIsbn.placeholder;
                 index++;
         }
-        
+
         registro = {
             "codigo": codigo.textContent,
             "titulo": titulo,
@@ -74,24 +74,98 @@ export default function BtnEfetuarAlteracao(props) {
         if (index == 7){
             return {};
         }
-
-        return registro;
         
+        return registro;
+    }
+
+    function handleClickAluno(registro){
+        let index = 0;
+        let codigo = document.getElementById("codigoSelecionado");
+        let inputNome = document.getElementById("inputNome");
+        let inputSala = document.getElementById("inputSala");
+
+        let nome = inputNome.value;
+        let sala = inputSala.value;
+
+        switch(""){
+            case nome:
+                console.log("nome vazio");
+                nome = inputNome.placeholder;
+                index++;
+            case sala:
+                console.log("sala vazio");
+                sala = inputSala.placeholder;
+                index++;
+        }
+
+        registro = {
+            "codigo": codigo.textContent,
+            "nome": nome,
+            "sala": sala,
+        };
+
+        inputNome.value = "";
+        inputSala.value = "";
+
+        if (index == 2){
+            return {};
+        }
+        
+        return registro;
+    }
+
+    function handleClickAluno(registro){
+        let index = 0;
+        let codigo = document.getElementById("codigoSelecionado");
+        let inputNome = document.getElementById("inputNome");
+        let inputSala = document.getElementById("inputSala");
+
+        let nome = inputNome.value;
+        let sala = inputSala.value;
+
+        switch(""){
+            case nome:
+                console.log("nome vazio");
+                nome = inputNome.placeholder;
+                index++;
+            case sala:
+                console.log("sala vazio");
+                sala = inputSala.placeholder;
+                index++;
+        }
+
+        registro = {
+            "codigo": codigo.textContent,
+            "nome": nome,
+            "sala": sala,
+        };
+
+        inputNome.value = "";
+        inputSala.value = "";
+
+        if (index == 2){
+            return {};
+        }
+        
+        return registro;
     }
 
     function handleClick(tipo){
-        let registro = {};
-        if(tipo == "livro"){
-            registro = handleClickLivro(registro);
+        if(document.getElementById("codigoSelecionado").textContent != ""){
+            let registro = {};
+            if(tipo == "livro"){
+                registro = handleClickLivro(registro);
+            }
+            else if(tipo == "aluno"){
+                registro = handleClickAluno(registro);
+            }
+            else {
+                registro = handleClickFuncionario(registro);
+            }
+            console.log(registro);
         }
-        else if(tipo == "aluno"){
-            registro = handleClickAluno(registro);
+        console.log("Nada");
         }
-        else {
-            registro = handleClickFuncionario(registro);
-        }
-        console.log(registro);
-    }
     return (
         <button className={styles.btnEfetuarAlteracao} onClick={() => handleClick(props.tipo)}>Efetuar Alteração</button>
     );

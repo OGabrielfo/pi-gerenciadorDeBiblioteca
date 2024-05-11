@@ -73,6 +73,7 @@ export default function alterar() {
                         <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome", "sala", usuarios)}>Procurar Aluno</button>
                     </div>
                     <TabelaAlterar dados={alunosPesquisa} tipo="aluno" id="mainAluno"/>
+                    <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
                     <div className={styles.camps}>
                         <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
                         <CampoDados idInput="inputSala" nome="Sala" ph="Digite a sala"/>
