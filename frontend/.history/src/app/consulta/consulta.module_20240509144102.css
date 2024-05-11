@@ -1,0 +1,25 @@
+.container{
+    padding-left: 120px;
+    padding-top: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title, .aut, .gen{
+    display: flex;
+    flex-direction: column;
+}
+
+.input[type="text"]{
+    border-radius: 12px;
+}
+
+.label{
+    font-size: 20px;
+}
+
+.button{
+
+}

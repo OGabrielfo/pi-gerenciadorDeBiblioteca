@@ -1,0 +1,11 @@
+.container{
+    padding-left: 120px;
+    padding-top: 120px;
+    display: flex;
+    flex-direction: row;
+}
+
+.title, .aut, .gen, botao{
+    display: flex;
+    flex-direction: column;
+}
