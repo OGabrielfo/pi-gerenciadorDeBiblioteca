@@ -1,5 +1,5 @@
 'use client'
-import styles from './alterar.module.css'
+import styles from '../../app/alterar/alterar.module.css'
 import Header from '../../components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
@@ -255,7 +255,7 @@ export default function alterar() {
                     <BtnAlterar nome="Alterar Aluno" estado={false} idBotao="btnAluno" />
                     <BtnAlterar nome="Alterar Funcionario" estado={false} idBotao="btnFuncionario"/>
                 </div>
-                <div className={styles.alterarLivros} id="mainLivro">
+                <div className={styles.alterarDiv} id="mainLivro">
                     <div className={styles.pesquisar}>
                         <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
                         <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>

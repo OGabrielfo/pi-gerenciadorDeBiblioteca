@@ -33,34 +33,3 @@ export default function btnAlterar(props){
         </Link>
     )
 }
-/*
-export default function btnAlterar(props){
-    const [color, setColor] = useState()
-    const [divVisivel, setDivVisivel] = useState(props.estado);
-    const [alterado, setAlterado] = useState(false);
-    const handleClickAlterar = () => {
-        if(!divVisivel){
-            setDivVisivel(true)
-        }
-    }
-
-
-    useEffect(() => {
-        if(divVisivel){
-            if(!alterado){
-                setColor("hsl(180, 26%, 40%)");
-            }
-        }else{
-            setColor("hsl(180, 26%, 20%)");
-        }
-        if (color == "hsl(180, 26%, 20%)"){
-            console.log("teste");
-        }
-    }, [divVisivel])
-    return(
-        <button className={styles.botao} onClick={handleClickAlterar} style={{"--color": color}}>
-            {props.nome}
-        </button>
-    )
-}
-*/

@@ -8,7 +8,7 @@
 }
 .mainDiv{
     overflow: auto;
-    min-width: 450px;
+    min-width: 430px;
     width: 80vw;
     max-height: 300px;
     margin-top: 20px;
@@ -43,7 +43,6 @@
 
 .thead{
     background-color: #223A3A;
-    position: sticky;
     top: 0;
 }
 .colunaExcluir{

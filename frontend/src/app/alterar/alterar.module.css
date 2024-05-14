@@ -1,25 +1,58 @@
-@font-face {
-    font-family: 'Zen Maru Gothic';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 300;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-300-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-400-normal.woff) format('woff');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+
+@media only screen and (min-width: 948px) {
+    .mainDiv{
+        padding: 90px 0px 0px 90px;
+    }
 }
 
-.pesquisar{
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-wrap:wrap;
+@media only screen and (max-width: 947px) {
+    .mainDiv{
+        padding: 90px 0px 0px 0px;
+    }
 }
 
-.alterarLivros{
+@media only screen and (max-width: 695px) {
+    .alterarTelas{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pesquisar{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap:nowrap;
+    }
+
+}
+
+@media only screen and (min-width: 695px) {
+    .pesquisar{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-wrap:wrap;
+    }
+    
+}
+
+.alterarDiv{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.alterarTelas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .camps{
@@ -32,16 +65,6 @@
     justify-content: center;
 }
 
-.alterarTelas{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.mainDiv{
-    padding: 90px 0px 0px 90px;
-}
-
 .btnProcurar{
     font-family: var(--ZenMaru);
     text-align: center;
@@ -49,11 +72,16 @@
     font-size: 1.30em;
     padding: 0 20px 5px 20px;
     height: 40px;
-    background-color: #335555;
+    background-color: hsl(180, 25%, 27%);
     border: none;
     color: azure;
     border-radius: 25px;
     margin-top: 10px;
+}
+
+.btnProcurar:hover{
+    background-color: hsl(180, 25%, 47%);
+    transition: background-color 0.2s;
 }
 .divRegistroSelecionado{
     margin-top: 10px;
