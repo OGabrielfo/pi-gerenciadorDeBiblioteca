@@ -14,14 +14,28 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputNicho").placeholder = dado.nicho;
             document.getElementById("inputExemplaresTotais").placeholder = dado.exemplaresTotais;
             document.getElementById("inputIsbn").placeholder = dado.ISBN;
+
+            document.getElementById("inputTitulo").value = "";
+            document.getElementById("inputAutor").value = "";
+            document.getElementById("inputAnoPublicacao").value = "";
+            document.getElementById("inputGenero").value = "";
+            document.getElementById("inputNicho").value = "";
+            document.getElementById("inputExemplaresTotais").value = "";
+            document.getElementById("inputIsbn").value = "";
         }
         else if (props.tipo == "aluno"){
             document.getElementById("inputNome").placeholder = dado.nome;
             document.getElementById("inputSala").placeholder = dado.sala;
+
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputSala").value = "";
         }
         else{
             document.getElementById("inputNomeFuncionario").placeholder = dado.nome;
             document.getElementById("inputFuncao").placeholder = dado.funcao;
+
+            document.getElementById("inputNomeFuncionario").value = "";
+            document.getElementById("inputFuncao").value = "";
         }
         document.getElementById("codigoSelecionado").textContent = dado.codigo;
     }
@@ -31,7 +45,7 @@ export default function TabelaAlterar(props) {
     }
 
     function renderLines(dados, tipo, campo1, campo2, campo3){
-        if(dados == null){
+        if(dados == null || dados.length == 0){
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>

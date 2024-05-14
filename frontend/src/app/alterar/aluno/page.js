@@ -7,6 +7,7 @@ import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState} from 'react';
+import lista from '@/app/lista/page'
 
 
 export default function alterar() {
