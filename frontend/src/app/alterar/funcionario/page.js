@@ -77,6 +77,7 @@ export default function alterar() {
                     <div className={styles.camps}>
                         <CampoDados idInput="inputNomeFuncionario" nome="Nome" ph="Digite o nome do funcionário"/>
                         <CampoDados idInput="inputFuncao" nome="Função" ph="Digite a função do funcionário"/>
+                        <CampoDados idInput="inputTelefone" nome="Telefone" ph="Digite o telefone do funcionário"/>
                     </div>
                     <BtnEfetuarAlteracao tipo="funcionario"/>
                 </div>
