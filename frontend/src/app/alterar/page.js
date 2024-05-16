@@ -274,7 +274,6 @@ export default function alterar() {
                 </div>
             </div>
         </>
-        
     )
 }
 
