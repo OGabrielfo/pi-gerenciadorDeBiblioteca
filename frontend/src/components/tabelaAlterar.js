@@ -9,33 +9,37 @@ export default function TabelaAlterar(props) {
         if(props.tipo == "livro"){
             document.getElementById("inputTitulo").placeholder = dado.titulo;
             document.getElementById("inputAutor").placeholder = dado.autor;
-            document.getElementById("inputAnoPublicacao").placeholder = dado.ano;
             document.getElementById("inputGenero").placeholder = dado.genero;
             document.getElementById("inputNicho").placeholder = dado.nicho;
             document.getElementById("inputExemplaresTotais").placeholder = dado.exemplaresTotais;
-            document.getElementById("inputIsbn").placeholder = dado.ISBN;
 
             document.getElementById("inputTitulo").value = "";
             document.getElementById("inputAutor").value = "";
-            document.getElementById("inputAnoPublicacao").value = "";
             document.getElementById("inputGenero").value = "";
             document.getElementById("inputNicho").value = "";
             document.getElementById("inputExemplaresTotais").value = "";
-            document.getElementById("inputIsbn").value = "";
         }
         else if (props.tipo == "aluno"){
             document.getElementById("inputNome").placeholder = dado.nome;
             document.getElementById("inputSala").placeholder = dado.sala;
+            document.getElementById("inputTelefone").placeholder = dado.telefone;
+            document.getElementById("inputEmail").placeholder = dado.email;
 
             document.getElementById("inputNome").value = "";
             document.getElementById("inputSala").value = "";
+            document.getElementById("inputTelefone").value = "";
+            document.getElementById("inputEmail").value = "";
         }
         else{
-            document.getElementById("inputNomeFuncionario").placeholder = dado.nome;
-            document.getElementById("inputFuncao").placeholder = dado.funcao;
+            document.getElementById("inputNome").placeholder = dado.nome;
+            document.getElementById("inputOcupacao").placeholder = dado.funcao;
+            document.getElementById("inputTelefone").placeholder = dado.telefone;
+            document.getElementById("inputEmail").placeholder = dado.email;
 
-            document.getElementById("inputNomeFuncionario").value = "";
-            document.getElementById("inputFuncao").value = "";
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputOcupacao").value = "";
+            document.getElementById("inputTelefone").value = "";
+            document.getElementById("inputEmail").value = "";
         }
         document.getElementById("codigoSelecionado").textContent = dado.codigo;
     }

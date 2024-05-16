@@ -266,11 +266,9 @@ export default function alterar() {
                     <div className={styles.camps}>
                         <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
                         <CampoDados idInput="inputAutor" nome="Autor" ph="Digite o autor do livro"/>
-                        <CampoDados idInput="inputAnoPublicacao" nome="Ano de Publicação" ph="Digite o ano de publicação"/>
                         <CampoDados idInput="inputGenero" nome="Gênero" ph="Digite o gênero do livro"/>
                         <CampoDados idInput="inputNicho" nome="Nicho" ph="Digite o nicho"/>
                         <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
-                        <CampoDados idInput="inputIsbn" nome="ISBN" ph="Digite o ISBN do livro"/>
                     </div>
                     <BtnEfetuarAlteracao tipo="livro"/>
                 </div>
