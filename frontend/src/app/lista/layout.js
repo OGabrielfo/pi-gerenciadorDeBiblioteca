@@ -6,7 +6,7 @@ export default function Layout({ children }) {
     return (
         <html lang="pt-br">
             <body>
-                <Header>Registrar</Header>
+                <Header>Lista de Devedores</Header>
                 <section className={ styles.container }>
                     <div className={ styles.navbarRegistro }>
                         <NavButton link="/lista/alunos" titulo="Alunos Devendo" />
