@@ -1,0 +1,42 @@
+.container {
+    padding: 90px 0px 0px 90px;
+    display: flex;
+    flex-direction: column;
+    align-content: baseline;
+    width: 100%-90px;
+}
+
+.titulo {
+    margin: 50px auto auto 90px;
+    width: 100%-90px;
+    text-align: center;
+}
+
+.navbarRegistro {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-around;
+}
+
+@media (max-width: 947px) {
+    .container {
+        padding-top: 60px;
+        padding-left: 0px;
+    }
+
+    .titulo {
+        margin: 20px 0px;
+        width: 100%;
+    }
+
+    .navbarRegistro {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        width: 100%;
+        min-height: 200px;
+        justify-content: space-between;
+    }
+}

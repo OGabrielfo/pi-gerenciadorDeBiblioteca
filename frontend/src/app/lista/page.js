@@ -2,8 +2,6 @@ import styles from './lista.module.css'
 
 export default function lista(){
     return(
-        <div>
-            <h1>Listagem de Livros</h1>
-        </div>
+        <h2 className={styles.titulo}>Selecione uma das opções acima para prosseguir.</h2>
     )
 }
