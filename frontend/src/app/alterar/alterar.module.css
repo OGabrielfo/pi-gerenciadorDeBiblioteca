@@ -1,46 +1,15 @@
-
-@media only screen and (min-width: 948px) {
+@media only screen and (min-width: 950px) {
     .mainDiv{
         padding: 90px 0px 0px 90px;
     }
 }
 
-@media only screen and (max-width: 947px) {
+@media only screen and (max-width: 950px) {
     .mainDiv{
-        padding: 90px 0px 0px 0px;
+        padding: 90px 0px 0px 20px;
     }
 }
 
-@media only screen and (max-width: 695px) {
-    .alterarTelas{
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .pesquisar{
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        flex-wrap:nowrap;
-    }
-
-}
-
-@media only screen and (min-width: 695px) {
-    .pesquisar{
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        flex-wrap:wrap;
-    }
-    
-}
 
 .alterarDiv{
     display: flex;

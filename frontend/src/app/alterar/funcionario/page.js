@@ -79,7 +79,7 @@ export default function alterar() {
                         <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome"/>
                         <CampoDados idInput="inputOcupacao" nome="Ocupação" ph="Digite a ocupação"/>
                         <CampoDados idInput="inputTelefone" nome="Telefone" ph="Digite o telefone"/>
-                        <CampoDados idInput="inputEmail" nome="Telefone" ph="Digite o email"/>
+                        <CampoDados idInput="inputEmail" nome="Email" ph="Digite o email"/>
                     </div>
                     <BtnEfetuarAlteracao tipo="funcionario"/>
                 </div>

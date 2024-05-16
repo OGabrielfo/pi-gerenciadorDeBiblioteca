@@ -8,14 +8,15 @@
 }
 .mainDiv{
     overflow: auto;
-    min-width: 430px;
-    width: 80vw;
+    width: 90vw;
     max-height: 300px;
     margin-top: 20px;
     padding: 0;
     border-radius: 5px;
 }
 .tabela{
+    min-width: 430px;
+    width: 80vw;
     border-collapse:collapse;
     font-family: 'Zen Maru Gothic';
     font-weight: 600;
