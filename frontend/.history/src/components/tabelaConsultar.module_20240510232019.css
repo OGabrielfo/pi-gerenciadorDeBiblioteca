@@ -1,0 +1,54 @@
+.mainDiv{
+    overflow: auto;
+    min-width: 450px;
+    width: 80vw;
+    max-height: 300px;
+    margin-top: 20px;
+    padding: 0;
+    border-radius: 5px;
+}
+.tabela{
+    border-collapse:collapse;
+    font-family: 'Zen Maru Gothic';
+    font-weight: 600;
+    color:azure;
+    margin;
+    width: 100%;
+}
+.dadoHeader{
+    text-align: left;
+    padding: 0px 5px;
+    border-right: 1px solid white;
+}
+.tabela .linha:nth-of-type(odd) {
+    background-color: #447474;
+}
+
+.tabela .linha:nth-of-type(even) {
+    background-color: #335757;
+}
+
+.dado{
+    padding: 0px 5px;
+    border-right: 1px solid white;
+}
+
+.thead{
+    background-color: #223A3A;
+    position: sticky;
+    top: 0;
+}
+
+.primeira{
+    width: 30px;
+}
+
+.terceira{
+    min-width: 110px;
+    width: 25%;
+    border-right: 0;
+}
+
+.radio{
+    margin-right: 2px;
+}
