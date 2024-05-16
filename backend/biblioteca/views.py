@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 #from django.contrib import messages  # Importar messages para mostrar mensagens na interface
 
 
@@ -26,3 +26,7 @@ def login_view(request):
             return HttpResponse('Usuário e/ou senha incorretos!')
            # return redirect('index')  # Redireciona de volta para a página de login
     return render(request, 'index.html')
+
+def test_api(request):
+    data = { "message": "Conexão bem-sucedida!" }
+    return JsonResponse(data)
