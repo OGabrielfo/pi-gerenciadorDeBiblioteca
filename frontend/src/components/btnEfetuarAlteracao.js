@@ -7,19 +7,15 @@ export default function BtnEfetuarAlteracao(props) {
         let codigo = document.getElementById("codigoSelecionado");
         let inputTitulo = document.getElementById("inputTitulo");
         let inputAutor = document.getElementById("inputAutor");
-        let inputAnoPublicacao = document.getElementById("inputAnoPublicacao");
         let inputGenero = document.getElementById("inputGenero");
         let inputNicho = document.getElementById("inputNicho");
         let inputExemplaresTotais = document.getElementById("inputExemplaresTotais");
-        let inputIsbn = document.getElementById("inputIsbn");
 
         let titulo = inputTitulo.value;
         let autor = inputAutor.value;
-        let ano = inputAnoPublicacao.value;
         let genero = inputGenero.value;
         let nicho = inputNicho.value;
         let exemplares = inputExemplaresTotais.value;
-        let isbn = inputIsbn.value;
 
         switch(""){
             case titulo:
@@ -29,10 +25,6 @@ export default function BtnEfetuarAlteracao(props) {
             case autor:
                 console.log("autor vazio");
                 autor = inputAutor.placeholder;
-                index++;
-            case ano:
-                console.log("ano vazio");
-                ano = inputAnoPublicacao.placeholder;
                 index++;
             case genero:
                 console.log("genero vazio");
@@ -46,30 +38,22 @@ export default function BtnEfetuarAlteracao(props) {
                 console.log("exemplares vazio");
                 exemplares = inputExemplaresTotais.placeholder;
                 index++;
-            case isbn:
-                console.log("isbn vazio");
-                isbn = inputIsbn.placeholder;
-                index++;
         }
 
         registro = {
             "codigo": codigo.textContent,
             "titulo": titulo,
             "autor": autor,
-            "ano": ano,
             "genero": genero,
             "nicho": nicho,
             "exemplaresTotais": exemplares,
-            "ISBN": isbn
         };
 
         inputTitulo.value = "";
         inputAutor.value = "";
-        inputAnoPublicacao.value = "";
         inputGenero.value = "";
         inputNicho.value = "";
         inputExemplaresTotais.value = "";
-        inputIsbn.value = "";
 
         if (index == 7){
             return {};
@@ -83,9 +67,13 @@ export default function BtnEfetuarAlteracao(props) {
         let codigo = document.getElementById("codigoSelecionado");
         let inputNome = document.getElementById("inputNome");
         let inputSala = document.getElementById("inputSala");
+        let inputTelefone = document.getElementById("inputNome");
+        let inputEmail = document.getElementById("inputEmail");
 
         let nome = inputNome.value;
         let sala = inputSala.value;
+        let telefone = inputTelefone.value;
+        let email = inputEmail.value;
 
         switch(""){
             case nome:
@@ -96,54 +84,86 @@ export default function BtnEfetuarAlteracao(props) {
                 console.log("sala vazio");
                 sala = inputSala.placeholder;
                 index++;
+            case telefone:
+                console.log("telefone vazio");
+                telefone = inputTelefone.placeholder;
+                index++;
+            case email:
+                console.log("email vazio");
+                email = inputEmail.placeholder;
+                index++;
+
         }
 
         registro = {
             "codigo": codigo.textContent,
             "nome": nome,
             "sala": sala,
+            "telefone": telefone,
+            "email": email,
+
         };
 
         inputNome.value = "";
         inputSala.value = "";
+        inputTelefone.value = "";
+        inputEmail.value = "";
 
-        if (index == 2){
+        if (index == 4){
             return {};
         }
         
         return registro;
     }
 
-    function handleClickAluno(registro){
+    function handleClickFuncionario(registro){
         let index = 0;
         let codigo = document.getElementById("codigoSelecionado");
         let inputNome = document.getElementById("inputNome");
-        let inputSala = document.getElementById("inputSala");
+        let inputOcupacao = document.getElementById("inputOcupacao");
+        let inputTelefone = document.getElementById("inputNome");
+        let inputEmail = document.getElementById("inputEmail");
 
         let nome = inputNome.value;
-        let sala = inputSala.value;
+        let ocupacao = inputOcupacao.value;
+        let telefone = inputTelefone.value;
+        let email = inputEmail.value;
 
         switch(""){
             case nome:
                 console.log("nome vazio");
                 nome = inputNome.placeholder;
                 index++;
-            case sala:
-                console.log("sala vazio");
-                sala = inputSala.placeholder;
+            case ocupacao:
+                console.log("ocupação vazio");
+                ocupacao = inputOcupacao.placeholder;
                 index++;
+            case telefone:
+                console.log("telefone vazio");
+                telefone = inputTelefone.placeholder;
+                index++;
+            case email:
+                console.log("email vazio");
+                email = inputEmail.placeholder;
+                index++;
+
         }
 
         registro = {
             "codigo": codigo.textContent,
             "nome": nome,
-            "sala": sala,
+            "ocupacao": ocupacao,
+            "telefone": telefone,
+            "email": email,
+
         };
 
         inputNome.value = "";
-        inputSala.value = "";
+        inputOcupacao.value = "";
+        inputTelefone.value = "";
+        inputEmail.value = "";
 
-        if (index == 2){
+        if (index == 4){
             return {};
         }
         

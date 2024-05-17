@@ -1,5 +1,5 @@
 'use client'
-import styles from './funcionario.module.css'
+import styles from '../../alterar/alterar.module.css'
 import Header from '@/components/header'
 import BtnAlterar from '@/components/btnAlterar'
 import CampoPesquisar from '@/components/campoPesquisar'
@@ -12,26 +12,26 @@ import React,{useState} from 'react';
 export default function alterar() {
     
     let usuarios = [
-        { "codigo": 1, "nome": "Ana Souza Oliveira", "funcao": "Diretora" },
-        { "codigo": 2, "nome": "Beatriz Santos Ferreira", "funcao": "Coordenadora Pedagógica" },
-        { "codigo": 3, "nome": "Carlos Pereira Mendes", "funcao": "Professor de História" },
-        { "codigo": 4, "nome": "Daniela Silva Costa", "funcao": "Professora de Português" },
-        { "codigo": 5, "nome": "Eduardo Martins Rodrigues", "funcao": "Professor de Educação Física" },
-        { "codigo": 6, "nome": "Felipe Gomes Silva", "funcao": "Professor de Ciências" },
-        { "codigo": 7, "nome": "Gabriela Souza Oliveira", "funcao": "Psicóloga Escolar" },
-        { "codigo": 8, "nome": "Henrique Pereira Mendes", "funcao": "Bibliotecário" },
-        { "codigo": 9, "nome": "Isabella Santos Ferreira", "funcao": "Secretária Escolar" },
-        { "codigo": 10, "nome": "João Silva Costa", "funcao": "Assistente de Diretoria" },
-        { "codigo": 11, "nome": "Kevin Martins Rodrigues", "funcao": "Monitor" },
-        { "codigo": 12, "nome": "Laura Gomes Silva", "funcao": "Zelador" },
-        { "codigo": 13, "nome": "Mateus Souza Oliveira", "funcao": "Cozinheiro" },
-        { "codigo": 14, "nome": "Nicole Pereira Mendes", "funcao": "Limpador" },
-        { "codigo": 15, "nome": "Olivia Santos Ferreira", "funcao": "Professor de Matemática" },
-        { "codigo": 16, "nome": "Pedro Silva Costa", "funcao": "Professor de Inglês" },
-        { "codigo": 17, "nome": "Rafaela Martins Rodrigues", "funcao": "Professora de Artes" },
-        { "codigo": 18, "nome": "Sophia Gomes Silva", "funcao": "Professora de Música" },
-        { "codigo": 19, "nome": "Thomas Souza Oliveira", "funcao": "Professor de Geografia" },
-        { "codigo": 20, "nome": "Valentina Pereira Mendes", "funcao": "Professora de Filosofia" }
+        { "codigo": 1, "nome": "Ana Souza Oliveira", "funcao": "Diretora" , "telefone": "12993643534", "email": "usuario1@gmail.com"},
+        { "codigo": 2, "nome": "Beatriz Santos Ferreira", "funcao": "Coordenadora Pedagógica" , "telefone": "12993643534", "email": "usuario4@gmail.com"},
+        { "codigo": 3, "nome": "Carlos Pereira Mendes", "funcao": "Professor de História" , "telefone": "12993643534", "email": "usuario5@gmail.com"},
+        { "codigo": 4, "nome": "Daniela Silva Costa", "funcao": "Professora de Português" , "telefone": "12993643534", "email": "usuario6@gmail.com"},
+        { "codigo": 5, "nome": "Eduardo Martins Rodrigues", "funcao": "Professor de Educação Física" , "telefone": "12993643534", "email": "usuario7@gmail.com"},
+        { "codigo": 6, "nome": "Felipe Gomes Silva", "funcao": "Professor de Ciências" , "telefone": "12993643534", "email": "usuario8@gmail.com"},
+        { "codigo": 7, "nome": "Gabriela Souza Oliveira", "funcao": "Psicóloga Escolar" , "telefone": "12993643534", "email": "usuario9@gmail.com"},
+        { "codigo": 8, "nome": "Henrique Pereira Mendes", "funcao": "Bibliotecário" , "telefone": "12993643534", "email": "usuario10@gmail.com"},
+        { "codigo": 9, "nome": "Isabella Santos Ferreira", "funcao": "Secretária Escolar" , "telefone": "12993643534", "email": "usuario11@gmail.com"},
+        { "codigo": 10, "nome": "João Silva Costa", "funcao": "Assistente de Diretoria" , "telefone": "12993643534", "email": "usuario12@gmail.com"},
+        { "codigo": 11, "nome": "Kevin Martins Rodrigues", "funcao": "Monitor" , "telefone": "12993643534", "email": "usuario13@gmail.com"},
+        { "codigo": 12, "nome": "Laura Gomes Silva", "funcao": "Zelador" , "telefone": "12993643534", "email": "usuario14@gmail.com"},
+        { "codigo": 13, "nome": "Mateus Souza Oliveira", "funcao": "Cozinheiro" , "telefone": "12993643534", "email": "usuario15@gmail.com"},
+        { "codigo": 14, "nome": "Nicole Pereira Mendes", "funcao": "Limpador" , "telefone": "12993643534", "email": "usuario16@gmail.com"},
+        { "codigo": 15, "nome": "Olivia Santos Ferreira", "funcao": "Professor de Matemática" , "telefone": "12993643534", "email": "usuario15@gmail.com"},
+        { "codigo": 16, "nome": "Pedro Silva Costa", "funcao": "Professor de Inglês" , "telefone": "12993643534", "email": "usuario16@gmail.com"},
+        { "codigo": 17, "nome": "Rafaela Martins Rodrigues", "funcao": "Professora de Artes" , "telefone": "12993643534", "email": "usuario17@gmail.com"},
+        { "codigo": 18, "nome": "Sophia Gomes Silva", "funcao": "Professora de Música" , "telefone": "12993643534", "email": "usuario18@gmail.com"},
+        { "codigo": 19, "nome": "Thomas Souza Oliveira", "funcao": "Professor de Geografia" , "telefone": "12993643534", "email": "usuario19@gmail.com"},
+        { "codigo": 20, "nome": "Valentina Pereira Mendes", "funcao": "Professora de Filosofia" , "telefone": "12993643534", "email": "usuario20@gmail.com"}
     ]
     
     const [funcionariosPesquisa, setfuncionariosPesquisa] = useState();
@@ -67,16 +67,19 @@ export default function alterar() {
                     <BtnAlterar nome="Alterar Aluno" estado={false} idBotao="btnAluno" />
                     <BtnAlterar nome="Alterar Funcionario" estado={true} idBotao="btnFuncionario"/>
                 </div>
-                <div className={styles.alterarFuncionario} id="mainFuncionario">
+                <div className={styles.alterarDiv} id="mainFuncionario">
                     <div className={styles.pesquisar}>
                         <CampoPesquisar idInput="campoNomeFuncionario" campoNome="Nome" ph="Digite o nome do funcionário"/>
                         <CampoPesquisar idInput="campoFuncao" campoNome="Função" ph="Digite a função do funcionário"/>
                         <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoNomeFuncionario"),document.getElementById("campoFuncao"), "nome", "funcao", usuarios)}>Procurar Funcionario</button>
                     </div>
                     <TabelaAlterar dados={funcionariosPesquisa} tipo="funcionario"/>
+                    <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
                     <div className={styles.camps}>
-                        <CampoDados idInput="inputNomeFuncionario" nome="Nome" ph="Digite o nome do funcionário"/>
-                        <CampoDados idInput="inputFuncao" nome="Função" ph="Digite a função do funcionário"/>
+                        <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome"/>
+                        <CampoDados idInput="inputOcupacao" nome="Ocupação" ph="Digite a ocupação"/>
+                        <CampoDados idInput="inputTelefone" nome="Telefone" ph="Digite o telefone"/>
+                        <CampoDados idInput="inputEmail" nome="Email" ph="Digite o email"/>
                     </div>
                     <BtnEfetuarAlteracao tipo="funcionario"/>
                 </div>

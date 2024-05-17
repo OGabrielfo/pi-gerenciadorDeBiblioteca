@@ -9,19 +9,37 @@ export default function TabelaAlterar(props) {
         if(props.tipo == "livro"){
             document.getElementById("inputTitulo").placeholder = dado.titulo;
             document.getElementById("inputAutor").placeholder = dado.autor;
-            document.getElementById("inputAnoPublicacao").placeholder = dado.ano;
             document.getElementById("inputGenero").placeholder = dado.genero;
             document.getElementById("inputNicho").placeholder = dado.nicho;
             document.getElementById("inputExemplaresTotais").placeholder = dado.exemplaresTotais;
-            document.getElementById("inputIsbn").placeholder = dado.ISBN;
+
+            document.getElementById("inputTitulo").value = "";
+            document.getElementById("inputAutor").value = "";
+            document.getElementById("inputGenero").value = "";
+            document.getElementById("inputNicho").value = "";
+            document.getElementById("inputExemplaresTotais").value = "";
         }
         else if (props.tipo == "aluno"){
             document.getElementById("inputNome").placeholder = dado.nome;
             document.getElementById("inputSala").placeholder = dado.sala;
+            document.getElementById("inputTelefone").placeholder = dado.telefone;
+            document.getElementById("inputEmail").placeholder = dado.email;
+
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputSala").value = "";
+            document.getElementById("inputTelefone").value = "";
+            document.getElementById("inputEmail").value = "";
         }
         else{
-            document.getElementById("inputNomeFuncionario").placeholder = dado.nome;
-            document.getElementById("inputFuncao").placeholder = dado.funcao;
+            document.getElementById("inputNome").placeholder = dado.nome;
+            document.getElementById("inputOcupacao").placeholder = dado.funcao;
+            document.getElementById("inputTelefone").placeholder = dado.telefone;
+            document.getElementById("inputEmail").placeholder = dado.email;
+
+            document.getElementById("inputNome").value = "";
+            document.getElementById("inputOcupacao").value = "";
+            document.getElementById("inputTelefone").value = "";
+            document.getElementById("inputEmail").value = "";
         }
         document.getElementById("codigoSelecionado").textContent = dado.codigo;
     }
@@ -31,7 +49,7 @@ export default function TabelaAlterar(props) {
     }
 
     function renderLines(dados, tipo, campo1, campo2, campo3){
-        if(dados == null){
+        if(dados == null || dados.length == 0){
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>

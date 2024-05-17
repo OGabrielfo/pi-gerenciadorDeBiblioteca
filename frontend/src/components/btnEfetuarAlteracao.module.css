@@ -12,8 +12,13 @@
     font-family: 'Zen Maru Gothic';
     font-weight: 600;
     color: white;
-    background-color: #223939;
+    background-color: hsl(180, 25%, 18%);
     border: none;
     padding: 8px 25px;
     border-radius: 18px;
+}
+
+.btnEfetuarAlteracao:hover{
+    background-color: hsl(180, 25%, 38%);
+    transition: background-color 0.2s;
 }
