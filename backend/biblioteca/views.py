@@ -26,3 +26,4 @@ def login_view(request):
             return HttpResponse('Usuário e/ou senha incorretos!')
            # return redirect('index')  # Redireciona de volta para a página de login
     return render(request, 'index.html')
+
