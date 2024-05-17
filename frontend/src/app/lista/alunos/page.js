@@ -3,8 +3,30 @@ import styles from './alunos.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 
-export default function listaAlunos() {
-    fetch('http://localhost:8000/api/test').then(response => response.json()).then(data => console.log(data));
+const API_URL = 'http://127.0.0.1:8000/api/livro/'
+
+export default function listaAlunos() {   
+    const [loading, setLoading] = useState('')
+
+    const fetchAllData = async () => {
+        try {
+            setLoading(true)
+
+            const response = await fetch (API_URL)
+            const data = await response.json()
+
+            console.log(response.status, data)
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchAllData()
+    }, [])
 
     return(
         <section className={styles.container}>

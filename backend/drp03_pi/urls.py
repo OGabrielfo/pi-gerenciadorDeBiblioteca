@@ -16,15 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include  # Importe include aqui
-from biblioteca.views import test_api
 
-from backend.biblioteca.routers import router
 
 urlpatterns = [
-    path('', include('biblioteca.urls')),
-    path('api/', include((router.urls, 'core_api'), namespace='core_api')),  # Rota para a API
     path('admin/', admin.site.urls),
-    
+    path('', include('biblioteca.urls')),
 ]
 
 

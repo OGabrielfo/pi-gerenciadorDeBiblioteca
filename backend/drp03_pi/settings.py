@@ -37,15 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    #Apps terceiros
+    'biblioteca',
     'rest_framework',
     'bootstrap4',
     'stdimage',
-    'corsheaders',
-
-    #Apps instalados
-    'biblioteca'
+    'corsheaders'
 
 ]
 
