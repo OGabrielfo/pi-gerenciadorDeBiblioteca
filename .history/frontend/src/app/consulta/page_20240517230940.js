@@ -36,7 +36,7 @@ export default function Consulta() {
     if (resultados.length === 0) {
       alert('Nenhum livro encontrado');
     } else {
-      setDados(resultados);
+      setdadosAPI(resultados);
     }
   };
 

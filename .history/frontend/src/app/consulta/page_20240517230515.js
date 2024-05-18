@@ -11,7 +11,7 @@ export default function Consulta() {
   const [autor, setAutor] = useState('');
   const [genero, setGenero] = useState('');
   const [dados, setDados] = useState(null);  
-  const [dadosAPI, setDadosAPI] = useState(null);
+  const [dadosAPI, setDados] = useState(null);
 
   useEffect(() => {
     // Fazer a chamada à API para obter os dados dos livros
@@ -19,7 +19,7 @@ export default function Consulta() {
       .then((response) => response.json())
       .then((data) => {
         // Atualizar o estado com os dados dos livros
-        setDadosAPI(data);
+        setDados(data);
       })
       .catch((error) => {
         console.error('Erro ao buscar dados dos livros:', error);
@@ -28,7 +28,7 @@ export default function Consulta() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const resultados = dadosAPI.filter((livro) =>
+    const resultados = dados.filter((livro) =>
       (nomeLivro === '' || livro.nome_do_livro.toUpperCase() === nomeLivro.toUpperCase()) &&
       (autor === '' || livro.autor.toUpperCase() === autor.toUpperCase()) &&
       (genero === '' || livro.tipo.toUpperCase() === genero.toUpperCase())

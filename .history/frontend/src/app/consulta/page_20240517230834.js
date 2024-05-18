@@ -36,7 +36,7 @@ export default function Consulta() {
     if (resultados.length === 0) {
       alert('Nenhum livro encontrado');
     } else {
-      setDados(resultados);
+      setDadosAPI(resultados);
     }
   };
 
@@ -62,7 +62,7 @@ export default function Consulta() {
         </div>
       </div>
       <div className={styles.tabela}>
-        <TabelaConsultar dados={dados}/> 
+        <TabelaConsultar dados={dadosAPI}/> 
       </div>
     </div>
   );

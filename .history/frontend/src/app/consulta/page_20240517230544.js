@@ -28,7 +28,7 @@ export default function Consulta() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const resultados = dadosAPI.filter((livro) =>
+    const resultados = dados.filter((livro) =>
       (nomeLivro === '' || livro.nome_do_livro.toUpperCase() === nomeLivro.toUpperCase()) &&
       (autor === '' || livro.autor.toUpperCase() === autor.toUpperCase()) &&
       (genero === '' || livro.tipo.toUpperCase() === genero.toUpperCase())
@@ -36,7 +36,7 @@ export default function Consulta() {
     if (resultados.length === 0) {
       alert('Nenhum livro encontrado');
     } else {
-      setDados(resultados);
+      setDadosAPI(resultados);
     }
   };
 
