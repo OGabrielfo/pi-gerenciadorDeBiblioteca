@@ -7,11 +7,11 @@ export default function TabelaAlterar(props) {
     const handleRadioClick = (event) => {
         let dado = props.dados[event.target.id]
         if(props.tipo == "livro"){
-            document.getElementById("inputTitulo").placeholder = dado.titulo;
+            document.getElementById("inputTitulo").placeholder = dado.nome_do_livro;
             document.getElementById("inputAutor").placeholder = dado.autor;
-            document.getElementById("inputGenero").placeholder = dado.genero;
-            document.getElementById("inputNicho").placeholder = dado.nicho;
-            document.getElementById("inputExemplaresTotais").placeholder = dado.exemplaresTotais;
+            document.getElementById("inputGenero").placeholder = dado.tipo;
+            document.getElementById("inputNicho").placeholder = dado.id_nicho;
+            document.getElementById("inputExemplaresTotais").placeholder = dado.quantidade_exemplar;
 
             document.getElementById("inputTitulo").value = "";
             document.getElementById("inputAutor").value = "";
@@ -115,7 +115,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLines(props.dados, props.tipo, "codigo", "titulo", "autor")}
+                        {renderLines(props.dados, props.tipo, "id_livro", "nome_do_livro", "autor")}
                     </tbody>
                 </table>
             </div>

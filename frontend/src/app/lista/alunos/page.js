@@ -24,9 +24,9 @@ export default function listaAlunos() {
         }
     }
 
-    useEffect(() => {
-        fetchAllData()
-    }, [])
+        useEffect(() => {
+            fetchAllData()
+        }, [])
 
     return(
         <section className={styles.container}>

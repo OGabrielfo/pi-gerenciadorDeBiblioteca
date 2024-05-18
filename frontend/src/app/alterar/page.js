@@ -8,8 +8,32 @@ import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
 import React,{useState, useEffect} from 'react'
 
+const API_URL = 'http://127.0.0.1:8000/api/livro/'
 
 export default function alterar() {
+
+    const [loading, setLoading] = useState();
+    const [dadosApi, setDadosApi] = useState();
+    const [dadosFiltrados, setDadosFiltrados] = useState([]);
+    const fetchAllData = async () => {
+      try{
+        setLoading(true);
+
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setDadosApi(data);
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    useEffect(() => {
+      fetchAllData();
+    }, []);
+
+    /*
     let livros = [
         {
           "codigo": 1,
@@ -221,7 +245,8 @@ export default function alterar() {
             "exemplaresTotais": 6,
             "ISBN": "978-85-250-4465-6"
           },
-    ];
+    ]; 
+    */
 
     const [livrosPesquisa, setLivrosPesquisa] = useState();
     
@@ -259,7 +284,7 @@ export default function alterar() {
                     <div className={styles.pesquisar}>
                         <CampoPesquisar idInput="campoTitulo" campoNome="Título" ph="Digite o título do livro"/>
                         <CampoPesquisar idInput="campoAutor" campoNome="Autor" ph="Digite o autor do livro"/>
-                        <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "titulo", "autor", livros)}>Procurar Livro</button>
+                        <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "nome_do_livro", "autor", dadosApi)}>Procurar Livro</button>
                     </div>
                     <TabelaAlterar dados={livrosPesquisa} tipo="livro"/>
                     <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
