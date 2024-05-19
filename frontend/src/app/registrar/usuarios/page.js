@@ -51,7 +51,7 @@ const registrarUsuarios = () => {
         createData(form) 
         .then(() => {
             // Redireciona para a página que indica o sucesso
-            router.replace("/?action=registrar");
+            router.replace("/?action=add");
         })
         .catch(() => {
             setError("Ocorreu um erro");
@@ -118,7 +118,7 @@ const registrarUsuarios = () => {
                             id="tipoUsuario"
                             name="tipoUsuario"
                             value={form.tipoUsuario}
-                            onChange={tipoUsuarioSelec()}
+                            onClick={tipoUsuarioSelec()}
                         />
                         <p className={styles.aluno}>Aluno</p>
                         <p className={styles.funcionario}>Funcionário</p>

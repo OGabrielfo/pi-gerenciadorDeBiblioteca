@@ -41,7 +41,25 @@
     transition: 0.2s;
 }
 
-.formItem input:focus {
+.formItem input:focus{
+    border: 1px solid var(--cor06);
+    box-shadow: 2px 2px 5px var(--cor06);
+    outline: 0px;
+    transition: 0.2s;
+}
+
+.formItem textarea {
+    width: 80%;
+    resize: none;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-style: outset;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 1px 5px;
+    transition: 0.2s;
+}
+
+.formItem textarea:focus {
     border: 1px solid var(--cor06);
     box-shadow: 2px 2px 5px var(--cor06);
     outline: 0px;

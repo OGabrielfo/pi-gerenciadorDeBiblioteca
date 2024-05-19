@@ -2,49 +2,53 @@
 import styles from './livros.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
+import axios from 'axios'
 
+var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
-export default function registrarLivros() {
-    const router = useRouter();
-    const [formData, setFormData] = useState({ nome: "", autor: "" , tipo:"", quantidade:"", nicho:""});
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+function registrarLivros() {     
+        const [nome, setNome] = useState('')
+        const [autor, setAutor] = useState('')
+        const [tipo, setTipo] = useState('')
+        const [quantidade, setQuantidade] = useState('')
+        const [nicho, setNicho] = useState('')
+        const [observacao, setObservacao] = useState('')
+        const router = useRouter()
 
-    // Função que será chamada ao clicar no botão de envio
-    const onFinish = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        createMenu(formData) //TODO arrumar função e testar sistema
-            .then(() => {
-            // Redireciona para a página que indica o sucesso
-            router.replace("/?action=registro");
-            })
-            .catch(() => {
-            setError("Ocorreu um erro");
-            setIsLoading(false);
-            });
-        };
-    
-        // Limpa o effect para recarregar
-        useEffect(() => {
-        return () => setIsLoading(false);
-        }, []);
-        
+        const handleSubmit = async (event) => { 
+            event.preventDefault()
+
+            const dados = {
+                nome_do_livro: nome,
+                autor: autor,
+                tipo: tipo,
+                quantidade_exemplar: quantidade,
+                saldo_exemplar: quantidade,
+                id_nicho: nicho,
+                observacao_livro: observacao
+            }
+
+            try {
+                const response = await axios.post (API_URL, dados)
+                console.log(response.data)
+                router.push('/registrar/livros')
+            } catch (error) {
+                console.error(error)
+            }
+        }
 
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Livros</h2>
-            <form onSubmit={onFinish}>
+            <form onSubmit={handleSubmit}>
                 <div className={styles.formItem}>
-                    <label htmlFor="nome">Título</label>
+                    <label htmlFor="nome_livro">Título</label>
                     <input
                         required
                         placeholder="Título do Livro"
-                        name="nome"
-                        value={formData.nome}
-                        onChange={(event) =>
-                        setFormData({ ...formData, nome: event.target.value })
-                        }
+                        name="nome_livro"
+                        value={ nome }
+                        onChange={ (e) => setNome(e.target.value) }
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -53,10 +57,8 @@ export default function registrarLivros() {
                         required
                         name="autor"
                         placeholder="Nome do Autor(a)"
-                        value={formData.autor}
-                        onChange={(event) =>
-                        setFormData({ ...formData, autor: event.target.value })
-                        }
+                        value={ autor }
+                        onChange={(e) => setAutor(e.target.value)}
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -65,41 +67,45 @@ export default function registrarLivros() {
                         required
                         name="tipo"
                         placeholder="Gênero do livro"
-                        value={formData.price}
-                        onChange={(event) =>
-                        setFormData({ ...formData, tipo: event.target.value })
-                        }
+                        value={ tipo }
+                        onChange={(e) => setTipo(e.target.value)}
                     />
                 </div>
                 <div className={styles.formItem}>
-                    <label htmlFor="quantidade">Quantidade</label>
+                    <label htmlFor="quantidade_exemplar">Quantidade</label>
                     <input
                         required
                         placeholder="3"
                         type="number"
                         name="Quantidade"
-                        value={formData.price}
-                        onChange={(event) =>
-                        setFormData({ ...formData, quantidade: event.target.value })
-                        }
+                        value={ quantidade }
+                        onChange={(e) => setQuantidade(e.target.value)}
                     />
                 </div>
                 <div className={styles.formItem}>
-                    <label htmlFor="nicho">Nicho</label>
+                    <label htmlFor="id_nicho">Nicho</label>
                     <input
                         required
                         placeholder="Identificador do Nicho"
                         type="number"
-                        name="nicho"
-                        value={formData.nicho}
-                        onChange={(event) =>
-                        setFormData({ ...formData, nicho: event.target.value })
-                        }
+                        name="id_nicho"
+                        value={ nicho }
+                        onChange={(e) => setNicho(e.target.value)}
                     />
                 </div>
-                {error && <p className="error-message">{error}</p>}
                 <div className={styles.formItem}>
-                    <button disabled={isLoading} className={styles.button} type="submit">
+                    <label htmlFor="id_nicho">Observação</label>
+                    <textarea
+                        placeholder="Escreva aqui observações sobre o estado dos livros."
+                        type="textarea"
+                        rows="5"
+                        name="observacao"
+                        value={ observacao }
+                        onChange={(e) => setObservacao(e.target.value)}
+                    />
+                </div>
+                <div className={styles.formItem}>
+                    <button className={styles.button} type="submit">
                         Registrar
                     </button>
                 </div>
@@ -107,3 +113,5 @@ export default function registrarLivros() {
         </section>
     )
 }
+
+export default registrarLivros;
