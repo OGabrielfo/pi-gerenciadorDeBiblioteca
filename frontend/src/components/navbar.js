@@ -18,18 +18,37 @@ export default function Navbar(){
     var isActive = false
     const pathname = usePathname();
     var resp = ""
+
     switch(pathname) {
         case "/registrar":
-            resp = pathname
+            resp = "/registrar"
             break;
         case "/registrar/emprestimos":
-            resp = pathname
+            resp = "/registrar"
             break;
         case "/registrar/livros":
-            resp = pathname
+            resp = "/registrar"
             break;
         case "/registrar/usuarios":
-            resp = pathname
+            resp = "/registrar"
+            break;
+        case "/alterar":
+            resp = "/alterar"
+            break;
+        case "/alterar/aluno":
+            resp = "/alterar"
+            break;
+        case "/alterar/funcionario":
+            resp = "/alterar"
+            break;
+        case "/lista":
+            resp = "/lista"
+            break;
+        case "/lista/alunos":
+            resp = "/lista"
+            break;
+        case "/lista/funcionarios":
+            resp = "/lista"
             break;
         default:
             resp = ""
@@ -59,19 +78,19 @@ export default function Navbar(){
                     </Link>
                 </li>
                 <li>
-                    <Link className={pathname === resp ? styles.activeLink : styles.link} href="/registrar">
+                    <Link className={resp === '/registrar' ? styles.activeLink : styles.link} href="/registrar">
                         <FontAwesomeIcon className={styles.icones}  icon={faUserPlus} />
                         Registrar
                     </Link>
                 </li>
                 <li>
-                    <Link className={pathname === '/alterar' ? styles.activeLink : styles.link} href="/alterar">
+                    <Link className={resp === '/alterar' ? styles.activeLink : styles.link} href="/alterar">
                         <FontAwesomeIcon className={styles.icones}  icon={faPenToSquare} />
                         Alterar
                     </Link>
                 </li>
                 <li>
-                    <Link className={pathname === '/lista' ? styles.activeLink : styles.link} href="/lista">
+                    <Link className={resp === '/lista' ? styles.activeLink : styles.link} href="/lista">
                         <FontAwesomeIcon className={styles.icones}  icon={faList} />
                         Lista
                     </Link>
