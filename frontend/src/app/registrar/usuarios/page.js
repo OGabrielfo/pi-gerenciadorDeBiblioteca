@@ -5,26 +5,59 @@ import { useRouter } from 'next/navigation'
 import $ from 'jquery'
 import 'jquery-mask-plugin'
 
-export default function registrarUsuarios() {
+var API_URL = 'http://127.0.0.1:8000/api/aluno/'
+
+async function createData(data) {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  
+    if (!res.ok) {
+      throw new Error("Failed to create data");
+    }
+  
+    return res.json();
+  }
+
+const registrarUsuarios = () => {
     const router = useRouter();
-    const [formData, setFormData] = useState({ nome: "", tipoUsuario: "" , turma:"", ocupacao:"", telefone:"", email:""});
+    const [formDataAluno, setFormDataAluno] = useState({ tipo_aluno: "aluno", nome_do_aluno: "", ra:"1234", telefone:"", email:"", ativo:"true"});
+    const [formDataFuncionario, setFormDataFuncionario] = useState({ nome: "", tipoUsuario: "" , turma:"", ocupacao:"", telefone:"", email:""});
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+
+    const tipoUsuarioComp = document.getElementById("tipoUsuario")
+    var form
+    var setForm
+    if(tipoUsuarioComp?.checked){ // Ativa form funcionário
+        form = formDataFuncionario
+        setForm = setFormDataFuncionario
+        API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
+    } else { // Ativa form aluno
+        form = formDataAluno
+        setForm = setFormDataAluno
+        API_URL = 'http://127.0.0.1:8000/api/aluno/'
+    }
 
     // Função que será chamada ao clicar no botão de envio
     const onFinish = (event) => {
         event.preventDefault();
         setIsLoading(true);
-        createMenu(formData) //TODO arrumar função e testar sistema
-            .then(() => {
+        
+        createData(form) 
+        .then(() => {
             // Redireciona para a página que indica o sucesso
-            router.replace("/?action=registro");
-            })
-            .catch(() => {
+            router.replace("/?action=registrar");
+        })
+        .catch(() => {
             setError("Ocorreu um erro");
             setIsLoading(false);
-            });
-        };
+        });
+    };
     
         // Limpa o effect para recarregar
         useEffect(() => {
@@ -34,7 +67,6 @@ export default function registrarUsuarios() {
 
         // Alteração de visual com base no usuário escolhido
         function tipoUsuarioSelec(){
-            const tipoUsuarioComp = document.getElementById("tipoUsuario")
             const turmaComp = document.getElementById("turma")
             const turmaInput = document.getElementById("turmaInput")
             const ocupacaoComp = document.getElementById("ocupacao")
@@ -66,14 +98,14 @@ export default function registrarUsuarios() {
             <h2 className={styles.formTitle}>Usuários</h2>
             <form onSubmit={onFinish}>
                 <div className={styles.formItem}>
-                    <label htmlFor="nome">Nome</label>
+                    <label htmlFor="nome_do_aluno">Nome</label>
                     <input
                         required
-                        name="nome"
+                        name="nome_do_aluno"
                         placeholder="Nome Completo"
-                        value={formData.nome}
+                        value={form.nome_do_aluno}
                         onChange={(event) =>
-                        setFormData({ ...formData, nome: event.target.value })
+                        setForm({ ...form, nome_do_aluno: event.target.value })
                         }
                     />
                 </div>
@@ -85,11 +117,8 @@ export default function registrarUsuarios() {
                             type="checkbox"
                             id="tipoUsuario"
                             name="tipoUsuario"
-                            value={formData.tipoUsuario}
-                            onChange={(event) =>
-                                setFormData({ ...formData, tipoUsuario: event.target.value })
-                                }
-                            onClick={ tipoUsuarioSelec() }
+                            value={form.tipoUsuario}
+                            onChange={tipoUsuarioSelec()}
                         />
                         <p className={styles.aluno}>Aluno</p>
                         <p className={styles.funcionario}>Funcionário</p>
@@ -103,9 +132,9 @@ export default function registrarUsuarios() {
                             name="turma"
                             placeholder="3º A"
                             id="turmaInput"
-                            value={formData.turma}
+                            value={form.turma}
                             onChange={(event) =>
-                            setFormData({ ...formData, turma: event.target.value })
+                            setForm({ ...form, turma: event.target.value })
                             }
                         />
                     </div>
@@ -117,9 +146,9 @@ export default function registrarUsuarios() {
                             placeholder="Professor de História"
                             id="ocupacaoInput"
                             name="ocupacao"
-                            value={formData.ocupacao}
+                            value={form.ocupacao}
                             onChange={(event) =>
-                            setFormData({ ...formData, ocupacao: event.target.value })
+                            setForm({ ...form, ocupacao: event.target.value })
                             }
                         />
                     </div>
@@ -131,9 +160,9 @@ export default function registrarUsuarios() {
                         name="telefone"
                         id="tel"
                         placeholder= "(00) 00000-0000"
-                        value={formData.telefone}
+                        value={form.telefone}
                         onChange={(event) =>
-                        setFormData({ ...formData, telefone: event.target.value })
+                        setForm({ ...form, telefone: event.target.value })
                         }
                     />
                 </div>
@@ -144,9 +173,9 @@ export default function registrarUsuarios() {
                         placeholder="seuemail@email.com"
                         type="email"
                         name="email"
-                        value={formData.email}
+                        value={form.email}
                         onChange={(event) =>
-                        setFormData({ ...formData, email: event.target.value })
+                        setForm({ ...form, email: event.target.value })
                         }
                     />
                 </div>
@@ -160,3 +189,5 @@ export default function registrarUsuarios() {
         </section>
     )
 }
+
+export default registrarUsuarios;

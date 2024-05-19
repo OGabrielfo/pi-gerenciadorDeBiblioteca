@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo
+from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo, Login
 
 class NichoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,3 +36,8 @@ class LivroEmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LivroEmprestimo
         fields = ['id_livro', 'id_emprestimo', 'quantidade', 'id_status']
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Login
+        fields = ['id_login', 'nome_do_usuario', 'email', 'senha', 'data_registro']
