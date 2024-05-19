@@ -9,25 +9,7 @@ export default function registrarEmprestimos() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Função que será chamada ao clicar no botão de envio
-    const onFinish = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        createMenu(formData) //TODO arrumar função e testar sistema
-            .then(() => {
-            // Redireciona para a página que indica o sucesso
-            router.replace("/?action=registro");
-            })
-            .catch(() => {
-            setError("Ocorreu um erro");
-            setIsLoading(false);
-            });
-        };
-    
-        // Limpa o effect para recarregar
-        useEffect(() => {
-        return () => setIsLoading(false);
-        }, []);
+    //TODO Criar função de cadastro de empréstimos de livros
 
     return(
         <section className={styles.container}>

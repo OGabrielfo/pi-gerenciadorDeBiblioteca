@@ -4,109 +4,106 @@ import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 import $ from 'jquery'
 import 'jquery-mask-plugin'
+import axios from 'axios'
 
-var API_URL = 'http://127.0.0.1:8000/api/aluno/'
+//TODO Corrigir função de cadastro de usuários
 
-async function createData(data) {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  
-    if (!res.ok) {
-      throw new Error("Failed to create data");
-    }
-  
-    return res.json();
-  }
+var API_URL = ''
 
 const registrarUsuarios = () => {
     const router = useRouter();
-    const [formDataAluno, setFormDataAluno] = useState({ tipo_aluno: "aluno", nome_do_aluno: "", ra:"1234", telefone:"", email:"", ativo:"true"});
-    const [formDataFuncionario, setFormDataFuncionario] = useState({ nome: "", tipoUsuario: "" , turma:"", ocupacao:"", telefone:"", email:""});
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    // useStates dos campos necessários
+    const [tipo, setTipo] = useState('')
+    const [nome, setNome] = useState('')
+    const [telefone, setTelefone] = useState('')
+    const [email, setEmail] = useState('')
+    const [turma, setTurma] = useState('')
+    const [cargo, setCargo] = useState('')
 
-    const tipoUsuarioComp = document.getElementById("tipoUsuario")
-    var form
-    var setForm
-    if(tipoUsuarioComp?.checked){ // Ativa form funcionário
-        form = formDataFuncionario
-        setForm = setFormDataFuncionario
-        API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
-    } else { // Ativa form aluno
-        form = formDataAluno
-        setForm = setFormDataAluno
-        API_URL = 'http://127.0.0.1:8000/api/aluno/'
-    }
+    const [visTel, setVisTel] = useState('')
+
+    //useState de controle de formulário
+    const [ tipoComp, setTipoComp ] = useState(false)
 
     // Função que será chamada ao clicar no botão de envio
-    const onFinish = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        setIsLoading(true);
-        
-        createData(form) 
-        .then(() => {
-            // Redireciona para a página que indica o sucesso
-            router.replace("/?action=add");
-        })
-        .catch(() => {
-            setError("Ocorreu um erro");
-            setIsLoading(false);
-        });
-    };
-    
-        // Limpa o effect para recarregar
-        useEffect(() => {
-        return () => setIsLoading(false);
-        }, []);
-
-
-        // Alteração de visual com base no usuário escolhido
-        function tipoUsuarioSelec(){
-            const turmaComp = document.getElementById("turma")
-            const turmaInput = document.getElementById("turmaInput")
-            const ocupacaoComp = document.getElementById("ocupacao")
-            const ocupacaoInput = document.getElementById("ocupacaoInput")
+        // Função de envio dos dados para o backend
+        if(tipoComp) { // Ativa form funcionário para envio
+            API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
             
-            ocupacaoComp?.setAttribute("hidden", true)
-            turmaComp?.setAttribute("hidden", true)
-
-            if(tipoUsuarioComp?.checked){ // Ativa preenchimento de funcionário
-                turmaComp?.setAttribute("hidden", true)
-                turmaInput?.removeAttribute("required")
-                ocupacaoComp?.removeAttribute("hidden")
-                ocupacaoInput?.setAttribute("required", true)
-            } else { // Ativa preenchimento de aluno
-                turmaComp?.removeAttribute("hidden")
-                turmaInput?.setAttribute("required", true)
-                ocupacaoComp?.setAttribute("hidden", true)
-                ocupacaoInput?.removeAttribute("required")
+            var dados = {
+                tipo_professor_funcionario: tipo,
+                nome_do_professor_funcionario: nome,
+                cpf: 12312312312,
+                telefone: telefone,
+                email: email,
+                ativo: true
+            }
+        } else { // Ativa form aluno para envio
+            API_URL = 'http://127.0.0.1:8000/api/aluno/'
+            
+            var dados = {
+                tipo_aluno: tipo,
+                nome_do_aluno: nome,
+                ra: 12345,
+                telefone: telefone,
+                email: email,
+                ativo: true
             }
         }
+
+        // Tentativa de envio para o backend
+        try {
+            const response = await axios.post(API_URL, dados)
+            console.log(response.data)
+            router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
+        } catch (error) {
+            console.error(error)
+        }
+    };
+
+    // Alteração de componentes de acordo com o tipo de usuário
+    useEffect(() => {        
+        const turmaComp = document.getElementById("turma")
+        const turmaInput = document.getElementById("turmaInput")
+        const ocupacaoComp = document.getElementById("ocupacao")
+        const ocupacaoInput = document.getElementById("ocupacaoInput")
+        ocupacaoComp.setAttribute("hidden", true)
+        turmaComp.setAttribute("hidden", true)
+
+        if(tipoComp){ // Ativa preenchimento de funcionário
+            setTipo("Professor")
+            turmaComp.setAttribute("hidden", true)
+            turmaInput.removeAttribute("required")
+            ocupacaoComp.removeAttribute("hidden")
+            ocupacaoInput.setAttribute("required", true)
+        } else { // Ativa preenchimento de aluno
+            setTipo("aluno")
+            turmaComp.removeAttribute("hidden")
+            turmaInput.setAttribute("required", true)
+            ocupacaoComp.setAttribute("hidden", true)
+            ocupacaoInput.removeAttribute("required")
+        }
         
-        // Máscara do input Telefone
-        $(() => {
-            $('#tel').mask('(00) 00000-0000');
-          });
+    }, [tipoComp])
+        
+    // Máscara do input Telefone
+    $('#tel').mask('(00) 00000-0000')
+    
 
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Usuários</h2>
-            <form onSubmit={onFinish}>
+            <form onSubmit={handleSubmit}>
                 <div className={styles.formItem}>
                     <label htmlFor="nome_do_aluno">Nome</label>
                     <input
                         required
                         name="nome_do_aluno"
                         placeholder="Nome Completo"
-                        value={form.nome_do_aluno}
-                        onChange={(event) =>
-                        setForm({ ...form, nome_do_aluno: event.target.value })
-                        }
+                        value={ nome }
+                        onChange={(e) => setNome(e.target.value)}
                     />
                 </div>
                 <div  className={styles.checkboxWrapper14}>
@@ -117,8 +114,7 @@ const registrarUsuarios = () => {
                             type="checkbox"
                             id="tipoUsuario"
                             name="tipoUsuario"
-                            value={form.tipoUsuario}
-                            onClick={tipoUsuarioSelec()}
+                            onChange={(e) => setTipoComp(e.target.checked)}
                         />
                         <p className={styles.aluno}>Aluno</p>
                         <p className={styles.funcionario}>Funcionário</p>
@@ -132,24 +128,21 @@ const registrarUsuarios = () => {
                             name="turma"
                             placeholder="3º A"
                             id="turmaInput"
-                            value={form.turma}
-                            onChange={(event) =>
-                            setForm({ ...form, turma: event.target.value })
+                            value={ turma }
+                            onChange={(e) => setTurma(e.target.value)
                             }
                         />
                     </div>
                 </div>
                 <div id="ocupacao" hidden>
                     <div className={styles.formItem}>
-                        <label htmlFor="ocupacao">Ocupação</label>
+                        <label htmlFor="ocupacao">Cargo</label>
                         <input
                             placeholder="Professor de História"
                             id="ocupacaoInput"
                             name="ocupacao"
-                            value={form.ocupacao}
-                            onChange={(event) =>
-                            setForm({ ...form, ocupacao: event.target.value })
-                            }
+                            value={ cargo }
+                            onChange={(e) => setCargo(e.target.value)}
                         />
                     </div>
                 </div>
@@ -160,10 +153,8 @@ const registrarUsuarios = () => {
                         name="telefone"
                         id="tel"
                         placeholder= "(00) 00000-0000"
-                        value={form.telefone}
-                        onChange={(event) =>
-                        setForm({ ...form, telefone: event.target.value })
-                        }
+                        value={ visTel }
+                        onChange={(e) => {setTelefone($('#tel').cleanVal()), setVisTel(e.target.value)}}
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -173,15 +164,13 @@ const registrarUsuarios = () => {
                         placeholder="seuemail@email.com"
                         type="email"
                         name="email"
-                        value={form.email}
-                        onChange={(event) =>
-                        setForm({ ...form, email: event.target.value })
+                        value={ email }
+                        onChange={(e) => setEmail(e.target.value)
                         }
                     />
                 </div>
-                {error && <p className="error-message">{error}</p>}
                 <div className={styles.formItem}>
-                    <button disabled={isLoading} className={styles.button} type="submit">
+                    <button className={styles.button} type="submit">
                         Registrar
                     </button>
                 </div>

@@ -7,36 +7,59 @@ import axios from 'axios'
 var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
 function registrarLivros() {     
-        const [nome, setNome] = useState('')
-        const [autor, setAutor] = useState('')
-        const [tipo, setTipo] = useState('')
-        const [quantidade, setQuantidade] = useState('')
-        const [nicho, setNicho] = useState('')
-        const [observacao, setObservacao] = useState('')
-        const router = useRouter()
+// Função de registro dos dados no banco
+    // Definição das variáveis e useStates
+    const [nome, setNome] = useState('')
+    const [autor, setAutor] = useState('')
+    const [tipo, setTipo] = useState('')
+    const [quantidade, setQuantidade] = useState('')
+    const [nicho, setNicho] = useState('')
+    const [observacao, setObservacao] = useState(null) // Precisa ser null pois o backend não aceita string vazia
+    const router = useRouter()
+    
+    // Função que irá prevenir a página de carregar e fará o envio para o backend
+    const handleSubmit = async (event) => { 
+        event.preventDefault()
+        
+        // variável com os dados obtidos
+        const dados = {
+            nome_do_livro: nome,
+            autor: autor,
+            tipo: tipo,
+            quantidade_exemplar: quantidade,
+            saldo_exemplar: quantidade,
+            id_nicho: nicho,
+            observacao_livro: observacao
+        }
 
-        const handleSubmit = async (event) => { 
-            event.preventDefault()
+        // Tentativa de envio para o backend
+        try {
+            const response = await axios.post (API_URL, dados)
+            console.log(response.data)
+            router.push('/registrar/livros') // redireciona o usuário após o cadastro com sucesso
+        } catch (error) {
+            console.error(error)
+        }
+    }
+    
+    // Função de GET dos nichos disponíveis
+    const [nichos, setNichos] = useState([])
 
-            const dados = {
-                nome_do_livro: nome,
-                autor: autor,
-                tipo: tipo,
-                quantidade_exemplar: quantidade,
-                saldo_exemplar: quantidade,
-                id_nicho: nicho,
-                observacao_livro: observacao
-            }
-
+    useEffect(() => {
+        async function fetchNichos() {
             try {
-                const response = await axios.post (API_URL, dados)
-                console.log(response.data)
-                router.push('/registrar/livros')
+                const response = await fetch ('http://localhost:8000/api/nicho')
+                const data = await response.json()
+                setNichos(data)
             } catch (error) {
-                console.error(error)
+                console.error('Erro: ', error)
             }
         }
 
+        fetchNichos()
+    }, [])
+        
+    // Página html retornada pela função
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Livros</h2>
@@ -83,15 +106,18 @@ function registrarLivros() {
                     />
                 </div>
                 <div className={styles.formItem}>
-                    <label htmlFor="id_nicho">Nicho</label>
-                    <input
+                    <label htmlFor="nicho">Nicho</label>
+                    <select
                         required
-                        placeholder="Identificador do Nicho"
-                        type="number"
-                        name="id_nicho"
-                        value={ nicho }
+                        id="nicho"
+                        value = { nicho }
                         onChange={(e) => setNicho(e.target.value)}
-                    />
+                    >
+                        <option value="" disabled hidden>Selecione o Nicho</option>
+                        {nichos.map((nicho) => (
+                            <option key={nicho.id_nicho} value={nicho.id_nicho}>{nicho.numero_nicho}</option> //Função que preenche a tag select com as opções
+                        ))}
+                    </select>
                 </div>
                 <div className={styles.formItem}>
                     <label htmlFor="id_nicho">Observação</label>
@@ -114,4 +140,5 @@ function registrarLivros() {
     )
 }
 
+// export da função principal que retorna a página
 export default registrarLivros;
