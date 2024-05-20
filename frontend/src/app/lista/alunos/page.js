@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/'
 
-export default function listaAlunos() {   
+export default function ListaAlunos() {   
     const [loading, setLoading] = useState('')
 
     const fetchAllData = async () => {

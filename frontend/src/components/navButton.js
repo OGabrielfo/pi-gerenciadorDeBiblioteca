@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { usePathname } from 'next/navigation'
 
-export default function registrar( {link, titulo} ) {
+export default function Registrar( {link, titulo} ) {
     const pathname = usePathname();
 
     return(

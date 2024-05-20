@@ -9,7 +9,7 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React,{useState} from 'react';
 
 
-export default function alterar() {
+export default function Alterar() {
     
     let usuarios = [
         { "codigo": 1, "nome": "Ana Souza Oliveira", "funcao": "Diretora" , "telefone": "12993643534", "email": "usuario1@gmail.com"},

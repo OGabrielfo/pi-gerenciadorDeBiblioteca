@@ -3,7 +3,7 @@ import styles from './funcionarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 
-export default function listaFuncionarios() {
+export default function ListaFuncionarios() {
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Funcionários</h2>

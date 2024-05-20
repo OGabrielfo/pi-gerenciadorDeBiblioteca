@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 
 
-export default function registrarLivros() {
+export default function RegistrarLivros() {
     const router = useRouter();
     const [formData, setFormData] = useState({ nome: "", autor: "" , tipo:"", quantidade:"", nicho:""});
     const [isLoading, setIsLoading] = useState(false);
