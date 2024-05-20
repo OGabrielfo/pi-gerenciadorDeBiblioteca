@@ -6,7 +6,7 @@ import axios from 'axios'
 
 var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
-function registrarLivros() {     
+function RegistrarLivros() {     
 // Função de registro dos dados no banco
     // Definição das variáveis e useStates
     const [nome, setNome] = useState('')
@@ -141,4 +141,4 @@ function registrarLivros() {
 }
 
 // export da função principal que retorna a página
-export default registrarLivros;
+export default RegistrarLivros;

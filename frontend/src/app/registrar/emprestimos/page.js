@@ -3,7 +3,7 @@ import styles from './emprestimos.module.css'
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 
-export default function registrarEmprestimos() {
+export default function RegistrarEmprestimos() {
     const router = useRouter();
     const [formData, setFormData] = useState({ nome: "", livro: "" , quantidade:"", devolucao:""});
     const [isLoading, setIsLoading] = useState(false);
