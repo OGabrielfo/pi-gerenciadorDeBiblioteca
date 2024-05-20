@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 import lista from '@/app/lista/page'
 
 
-export default function Alterar() {
+export default function alterar() {
     let usuarios = [
         { "codigo": 1, "nome": "Ana Souza Oliveira", "sala": "8a" , "telefone": "12993643534", "email": "usuario@gmail.com"},
         { "codigo": 2, "nome": "Beatriz Santos Ferreira", "sala": "7b" , "telefone": "12993643534", "email": "usuario@gmail.com"},

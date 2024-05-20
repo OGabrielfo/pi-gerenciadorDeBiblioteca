@@ -4,7 +4,7 @@ import styles from './consulta.module.css'
 import Header from '../../components/header'
 import TabelaConsultar from '@/components/tabelaConsultar'
 
-export default function Consulta() {
+export default function consulta() {
   const [nomeLivro, setNomeLivro] = useState('');
   const [autor, setAutor] = useState('');
   const [genero, setGenero] = useState('');

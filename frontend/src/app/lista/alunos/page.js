@@ -6,29 +6,7 @@ import { useRouter } from 'next/navigation'
 const API_URL = 'http://127.0.0.1:8000/api/livro/'
 //TODO Finalizar página
 
-export default function ListaAlunos() {   
-    const [loading, setLoading] = useState('')
-
-    const fetchAllData = async () => {
-        try {
-            setLoading(true)
-
-            const response = await fetch (API_URL)
-            const data = await response.json()
-
-            console.log(response.status, data)
-
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        fetchAllData()
-    }, [])
-
+export default function listaAlunos() {   
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Alunos</h2>

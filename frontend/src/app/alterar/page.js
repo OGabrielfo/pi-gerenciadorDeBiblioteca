@@ -9,7 +9,7 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React,{useState, useEffect} from 'react'
 
 
-export default function Alterar() {
+export default function alterar() {
     let livros = [
         {
           "codigo": 1,
