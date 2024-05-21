@@ -4,13 +4,13 @@ import styles from "./campoDados.module.css";
 import React,{useState} from "react";
 
 export default function CampoDados(props) {
-    const onChangeValue = (event) => {
+    const onChangeValue = (event) => { // Testa se é um telefone para aplicar a mascara
         if (props.nome == "Telefone"){
             const input = event.target;
             input.value = phoneMask(input.value)
         }
     }
-    function phoneMask (phone) {
+    function phoneMask (phone) { // Cria a mascara para telefones
         const noMask = phone.replace(/\D/g, "");
         const { length } = noMask;
         if (length <= 11) {

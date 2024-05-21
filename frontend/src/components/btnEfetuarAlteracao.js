@@ -185,7 +185,7 @@ export default function BtnEfetuarAlteracao(props) {
         return registro;
     }
 
-    function resetarLivro(dado){
+    function resetarLivro(dado){ // Resta os campos quando o dado de um livro é alterado
         if(props.tipo == "livro"){
             document.getElementById("inputTitulo").placeholder = dado.nome_do_livro;
             document.getElementById("inputAutor").placeholder = dado.autor;
@@ -206,7 +206,7 @@ export default function BtnEfetuarAlteracao(props) {
         }
     }
 
-    const putData = async (url, data) =>{
+    const putData = async (url, data) =>{ // função utilizada para alterar uma linha
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
