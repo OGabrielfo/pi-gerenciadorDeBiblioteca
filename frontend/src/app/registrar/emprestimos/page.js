@@ -3,29 +3,40 @@ import styles from './emprestimos.module.css'
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 
+//TODO Criar componente de erro ou sucesso
+//TODO Criar função de cadastro de empréstimos de livros
+
 export default function registrarEmprestimos() {
     const router = useRouter();
     const [formData, setFormData] = useState({ nome: "", livro: "" , quantidade:"", devolucao:""});
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    //TODO Criar função de cadastro de empréstimos de livros
 
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Empréstimo</h2>
             <form onSubmit={onFinish}>
                 <div className={styles.formItem}>
+                    //TODO Criar função de tipo de usuário no mesmo modelo do cadastro usuários
                     <label htmlFor="nome">Nome</label>
-                    <input
+                    <select
                         required
                         name="nome"
                         placeholder="Nome Completo"
                         value={formData.nome}
                         onChange={(event) =>
-                        setFormData({ ...formData, nome: event.target.value })
-                        }
-                    />
+                        setFormData({ ...formData, nome: event.target.value })}
+                    >
+                        <option value="" disabled hidden>Selecione o Usuário</option>
+                        <optgroup label="Alunos">
+                            {nichos.map((nicho) => (
+                                <option key={nicho.id_nicho} value={nicho.id_nicho}>Nicho {nicho.numero_nicho}</option> //Função que preenche a tag select com as opções
+                            ))} // TODO arrumar a função para os alunos
+                        </optgroup>
+                        <optgroup label="Funcionários">
+                            {nichos.map((nicho) => (
+                                <option key={nicho.id_nicho} value={nicho.id_nicho}>Nicho {nicho.numero_nicho}</option> //Função que preenche a tag select com as opções
+                            ))} // TODO arrumar a função para os funcionários
+                        </optgroup>
+                    </select>
                 </div>
                 <div className={styles.formItem}>
                     <label htmlFor="livro">Livro</label>
@@ -64,7 +75,6 @@ export default function registrarEmprestimos() {
                         }
                     />
                 </div>
-                {error && <p className="error-message">{error}</p>}
                 <div className={styles.formItem}>
                     <button disabled={isLoading} className={styles.button} type="submit">
                         Registrar

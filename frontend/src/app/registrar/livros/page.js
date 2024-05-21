@@ -20,7 +20,6 @@ function registrarLivros() {
     // Função que irá prevenir a página de carregar e fará o envio para o backend
     const handleSubmit = async (event) => { 
         event.preventDefault()
-        
         // variável com os dados obtidos
         const dados = {
             nome_do_livro: nome,
@@ -29,7 +28,7 @@ function registrarLivros() {
             quantidade_exemplar: quantidade,
             saldo_exemplar: quantidade,
             id_nicho: nicho,
-            observacao_livro: observacao
+            observacao_livro: observacao === '' ? null : observacao
         }
 
         // Tentativa de envio para o backend

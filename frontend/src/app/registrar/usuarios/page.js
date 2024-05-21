@@ -2,29 +2,37 @@
 import styles from './usuarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
-import $ from 'jquery'
-import 'jquery-mask-plugin'
 import axios from 'axios'
 
-//TODO Corrigir função de cadastro de usuários
+let $, mask
 
 var API_URL = ''
 
 const registrarUsuarios = () => {
     const router = useRouter();
+    
     // useStates dos campos necessários
-    const [tipo, setTipo] = useState('')
     const [nome, setNome] = useState('')
     const [telefone, setTelefone] = useState('')
     const [email, setEmail] = useState('')
-    const [turma, setTurma] = useState('')
-    const [cargo, setCargo] = useState('')
+    const [sala, setSala] = useState('')
+    const [ocupacao, setOcupacao] = useState('')
 
-    const [visTel, setVisTel] = useState('')
+    const [visTel, setVisTel] = useState('') // useState para controle de alterações do formulário
 
-    //useState de controle de formulário
+    // useState de controle de formulário
     const [ tipoComp, setTipoComp ] = useState(false)
 
+    // Reset das informações do formulário
+    const limparFormulario = () => {
+        setNome('')
+        setTelefone('')
+        setEmail('')
+        setSala('')
+        setOcupacao('')
+        setVisTel('')
+    }
+    
     // Função que será chamada ao clicar no botão de envio
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -33,23 +41,19 @@ const registrarUsuarios = () => {
             API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
             
             var dados = {
-                tipo_professor_funcionario: tipo,
                 nome_do_professor_funcionario: nome,
-                cpf: 12312312312,
+                ocupacao: ocupacao,
                 telefone: telefone,
                 email: email,
-                ativo: true
             }
         } else { // Ativa form aluno para envio
             API_URL = 'http://127.0.0.1:8000/api/aluno/'
             
             var dados = {
-                tipo_aluno: tipo,
                 nome_do_aluno: nome,
-                ra: 12345,
+                sala: sala,
                 telefone: telefone,
                 email: email,
-                ativo: true
             }
         }
 
@@ -57,6 +61,7 @@ const registrarUsuarios = () => {
         try {
             const response = await axios.post(API_URL, dados)
             console.log(response.data)
+            limparFormulario()
             router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
         } catch (error) {
             console.error(error)
@@ -64,32 +69,40 @@ const registrarUsuarios = () => {
     };
 
     // Alteração de componentes de acordo com o tipo de usuário
+    
     useEffect(() => {        
-        const turmaComp = document.getElementById("turma")
-        const turmaInput = document.getElementById("turmaInput")
-        const ocupacaoComp = document.getElementById("ocupacao")
-        const ocupacaoInput = document.getElementById("ocupacaoInput")
-        ocupacaoComp.setAttribute("hidden", true)
-        turmaComp.setAttribute("hidden", true)
-
-        if(tipoComp){ // Ativa preenchimento de funcionário
-            setTipo("Professor")
-            turmaComp.setAttribute("hidden", true)
-            turmaInput.removeAttribute("required")
-            ocupacaoComp.removeAttribute("hidden")
-            ocupacaoInput.setAttribute("required", true)
-        } else { // Ativa preenchimento de aluno
-            setTipo("aluno")
-            turmaComp.removeAttribute("hidden")
-            turmaInput.setAttribute("required", true)
+        if (typeof window !== 'undefined') {
+            const turmaComp = document.getElementById("turma")
+            const turmaInput = document.getElementById("turmaInput")
+            const ocupacaoComp = document.getElementById("ocupacao")
+            const ocupacaoInput = document.getElementById("ocupacaoInput")
             ocupacaoComp.setAttribute("hidden", true)
-            ocupacaoInput.removeAttribute("required")
+            turmaComp.setAttribute("hidden", true)
+
+            if(tipoComp){ // Ativa preenchimento de funcionário
+                turmaComp.setAttribute("hidden", true)
+                turmaInput.removeAttribute("required")
+                ocupacaoComp.removeAttribute("hidden")
+                ocupacaoInput.setAttribute("required", true)
+            } else { // Ativa preenchimento de aluno
+                turmaComp.removeAttribute("hidden")
+                turmaInput.setAttribute("required", true)
+                ocupacaoComp.setAttribute("hidden", true)
+                ocupacaoInput.removeAttribute("required")
+            }
         }
-        
     }, [tipoComp])
         
     // Máscara do input Telefone
-    $('#tel').mask('(00) 00000-0000')
+    if (typeof window !== 'undefined') {
+        $ = require('jquery');
+        mask = require('jquery-mask-plugin');
+        useEffect(() => {
+            if ($) {
+                $('#tel').mask('(00) 00000-0000')
+            }
+        }, []);
+    }
     
 
     return(
@@ -97,10 +110,10 @@ const registrarUsuarios = () => {
             <h2 className={styles.formTitle}>Usuários</h2>
             <form onSubmit={handleSubmit}>
                 <div className={styles.formItem}>
-                    <label htmlFor="nome_do_aluno">Nome</label>
+                    <label htmlFor="nome">Nome</label>
                     <input
                         required
-                        name="nome_do_aluno"
+                        name="nome"
                         placeholder="Nome Completo"
                         value={ nome }
                         onChange={(e) => setNome(e.target.value)}
@@ -125,11 +138,11 @@ const registrarUsuarios = () => {
                         <label htmlFor="turma">Turma</label>
                         <input
                             required
-                            name="turma"
+                            name="sala"
                             placeholder="3º A"
                             id="turmaInput"
-                            value={ turma }
-                            onChange={(e) => setTurma(e.target.value)
+                            value={ sala }
+                            onChange={(e) => setSala(e.target.value)
                             }
                         />
                     </div>
@@ -141,8 +154,8 @@ const registrarUsuarios = () => {
                             placeholder="Professor de História"
                             id="ocupacaoInput"
                             name="ocupacao"
-                            value={ cargo }
-                            onChange={(e) => setCargo(e.target.value)}
+                            value={ ocupacao }
+                            onChange={(e) => setOcupacao(e.target.value)}
                         />
                     </div>
                 </div>
