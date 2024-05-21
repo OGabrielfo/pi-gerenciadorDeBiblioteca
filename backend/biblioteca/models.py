@@ -50,7 +50,8 @@ class Professor_Funcionario(models.Model):
     id_professor_funcionario = models.AutoField(primary_key=True)
     tipo_professor_funcionario = models.CharField(max_length=20, choices=TIPO_PROFESSOR_FUNCIONARIO_CHOICES, default='Professor')
     nome_do_professor_funcionario = models.CharField(max_length=150)
-    cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
+    ocupacao = models.CharField(max_length=40)
+    #cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
     telefone = models.CharField(max_length=11)
     email = models.EmailField(unique=True)
     data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
@@ -149,7 +150,7 @@ class Emprestimo(models.Model):
     )
     data_emprestimo = models.DateField(auto_now_add=True)
     data_devolucao = models.DateField()
-    situacao_emprestimo = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Aberto')
+    situacao_emprestimo = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'emprestimo'
@@ -175,6 +176,21 @@ class LivroEmprestimo(models.Model):
 
     def __str__(self):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
+
+##############################################
+class Login(models.Model):
+    id_login = models.AutoField(primary_key=True)
+    nome_do_usuario = models.CharField(max_length=150)
+    email = models.EmailField()
+    senha = models.CharField(max_length=150)
+    #data_registro = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'login'
+
+    def __str__(self):
+        return self.nome_do_usuario  # Definindo a representação como o nome do usuário
+
 
 ##############################################
 #CONSULTAS
