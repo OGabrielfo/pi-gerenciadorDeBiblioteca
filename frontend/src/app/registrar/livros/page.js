@@ -14,7 +14,7 @@ function registrarLivros() {
     const [tipo, setTipo] = useState('')
     const [quantidade, setQuantidade] = useState('')
     const [nicho, setNicho] = useState('')
-    const [observacao, setObservacao] = useState(null) // Precisa ser null pois o backend não aceita string vazia
+    const [observacao, setObservacao] = useState('') // Precisa ser null pois o backend não aceita string vazia
     const router = useRouter()
     
     // Função que irá prevenir a página de carregar e fará o envio para o backend
@@ -115,7 +115,7 @@ function registrarLivros() {
                     >
                         <option value="" disabled hidden>Selecione o Nicho</option>
                         {nichos.map((nicho) => (
-                            <option key={nicho.id_nicho} value={nicho.id_nicho}>{nicho.numero_nicho}</option> //Função que preenche a tag select com as opções
+                            <option key={nicho.id_nicho} value={nicho.id_nicho}>Nicho {nicho.numero_nicho}</option> //Função que preenche a tag select com as opções
                         ))}
                     </select>
                 </div>

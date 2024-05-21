@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-3jfg-zccyiz3o6gi^kb*_p+=d3_os8aw48qo-xf7bx&_qwt60e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'gerenciadordebibliotecaback-08343971641b.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'gerenciadordebibliotecaback-08343971641b.herokuapp.com']
 
 #ALLOWED_HOSTS = ['*']
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'bootstrap4',
     'stdimage',
-    'corsheaders'
+    "corsheaders",
 
 ]
 
@@ -51,7 +51,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
