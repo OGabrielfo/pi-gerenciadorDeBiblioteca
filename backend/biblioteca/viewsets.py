@@ -1,8 +1,8 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo
-from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer
+from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo, Login
+from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer, LoginSerializer
 
 class NichoViewSet(viewsets.ModelViewSet):
     queryset = Nicho.objects.all()
@@ -39,7 +39,7 @@ class LivroEmprestimoViewSet(viewsets.ModelViewSet):
     serializer_class = LivroEmprestimoSerializer
     permission_classes = [AllowAny]
 
-class TesteViewSet(viewsets.ModelViewSet):
-    queryset = LivroEmprestimo.objects.all()
-    serializer_class = LivroEmprestimoSerializer
+class LoginViewSet(viewsets.ModelViewSet):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializer
     permission_classes = [AllowAny]
