@@ -12,12 +12,17 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputGenero").placeholder = dado.tipo;
             document.getElementById("inputNicho").placeholder = dado.id_nicho;
             document.getElementById("inputExemplaresTotais").placeholder = dado.quantidade_exemplar;
+            document.getElementById("inputExemplaresSaldo").placeholder = dado.quantidade_exemplar;
+            document.getElementById("inputExemplaresSaldo").placeholder = dado.saldo_exemplar;
+
 
             document.getElementById("inputTitulo").value = "";
             document.getElementById("inputAutor").value = "";
             document.getElementById("inputGenero").value = "";
             document.getElementById("inputNicho").value = "";
             document.getElementById("inputExemplaresTotais").value = "";
+            document.getElementById("inputExemplaresSaldo").value = "";
+            document.getElementById("codigoSelecionado").textContent = dado.id_livro;
         }
         else if (props.tipo == "aluno"){
             document.getElementById("inputNome").placeholder = dado.nome;
@@ -41,8 +46,7 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputTelefone").value = "";
             document.getElementById("inputEmail").value = "";
         }
-        document.getElementById("codigoSelecionado").textContent = dado.codigo;
-    }
+    }   
     
     const handleRadioClickUsuario = (event) => {
         let dado = props.dados[event.target.id];

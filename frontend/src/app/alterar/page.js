@@ -6,11 +6,14 @@ import CampoPesquisar from '@/components/campoPesquisar'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, createContext} from 'react'
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/'
 
-export default function alterar() {
+export const AlterarLivroContext = createContext();
+
+const alterar = () => {
+    const [isUpdated, setIsUpdated] = useState(true);
 
     const [loading, setLoading] = useState();
     const [dadosApi, setDadosApi] = useState();
@@ -18,10 +21,10 @@ export default function alterar() {
     const fetchAllData = async () => {
       try{
         setLoading(true);
-
         const response = await fetch(API_URL);
         const data = await response.json();
         setDadosApi(data);
+        console.log("Lista Fetchada")
       } catch (error) {
         console.log(error)
       } finally {
@@ -30,8 +33,11 @@ export default function alterar() {
     }
 
     useEffect(() => {
-      fetchAllData();
-    }, []);
+      if(isUpdated == true){
+        fetchAllData();
+        setIsUpdated(false);
+      }
+    }, [isUpdated]);
 
     /*
     let livros = [
@@ -255,6 +261,16 @@ export default function alterar() {
     }
 
     const handleClickProcurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
+        /*
+        if(isUpdated == false){
+          setIsUpdated(true);
+          console.log("Setado true");
+        }else{
+          setIsUpdated(false);
+          console.log("Setado falso");
+        }
+        */
+
         let valor1 = campoPesquisa1.value.toLowerCase();
         let valor2 = campoPesquisa2.value.toLowerCase();
         let listaTemporaria;
@@ -294,11 +310,17 @@ export default function alterar() {
                         <CampoDados idInput="inputGenero" nome="Gênero" ph="Digite o gênero do livro"/>
                         <CampoDados idInput="inputNicho" nome="Nicho" ph="Digite o nicho"/>
                         <CampoDados idInput="inputExemplaresTotais" nome="Exemplares Totais" ph="Digite os exemplares totais"/>
+                        <CampoDados idInput="inputExemplaresSaldo" nome="Saldo de Exemplares" ph="Digite o saldo de exemplares"/>
                     </div>
-                    <BtnEfetuarAlteracao tipo="livro"/>
+                    <AlterarLivroContext.Provider value={{isUpdated, setIsUpdated}}>
+                      <BtnEfetuarAlteracao tipo="livro"/>
+                    </AlterarLivroContext.Provider>
                 </div>
             </div>
         </>
     )
 }
+
+export default alterar;
+
 
