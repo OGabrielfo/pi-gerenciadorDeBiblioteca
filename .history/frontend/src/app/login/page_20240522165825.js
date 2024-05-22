@@ -29,17 +29,16 @@ export default function LoginPage() {
         throw new Error('Usuário ou senha incorretos')
       }
   
-    const data = await response.json()
-    const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY')
-     //Armazena o token de acesso no cookie
-      setCookie(null, 'token', data.token, {
-        maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60, // se stayConnected for verdadeiro, o cookie durará 6 meses, caso contrário, durará 1 dia
-        path: '/',
-      })
+  //    const data = await response.json()
+    //  const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY')
+      // Armazena o token de acesso no cookie
+   //   setCookie(null, 'token', data.token, {
+     //   maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60, // se stayConnected for verdadeiro, o cookie durará 6 meses, caso contrário, durará 1 dia
+      //  path: '/',
+    //  })
+  
       window.location.href = '/consulta'
-    } 
-    
-    catch (error) {
+    } catch (error) {
       alert(error.message)
     }
   }

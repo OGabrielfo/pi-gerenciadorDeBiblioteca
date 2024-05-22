@@ -14,36 +14,20 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-  
-    try {
-      // Envia uma solicitação POST para a API com as credenciais de login
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      })
-  
-      if (!response.ok) {
-        throw new Error('Usuário ou senha incorretos')
-      }
-  
-    const data = await response.json()
-    const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY')
-     //Armazena o token de acesso no cookie
-      setCookie(null, 'token', data.token, {
+
+    if (username === .username && password === mockUser.password) {
+      const token = jwtSimple.encode(mockUser, 'your-secret-key')
+
+      setCookie(null, 'token', token, {
         maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60, // se stayConnected for verdadeiro, o cookie durará 6 meses, caso contrário, durará 1 dia
         path: '/',
       })
+
       window.location.href = '/consulta'
-    } 
-    
-    catch (error) {
-      alert(error.message)
+    } else {
+      alert('Usuário ou senha incorretos')
     }
   }
-  
 
   return (
     <body className={styles.body}>
