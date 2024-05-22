@@ -13,40 +13,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [stayConnected, setStayConnected] = useState(false) // novo estado para a checkbox
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-  
-    try {
-      const response = await fetch(`${API_URL}?username=${username}&password=${password}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      if (!response.ok) {
-        throw new Error('Erro na solicitação à API');
-      }
 
-      const data = await response.json();
-      console.log(data);
-    
-      // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
-        throw new Error('Usuário ou senha incorretos');
-      }
-  
-      const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
-      setCookie(null, 'token', data.token, {
-        maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
-        path: '/',
-     })
-  
-      window.location.href = '/consulta';
-    } catch (error) {
-      alert(error.message);
-    }
-  }
   
 
   return (

@@ -28,11 +28,10 @@ export default function LoginPage() {
         throw new Error('Erro na solicitação à API');
       }
 
-      const data = await response.json();
-      console.log(data);
-    
+      const login = await response.json();
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.login) {
         throw new Error('Usuário ou senha incorretos');
       }
   

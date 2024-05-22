@@ -17,7 +17,7 @@ export default function LoginPage() {
     e.preventDefault()
   
     try {
-      const response = await fetch(`${API_URL}?username=${username}&password=${password}`, {
+      const response = await fetch(`${API_URL}?username=${login.nome_do_usuario}&password=${login.senha}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -29,10 +29,11 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      console.log(data);
-    
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if  {
+        (username === '' || login.nome_do_usuario=== nomeLivro.toUpperCase()) &&
+        (autor === '' || livro.autor. === sen) &&
         throw new Error('Usuário ou senha incorretos');
       }
   

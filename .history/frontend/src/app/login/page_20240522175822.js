@@ -17,7 +17,7 @@ export default function LoginPage() {
     e.preventDefault()
   
     try {
-      const response = await fetch(`${API_URL}?username=${username}&password=${password}`, {
+      const response = await fetch(`${API_URL}?username=${nome_do_usuario}&password=${password}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -28,11 +28,10 @@ export default function LoginPage() {
         throw new Error('Erro na solicitação à API');
       }
 
-      const data = await response.json();
-      console.log(data);
-    
+      const login = await response.json();
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!login.login) {
         throw new Error('Usuário ou senha incorretos');
       }
   

@@ -29,10 +29,9 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      console.log(data);
-    
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.login) {
         throw new Error('Usuário ou senha incorretos');
       }
   

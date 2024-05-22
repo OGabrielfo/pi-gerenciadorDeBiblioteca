@@ -30,13 +30,12 @@ export default function LoginPage() {
 
       const data = await response.json();
       console.log(data);
-    
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.token) {
         throw new Error('Usuário ou senha incorretos');
       }
   
-      const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
+      const = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
       setCookie(null, 'token', data.token, {
         maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
         path: '/',

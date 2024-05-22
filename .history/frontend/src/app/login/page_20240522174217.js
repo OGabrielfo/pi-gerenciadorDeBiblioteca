@@ -7,7 +7,21 @@ import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
 const API_URL = 'http://127.0.0.1:8000/api/login'
 
+const axios = require('axios');
+
 export default function LoginPage() {
+
+  axios.get('http://127.0.0.1:8000/api/login')
+  .then(response => {
+    if ('valid' in response.data) {
+      console.log('O campo "valid" está presente na resposta.');
+    } else {
+      console.log('O campo "valid" NÃO está presente na resposta.');
+    }
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+  });
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,10 +43,9 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      console.log(data);
-    
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.valid) {
         throw new Error('Usuário ou senha incorretos');
       }
   

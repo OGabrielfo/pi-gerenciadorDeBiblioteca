@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { setCookie } from 'nookies'
 import jwtSimple from 'jwt-simple'
 import styles from './login.module.css'
@@ -12,41 +12,34 @@ export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [stayConnected, setStayConnected] = useState(false) // novo estado para a checkbox
+  const [dados, setDados] = useState(null);  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-  
-    try {
-      const response = await fetch(`${API_URL}?username=${username}&password=${password}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+  useEffect(() => {
+    // Fazer a chamada à API para obter os dados dos usuários
+    fetch(API_URL)
+      .then((response) => response.json())
+      .then((data) => {
+        // Atualizar o estado com os dados dos usuários
+        setDadosAPI(data);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar dados dos usuários:', error);
       });
-  
-      if (!response.ok) {
-        throw new Error('Erro na solicitação à API');
-      }
+  }, []); // Executa apenas uma vez quando o componente é montado
 
-      const data = await response.json();
-      console.log(data);
-    
-      // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
-        throw new Error('Usuário ou senha incorretos');
-      }
-  
-      const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
-      setCookie(null, 'token', data.token, {
-        maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
-        path: '/',
-     })
-  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const resultados = data.filter((login) =>
+      (username === '' || login.nome_do_usuario === username) &&
+      (password === '' || login.senha === password)
+    );
+    if (resultados.length === 0) {
+      alert('Usuário ou senha incorretos');
+    } else {
+      // Redireciona para a página de consulta
       window.location.href = '/consulta';
-    } catch (error) {
-      alert(error.message);
     }
-  }
+  };
   
 
   return (

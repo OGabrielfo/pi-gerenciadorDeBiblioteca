@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
 const API_URL = 'http://127.0.0.1:8000/api/login'
 
-export default function LoginPage() {
+const axios = require('axios');
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -29,10 +29,9 @@ export default function LoginPage() {
       }
 
       const data = await response.json();
-      console.log(data);
-    
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.login) {
         throw new Error('Usuário ou senha incorretos');
       }
   

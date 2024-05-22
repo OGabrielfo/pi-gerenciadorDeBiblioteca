@@ -32,7 +32,7 @@ export default function LoginPage() {
       console.log(data);
     
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (data=== nom) {
         throw new Error('Usuário ou senha incorretos');
       }
   

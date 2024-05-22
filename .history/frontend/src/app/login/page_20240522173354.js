@@ -8,7 +8,6 @@ import Logo from '../../assets/Logotipo.png'
 const API_URL = 'http://127.0.0.1:8000/api/login'
 
 export default function LoginPage() {
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [stayConnected, setStayConnected] = useState(false) // novo estado para a checkbox
@@ -27,19 +26,18 @@ export default function LoginPage() {
       if (!response.ok) {
         throw new Error('Erro na solicitação à API');
       }
-
+  
       const data = await response.json();
-      console.log(data);
-    
+  
       // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
+      if (!data.valid) {
         throw new Error('Usuário ou senha incorretos');
       }
   
       const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
       setCookie(null, 'token', data.token, {
-        maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
-        path: '/',
+      maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
+      path: '/',
      })
   
       window.location.href = '/consulta';
