@@ -3,12 +3,15 @@ import styles from './usuarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import Modal from '@/components/modal'
 
 let $, mask
 
 var API_URL = ''
 
 const registrarUsuarios = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
     const router = useRouter();
     
     // useStates dos campos necessários
@@ -63,13 +66,16 @@ const registrarUsuarios = () => {
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
+            setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setMessage('Ocorreu um erro!')
+        } finally {
+            setIsOpen(true)
         }
     };
 
     // Alteração de componentes de acordo com o tipo de usuário
-    
     useEffect(() => {        
         if (typeof window !== 'undefined') {
             const turmaComp = document.getElementById("turma")
@@ -136,7 +142,7 @@ const registrarUsuarios = () => {
                 <div id="turma">
                     <div className={styles.formItem}>
                         <label htmlFor="turma">Turma</label>
-                        <input
+                        <select
                             required
                             name="sala"
                             placeholder="3º A"
@@ -144,7 +150,16 @@ const registrarUsuarios = () => {
                             value={ sala }
                             onChange={(e) => setSala(e.target.value)
                             }
-                        />
+                        >
+                            <option value="6º A" key="6A">6º A</option>
+                            <option value="6º B" key="6B">6º B</option>
+                            <option value="7º A" key="7A">7º A</option>
+                            <option value="7º B" key="7B">7º B</option>
+                            <option value="8º A" key="8A">8º A</option>
+                            <option value="8º B" key="8B">8º B</option>
+                            <option value="9º A" key="9A">9º A</option>
+                            <option value="9º B" key="9B">9º B</option>
+                        </select>
                     </div>
                 </div>
                 <div id="ocupacao" hidden>
@@ -188,6 +203,7 @@ const registrarUsuarios = () => {
                     </button>
                 </div>
             </form>
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
         </section>
     )
 }

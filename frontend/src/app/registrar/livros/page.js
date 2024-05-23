@@ -3,10 +3,13 @@ import styles from './livros.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
+import Modal from '@/components/modal'
 
 var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
 function registrarLivros() {     
+    const [isOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
 // Função de registro dos dados no banco
     // Definição das variáveis e useStates
     const [nome, setNome] = useState('')
@@ -17,6 +20,16 @@ function registrarLivros() {
     const [observacao, setObservacao] = useState('') // Precisa ser null pois o backend não aceita string vazia
     const router = useRouter()
     
+    // Reset das informações do formulário
+    const limparFormulario = () => {
+        setNome('')
+        setAutor('')
+        setTipo('')
+        setQuantidade('')
+        setNicho('')
+        setObservacao('')
+    }
+
     // Função que irá prevenir a página de carregar e fará o envio para o backend
     const handleSubmit = async (event) => { 
         event.preventDefault()
@@ -35,9 +48,14 @@ function registrarLivros() {
         try {
             const response = await axios.post (API_URL, dados)
             console.log(response.data)
-            router.push('/registrar/livros') // redireciona o usuário após o cadastro com sucesso
+            limparFormulario()
+            router.push('/registrar/livros/') // redireciona o usuário após o cadastro com sucesso
+            setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setMessage('Ocorreu um erro!')
+        } finally {
+            setIsOpen(true)
         }
     }
     
@@ -135,6 +153,7 @@ function registrarLivros() {
                     </button>
                 </div>
             </form>
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
         </section>
     )
 }
