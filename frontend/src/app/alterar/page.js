@@ -37,6 +37,7 @@ const alterar = () => {
         (async () => {
           const data = await fetchAllData();
           procurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "nome_do_livro", "autor", data);
+          setDadosApi(data);
           setIsUpdated(false)
         })();
       }
@@ -51,21 +52,20 @@ const alterar = () => {
     const procurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => { // É efetuado quando o botao "procurar x" é selecionado ou quando uma linha é alterada/deletada.
         let valor1 = campoPesquisa1.value.toLowerCase();
         let valor2 = campoPesquisa2.value.toLowerCase();
-        if (valor1 != "" || valor2 != ""){
-          console.log("Procura feita");
-          let listaTemporaria;
-          if(valor1.trim() !== ""){
-              console.log("1 feita");
-              listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
-              listaTotal = [...listaTemporaria];
-          }
-          if(valor2.trim() != ""){
-              console.log("2 feita");
-              listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
-          }
-          setLivrosPesquisa(listaTemporaria);
-          resetarCampos()
+        let listaTemporaria;
+        if(valor1.trim() !== ""){
+            console.log("1 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
+            listaTotal = [...listaTemporaria];
         }
+        if(valor2.trim() != ""){
+            console.log("2 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
+        }
+        setLivrosPesquisa(listaTemporaria);
+        resetarCampos()
+        campoPesquisa1.value = "";
+        campoPesquisa2.value = "";
     }
 
     function resetarCampos(){ // Resta os campos de um livro

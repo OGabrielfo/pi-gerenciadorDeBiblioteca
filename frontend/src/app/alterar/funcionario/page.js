@@ -39,6 +39,7 @@ export default function alterar() {
           (async () => {
             const data = await fetchAllData();
             procurar(document.getElementById("campoNomeFuncionario"),document.getElementById("campoFuncao"), "nome_do_professor_funcionario", "ocupacao", data);
+            setDadosApi(data);
             setIsUpdated(false)
           })();
         }
@@ -63,6 +64,8 @@ export default function alterar() {
         }
         setfuncionariosPesquisa(listaTemporaria);
         resetarCampos();
+        campoPesquisa1.value = "";
+        campoPesquisa2.value = "";
     }
 
     function resetarCampos(){ // Resta os campos

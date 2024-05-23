@@ -255,57 +255,33 @@ export default function BtnEfetuarAlteracao(props) {
     }
 
     function handleClick(tipo){
-        if(document.getElementById("codigoSelecionado").textContent != ""){
-            let registro = {};
-            if(tipo == "livro"){
-                registro = handleClickLivro();
-                if (registro != false){    
-                    const id = document.getElementById("codigoSelecionado").textContent;
-                    const url = `http://127.0.0.1:8000/api/livro/${id}/`
-                    console.log(url);
-                    putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
-                    setIsUpdated(true);
-                    resetarCampos(registro);
-                    window.alert("Alteração efetuada com sucesso");
-                }
-                else{
-                    window.alert("Alteração nao foi efetuada");
-                }
-            }
-            else if(tipo == "aluno"){
-                registro = handleClickAluno();
-                if (registro != false){    
-                    const id = document.getElementById("codigoSelecionado").textContent;
-                    const url = `http://127.0.0.1:8000/api/aluno/${id}/`
-                    console.log(url);
-                    putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
-                    console.log(isUpdated);
-                    setIsUpdated(true);
-                    console.log(isUpdated);
-                    resetarCampos(registro);
-                    window.alert("Alteração efetuada com sucesso");
-                }
-                else{
-                    window.alert("Alteração nao foi efetuada");
-                }
-            }
-            else {
-                registro = handleClickFuncionario();
-                if (registro != false){    
-                    const id = document.getElementById("codigoSelecionado").textContent;
-                    const url = `http://127.0.0.1:8000/api/professor_funcionario/${id}/`
-                    console.log(url);
-                    putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
-                    setIsUpdated(true);
-                    resetarCampos(registro);
-                    window.alert("Alteração efetuada com sucesso");
-                }
-                else{
-                    window.alert("Alteração nao foi efetuada");
-                }
-            }
+        let registro = {};
+        
+        if(tipo == "livro"){
+            registro = handleClickLivro();
         }
+        else if(tipo == "aluno"){
+            registro = handleClickAluno();
         }
+        else {
+            registro = handleClickFuncionario();
+        }
+
+        if (registro != false){    
+            const id = document.getElementById("codigoSelecionado").textContent;
+            const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
+            console.log(url);
+            putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
+            console.log(isUpdated);
+            setIsUpdated(true);
+            console.log(isUpdated);
+            resetarCampos(registro);
+            window.alert("Alteração efetuada com sucesso");
+        }
+        else{
+            window.alert("Alteração nao foi efetuada");
+        }
+    }
     return (
         <button className={styles.btnEfetuarAlteracao} onClick={() => handleClick(props.tipo)}>Efetuar Alteração</button>
     );
