@@ -2,111 +2,127 @@
 import styles from './usuarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
-import $ from 'jquery'
-import 'jquery-mask-plugin'
+import axios from 'axios'
+import Modal from '@/components/modal'
 
-var API_URL = 'http://127.0.0.1:8000/api/aluno/'
+let $, mask
 
-async function createData(data) {
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-  
-    if (!res.ok) {
-      throw new Error("Failed to create data");
-    }
-  
-    return res.json();
-  }
+var API_URL = ''
 
 const registrarUsuarios = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState('');
     const router = useRouter();
-    const [formDataAluno, setFormDataAluno] = useState({ tipo_aluno: "aluno", nome_do_aluno: "", ra:"1234", telefone:"", email:"", ativo:"true"});
-    const [formDataFuncionario, setFormDataFuncionario] = useState({ nome: "", tipoUsuario: "" , turma:"", ocupacao:"", telefone:"", email:""});
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
-
-    const tipoUsuarioComp = document.getElementById("tipoUsuario")
-    var form
-    var setForm
-    if(tipoUsuarioComp?.checked){ // Ativa form funcionário
-        form = formDataFuncionario
-        setForm = setFormDataFuncionario
-        API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
-    } else { // Ativa form aluno
-        form = formDataAluno
-        setForm = setFormDataAluno
-        API_URL = 'http://127.0.0.1:8000/api/aluno/'
-    }
-
-    // Função que será chamada ao clicar no botão de envio
-    const onFinish = (event) => {
-        event.preventDefault();
-        setIsLoading(true);
-        
-        createData(form) 
-        .then(() => {
-            // Redireciona para a página que indica o sucesso
-            router.replace("/?action=registrar");
-        })
-        .catch(() => {
-            setError("Ocorreu um erro");
-            setIsLoading(false);
-        });
-    };
     
-        // Limpa o effect para recarregar
-        useEffect(() => {
-        return () => setIsLoading(false);
-        }, []);
+    // useStates dos campos necessários
+    const [nome, setNome] = useState('')
+    const [telefone, setTelefone] = useState('')
+    const [email, setEmail] = useState('')
+    const [sala, setSala] = useState('')
+    const [ocupacao, setOcupacao] = useState('')
 
+    const [visTel, setVisTel] = useState('') // useState para controle de alterações do formulário
 
-        // Alteração de visual com base no usuário escolhido
-        function tipoUsuarioSelec(){
+    // useState de controle de formulário
+    const [ tipoComp, setTipoComp ] = useState(false)
+
+    // Reset das informações do formulário
+    const limparFormulario = () => {
+        setNome('')
+        setTelefone('')
+        setEmail('')
+        setSala('')
+        setOcupacao('')
+        setVisTel('')
+    }
+    
+    // Função que será chamada ao clicar no botão de envio
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        // Função de envio dos dados para o backend
+        if(tipoComp) { // Ativa form funcionário para envio
+            API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
+            
+            var dados = {
+                nome_do_professor_funcionario: nome,
+                ocupacao: ocupacao,
+                telefone: telefone,
+                email: email,
+            }
+        } else { // Ativa form aluno para envio
+            API_URL = 'http://127.0.0.1:8000/api/aluno/'
+            
+            var dados = {
+                nome_do_aluno: nome,
+                sala: sala,
+                telefone: telefone,
+                email: email,
+            }
+        }
+
+        // Tentativa de envio para o backend
+        try {
+            const response = await axios.post(API_URL, dados)
+            console.log(response.data)
+            limparFormulario()
+            router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
+            setMessage('Cadastro realizado com sucesso!')
+        } catch (error) {
+            console.error(error)
+            setMessage('Ocorreu um erro!')
+        } finally {
+            setIsOpen(true)
+        }
+    };
+
+    // Alteração de componentes de acordo com o tipo de usuário
+    useEffect(() => {        
+        if (typeof window !== 'undefined') {
             const turmaComp = document.getElementById("turma")
             const turmaInput = document.getElementById("turmaInput")
             const ocupacaoComp = document.getElementById("ocupacao")
             const ocupacaoInput = document.getElementById("ocupacaoInput")
-            
-            ocupacaoComp?.setAttribute("hidden", true)
-            turmaComp?.setAttribute("hidden", true)
+            ocupacaoComp.setAttribute("hidden", true)
+            turmaComp.setAttribute("hidden", true)
 
-            if(tipoUsuarioComp?.checked){ // Ativa preenchimento de funcionário
-                turmaComp?.setAttribute("hidden", true)
-                turmaInput?.removeAttribute("required")
-                ocupacaoComp?.removeAttribute("hidden")
-                ocupacaoInput?.setAttribute("required", true)
+            if(tipoComp){ // Ativa preenchimento de funcionário
+                turmaComp.setAttribute("hidden", true)
+                turmaInput.removeAttribute("required")
+                ocupacaoComp.removeAttribute("hidden")
+                ocupacaoInput.setAttribute("required", true)
             } else { // Ativa preenchimento de aluno
-                turmaComp?.removeAttribute("hidden")
-                turmaInput?.setAttribute("required", true)
-                ocupacaoComp?.setAttribute("hidden", true)
-                ocupacaoInput?.removeAttribute("required")
+                turmaComp.removeAttribute("hidden")
+                turmaInput.setAttribute("required", true)
+                ocupacaoComp.setAttribute("hidden", true)
+                ocupacaoInput.removeAttribute("required")
             }
         }
+    }, [tipoComp])
         
-        // Máscara do input Telefone
-        $(() => {
-            $('#tel').mask('(00) 00000-0000');
-          });
+    // Máscara do input Telefone
+    if (typeof window !== 'undefined') {
+        $ = require('jquery');
+        mask = require('jquery-mask-plugin');
+        useEffect(() => {
+            if ($) {
+                $('#tel').mask('(00) 00000-0000')
+            }
+        }, []);
+    }
+    
 
     return(
         <section className={styles.container}>
             <h2 className={styles.formTitle}>Usuários</h2>
-            <form onSubmit={onFinish}>
+            <form onSubmit={handleSubmit}>
                 <div className={styles.formItem}>
-                    <label htmlFor="nome_do_aluno">Nome</label>
+                    <label htmlFor="nome">Nome</label>
                     <input
                         required
-                        name="nome_do_aluno"
+                        name="nome"
                         placeholder="Nome Completo"
-                        value={form.nome_do_aluno}
-                        onChange={(event) =>
-                        setForm({ ...form, nome_do_aluno: event.target.value })
-                        }
+                        value={ nome }
+                        onChange={(e) => setNome(e.target.value)}
                     />
                 </div>
                 <div  className={styles.checkboxWrapper14}>
@@ -117,8 +133,7 @@ const registrarUsuarios = () => {
                             type="checkbox"
                             id="tipoUsuario"
                             name="tipoUsuario"
-                            value={form.tipoUsuario}
-                            onChange={tipoUsuarioSelec()}
+                            onChange={(e) => setTipoComp(e.target.checked)}
                         />
                         <p className={styles.aluno}>Aluno</p>
                         <p className={styles.funcionario}>Funcionário</p>
@@ -127,29 +142,35 @@ const registrarUsuarios = () => {
                 <div id="turma">
                     <div className={styles.formItem}>
                         <label htmlFor="turma">Turma</label>
-                        <input
+                        <select
                             required
-                            name="turma"
+                            name="sala"
                             placeholder="3º A"
                             id="turmaInput"
-                            value={form.turma}
-                            onChange={(event) =>
-                            setForm({ ...form, turma: event.target.value })
+                            value={ sala }
+                            onChange={(e) => setSala(e.target.value)
                             }
-                        />
+                        >
+                            <option value="6º A" key="6A">6º A</option>
+                            <option value="6º B" key="6B">6º B</option>
+                            <option value="7º A" key="7A">7º A</option>
+                            <option value="7º B" key="7B">7º B</option>
+                            <option value="8º A" key="8A">8º A</option>
+                            <option value="8º B" key="8B">8º B</option>
+                            <option value="9º A" key="9A">9º A</option>
+                            <option value="9º B" key="9B">9º B</option>
+                        </select>
                     </div>
                 </div>
                 <div id="ocupacao" hidden>
                     <div className={styles.formItem}>
-                        <label htmlFor="ocupacao">Ocupação</label>
+                        <label htmlFor="ocupacao">Cargo</label>
                         <input
                             placeholder="Professor de História"
                             id="ocupacaoInput"
                             name="ocupacao"
-                            value={form.ocupacao}
-                            onChange={(event) =>
-                            setForm({ ...form, ocupacao: event.target.value })
-                            }
+                            value={ ocupacao }
+                            onChange={(e) => setOcupacao(e.target.value)}
                         />
                     </div>
                 </div>
@@ -160,10 +181,8 @@ const registrarUsuarios = () => {
                         name="telefone"
                         id="tel"
                         placeholder= "(00) 00000-0000"
-                        value={form.telefone}
-                        onChange={(event) =>
-                        setForm({ ...form, telefone: event.target.value })
-                        }
+                        value={ visTel }
+                        onChange={(e) => {setTelefone($('#tel').cleanVal()), setVisTel(e.target.value)}}
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -173,19 +192,18 @@ const registrarUsuarios = () => {
                         placeholder="seuemail@email.com"
                         type="email"
                         name="email"
-                        value={form.email}
-                        onChange={(event) =>
-                        setForm({ ...form, email: event.target.value })
+                        value={ email }
+                        onChange={(e) => setEmail(e.target.value)
                         }
                     />
                 </div>
-                {error && <p className="error-message">{error}</p>}
                 <div className={styles.formItem}>
-                    <button disabled={isLoading} className={styles.button} type="submit">
+                    <button className={styles.button} type="submit">
                         Registrar
                     </button>
                 </div>
             </form>
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
         </section>
     )
 }

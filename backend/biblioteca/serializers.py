@@ -15,12 +15,12 @@ class LivroSerializer(serializers.ModelSerializer):
 class Professor_FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Professor_Funcionario
-        fields = ['id_professor_funcionario', 'tipo_professor_funcionario', 'nome_do_professor_funcionario', 'cpf', 'telefone', 'email', 'data_registro', 'ativo']
+        fields = ['id_professor_funcionario','nome_do_professor_funcionario',  'ocupacao', 'telefone', 'email']
 
 class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno
-        fields = ['id_aluno', 'tipo_aluno', 'nome_do_aluno', 'ra', 'telefone', 'email', 'data_registro', 'ativo']
+        fields = ['id_aluno', 'nome_do_aluno', 'sala', 'telefone', 'email']
 
 class StatusEmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,7 +30,7 @@ class StatusEmprestimoSerializer(serializers.ModelSerializer):
 class EmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emprestimo
-        fields = ['id_emprestimo', 'id_usuario_aluno', 'id_usuario_professor', 'data_emprestimo', 'data_devolucao']
+        fields = ['id_emprestimo', 'id_usuario_aluno', 'id_usuario_professor', 'data_emprestimo', 'data_devolucao', 'situacao_emprestimo']
 
 class LivroEmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,4 +40,4 @@ class LivroEmprestimoSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = Login
-        fields = ['id_login', 'nome_do_usuario', 'email', 'senha', 'data_registro']
+        fields = ['id_login', 'nome_do_usuario', 'email', 'senha']

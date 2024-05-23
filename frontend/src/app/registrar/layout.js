@@ -4,8 +4,7 @@ import NavButton from '../../components/navButton'
 
 export default function Layout({ children }) {
     return (
-        <html lang="pt-br">
-            <body>
+            <div>
                 <Header>Registrar</Header>
                 <section className={ styles.container }>
                     <div className={ styles.navbarRegistro }>
@@ -16,7 +15,6 @@ export default function Layout({ children }) {
                     
                 </section>
                 {children}
-            </body>
-        </html>
+            </div>
     );
 }

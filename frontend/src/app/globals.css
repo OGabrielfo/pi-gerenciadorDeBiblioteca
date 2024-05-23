@@ -55,6 +55,15 @@ input {
   height: auto;
 }
 
+select {
+  font-size: 20px;
+  height: auto;
+}
+
+textarea {
+  font-size: 20px;
+}
+
 label {
   font-size: 1.1em;
   font-weight: bold;
@@ -67,6 +76,11 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] { 
  -moz-appearance: textfield;
  appearance: textfield;
+}
+
+form {
+  min-width: 350px;
+  max-width: 500px;
 }
 
 @media (max-width:947px) {
@@ -83,5 +97,10 @@ input[type=number] {
   h3 {
     font-size: 1.8em;
     font-weight: bold;
+  }
+
+  form {
+    min-width: 250px;
+    max-width: 350px;
   }
 }

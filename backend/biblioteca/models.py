@@ -48,13 +48,13 @@ class Professor_Funcionario(models.Model):
     )
 
     id_professor_funcionario = models.AutoField(primary_key=True)
-    tipo_professor_funcionario = models.CharField(max_length=20, choices=TIPO_PROFESSOR_FUNCIONARIO_CHOICES, default='Professor')
-    nome_do_professor_funcionario = models.CharField(max_length=150)
-    cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
-    telefone = models.CharField(max_length=11)
+    nome_do_professor_funcionario = models.CharField(max_length=150, null=True)
+    ocupacao = models.CharField(max_length=40, null=True)
+    #cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
+    telefone = models.CharField(max_length=11, null=True)
     email = models.EmailField(unique=True)
-    data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
-    ativo = models.BooleanField(default=True)
+    #data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
+    #ativo = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'professor_funcionario'
@@ -62,27 +62,28 @@ class Professor_Funcionario(models.Model):
     def __str__(self):
         return self.nome_do_professor_funcionario  # Definindo a representação como o nome do usuário
 
-    def clean(self):
+    #def clean(self):
         # Validar o CPF utilizando a biblioteca validate-docbr
-        cpf_validator = CPF()
-        if self.cpf and not cpf_validator.validate(self.cpf):
-            raise ValidationError('CPF inválido. Certifique-se de inserir um CPF válido.')
+        #cpf_validator = CPF()
+        #if self.cpf and not cpf_validator.validate(self.cpf):
+            #raise ValidationError('CPF inválido. Certifique-se de inserir um CPF válido.')
 
-    def save(self, *args, **kwargs):
-        self.clean()  # Chama o método clean para validar o CPF antes de salvar
-        super().save(*args, **kwargs)  # Chama o método save padrão para salvar o objeto
+    #def save(self, *args, **kwargs):
+        #self.clean()  # Chama o método clean para validar o CPF antes de salvar
+        #super().save(*args, **kwargs)  # Chama o método save padrão para salvar o objeto
 
 
 ##########################################
 class Aluno(models.Model):
     id_aluno = models.AutoField(primary_key=True)
-    tipo_aluno = models.CharField(max_length=20, default='Aluno')
+    #tipo_aluno = models.CharField(max_length=20, default='Aluno')
     nome_do_aluno = models.CharField(max_length=150)
-    ra = models.CharField(max_length=15, null=True)
+    sala = models.CharField(max_length=15, null=True)
+    #ra = models.CharField(max_length=15, null=True)
     telefone = models.CharField(max_length=11)
     email = models.EmailField()
-    data_registro = models.DateField(auto_now_add=True)
-    ativo = models.BooleanField(default=True)
+    #data_registro = models.DateField(auto_now_add=True)
+    #ativo = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'aluno'
@@ -113,16 +114,6 @@ class StatusEmprestimo(models.Model):
     def __str__(self):
         return self.status
 
-##########################################
-class Login(models.Model):
-    id_login = models.AutoField(primary_key=True)
-    nome_do_usuario = models.CharField(max_length=150)
-    email = models.EmailField()
-    senha = models.CharField(max_length=20)
-    data_registro = models.DateField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'login'
 ##############################################
 from django.db import models
 from .models import Aluno, Professor_Funcionario
@@ -149,7 +140,7 @@ class Emprestimo(models.Model):
     )
     data_emprestimo = models.DateField(auto_now_add=True)
     data_devolucao = models.DateField()
-    situacao_emprestimo = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Aberto')
+    situacao_emprestimo = models.CharField(max_length=20)
 
     class Meta:
         db_table = 'emprestimo'
@@ -177,6 +168,21 @@ class LivroEmprestimo(models.Model):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
 
 ##############################################
+class Login(models.Model):
+    id_login = models.AutoField(primary_key=True)
+    nome_do_usuario = models.CharField(max_length=150)
+    email = models.EmailField()
+    senha = models.CharField(max_length=150)
+    #data_registro = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'login'
+
+    def __str__(self):
+        return self.nome_do_usuario  # Definindo a representação como o nome do usuário
+
+
+##############################################
 #CONSULTAS
 ##############################################
 class ConsultaLivroAdmin(admin.ModelAdmin):
@@ -199,7 +205,6 @@ class EmprestimoAdmin(admin.ModelAdmin):
     inlines = [LivroEmprestimoInline]
 
 #########################################
-
 
 
 
