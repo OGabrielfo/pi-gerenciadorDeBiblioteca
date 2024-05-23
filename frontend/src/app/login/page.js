@@ -31,10 +31,11 @@ export default function LoginPage() {
       const data = await response.json();
       console.log(data);
     
-      // Verifica se as credenciais são válidas
+      /* Verifica se as credenciais são válidas
       if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
         throw new Error('Usuário ou senha incorretos');
       }
+      */
   
       const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
       setCookie(null, 'token', data.token, {

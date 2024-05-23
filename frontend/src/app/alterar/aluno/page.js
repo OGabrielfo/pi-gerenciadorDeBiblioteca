@@ -6,41 +6,50 @@ import CampoPesquisar from '@/components/campoPesquisar'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
-import React, {useState} from 'react';
+import React, {useState, createContext, useEffect} from 'react';
 import lista from '@/app/lista/page'
 
+const API_URL = 'http://127.0.0.1:8000/api/aluno/'
+
+export const AlterarAlunoContext = createContext();
 
 export default function alterar() {
-    let usuarios = [
-        { "codigo": 1, "nome": "Ana Souza Oliveira", "sala": "8a" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 2, "nome": "Beatriz Santos Ferreira", "sala": "7b" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 3, "nome": "Carlos Pereira Mendes", "sala": "6c" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 4, "nome": "Daniela Silva Costa", "sala": "5d" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 5, "nome": "Eduardo Martins Rodrigues", "sala": "4e" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 6, "nome": "Felipe Gomes Silva", "sala": "3f" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 7, "nome": "Gabriela Souza Oliveira", "sala": "2g" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 8, "nome": "Henrique Pereira Mendes", "sala": "1h" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 9, "nome": "Isabella Santos Ferreira", "sala": "8a" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 10, "nome": "João Silva Costa", "sala": "7b" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 11, "nome": "Kevin Martins Rodrigues", "sala": "6c" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 12, "nome": "Laura Gomes Silva", "sala": "5d" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 13, "nome": "Mateus Souza Oliveira", "sala": "4e" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 14, "nome": "Nicole Pereira Mendes", "sala": "3f" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 15, "nome": "Olivia Santos Ferreira", "sala": "2g" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 16, "nome": "Pedro Silva Costa", "sala": "1h" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 17, "nome": "Rafaela Martins Rodrigues", "sala": "8a" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 18, "nome": "Sophia Gomes Silva", "sala": "7b" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 19, "nome": "Thomas Souza Oliveira", "sala": "6c" , "telefone": "12993643534", "email": "usuario@gmail.com"},
-        { "codigo": 20, "nome": "Valentina Pereira Mendes", "sala": "5d" , "telefone": "12993643534", "email": "usuario@gmail.com"}
-    ];
 
-    const [alunosPesquisa, setalunosPesquisa] = useState();
+    const [alunosPesquisa, setAlunosPesquisa] = useState();
+    const [isUpdated, setIsUpdated] = useState(false);
+    const [dadosApi, setDadosApi] = useState();
+    const [dadosFiltrados, setDadosFiltrados] = useState([]);
+    
+    const fetchAllData = async () => {
+        try{
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => async () => {
+        const data = await fetchAllData();
+        setDadosApi(data);
+    }, []);
+
+    useEffect(() => { // Roda quando uma linha é deletada ou alterada
+        if(isUpdated == true){
+          (async () => {
+            const data = await fetchAllData();
+            procurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome_do_aluno", "sala", data);
+            setIsUpdated(false)
+          })();
+        }
+      }, [isUpdated]); 
     
     function comparar(elemento, filtro, valor){
         return elemento[filtro].toLowerCase().includes(valor);
     }
 
-    const handleClickProcurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
+    const procurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
         let valor1 = campoPesquisa1.value.toLowerCase();
         let valor2 = campoPesquisa2.value.toLowerCase();
         let listaTemporaria;
@@ -53,9 +62,7 @@ export default function alterar() {
             console.log("2 feita");
             listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
         }
-        setalunosPesquisa(listaTemporaria);
-        campoPesquisa1.value = "";
-        campoPesquisa2.value = "";
+        setAlunosPesquisa(listaTemporaria);
     }
     
     return(
@@ -71,9 +78,11 @@ export default function alterar() {
                     <div className={styles.pesquisar}>
                         <CampoPesquisar idInput="campoNomeAluno" campoNome="Nome" ph="Digite o nome do aluno"/>
                         <CampoPesquisar idInput="campoSala" campoNome="Sala" ph="Digite a sala"/>
-                        <button className={styles.btnProcurar} onClick={() => handleClickProcurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome", "sala", usuarios)}>Procurar Aluno</button>
+                        <button className={styles.btnProcurar} onClick={() => procurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome_do_aluno", "sala", dadosApi)}>Procurar Aluno</button>
                     </div>
-                    <TabelaAlterar dados={alunosPesquisa} tipo="aluno" id="mainAluno"/>
+                    <AlterarAlunoContext.Provider value={{isUpdated, setIsUpdated}}>
+                        <TabelaAlterar dados={alunosPesquisa} tipo="aluno" id="mainAluno"/>
+                    </AlterarAlunoContext.Provider>
                     <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
                     <div className={styles.camps}>
                         <CampoDados idInput="inputNome" nome="Nome" ph="Digite o nome do aluno"/>
@@ -81,7 +90,9 @@ export default function alterar() {
                         <CampoDados idInput="inputTelefone" nome="Telefone" ph="Digite o telefone"/>
                         <CampoDados idInput="inputEmail" nome="Email" ph="Digite o email"/>
                     </div>
-                    <BtnEfetuarAlteracao tipo="aluno"/>
+                    <AlterarAlunoContext.Provider value={{isUpdated, setIsUpdated}}>
+                        <BtnEfetuarAlteracao tipo="aluno"/>
+                    </AlterarAlunoContext.Provider>
                 </div>
             </div>
         </>

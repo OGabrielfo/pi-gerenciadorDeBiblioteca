@@ -14,19 +14,16 @@ export const AlterarLivroContext = createContext();
 
 const alterar = () => { 
     const [isUpdated, setIsUpdated] = useState(false);
-    const [loading, setLoading] = useState();
     const [dadosApi, setDadosApi] = useState();
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
     const fetchAllData = async () => { // Retorna todas as linhas da api
       try{
-        setLoading(true);
         const response = await fetch(API_URL);
         const data = await response.json();
         return data;
       } catch (error) {
         console.log(error)
       } finally {
-        setLoading(false)
       }
     } 
 
