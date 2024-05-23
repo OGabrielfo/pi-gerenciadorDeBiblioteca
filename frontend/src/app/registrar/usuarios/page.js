@@ -41,7 +41,7 @@ const registrarUsuarios = () => {
         event.preventDefault();
         // Função de envio dos dados para o backend
         if(tipoComp) { // Ativa form funcionário para envio
-            API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
+            API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/professor_funcionario/'
             
             var dados = {
                 nome_do_professor_funcionario: nome,
@@ -50,7 +50,7 @@ const registrarUsuarios = () => {
                 email: email,
             }
         } else { // Ativa form aluno para envio
-            API_URL = 'http://127.0.0.1:8000/api/aluno/'
+            API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/aluno/'
             
             var dados = {
                 nome_do_aluno: nome,

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import Modal from '@/components/modal'
 
-var API_URL = 'http://127.0.0.1:8000/api/livro/'
+var API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/livro/'
 
 function registrarLivros() {     
     const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +65,7 @@ function registrarLivros() {
     useEffect(() => {
         async function fetchNichos() {
             try {
-                const response = await fetch ('http://localhost:8000/api/nicho')
+                const response = await fetch ('https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/nicho')
                 const data = await response.json()
                 setNichos(data)
             } catch (error) {
