@@ -1,5 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from django.contrib.auth import authenticate
 from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo, Login
 from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer, LoginSerializer
 
@@ -42,3 +45,17 @@ class LoginViewSet(viewsets.ModelViewSet):
     queryset = Login.objects.all()
     serializer_class = LoginSerializer
     permission_classes = [AllowAny]
+
+    @action(detail=False, methods=['post'])
+    def login(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            return Response({'error': 'Invalid login credentials'}, status=400)
+
+        # Aqui você pode adicionar a lógica para gerar e retornar um token de autenticação
+        # ...
+
+        return Response({'message': 'Logged in successfully'})
