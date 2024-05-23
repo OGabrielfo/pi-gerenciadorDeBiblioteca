@@ -113,6 +113,16 @@ class StatusEmprestimo(models.Model):
     def __str__(self):
         return self.status
 
+##########################################
+class Login(models.Model):
+    id_login = models.AutoField(primary_key=True)
+    nome_do_usuario = models.CharField(max_length=150)
+    email = models.EmailField()
+    senha = models.CharField(max_length=20)
+    data_registro = models.DateField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'login'
 ##############################################
 from django.db import models
 from .models import Aluno, Professor_Funcionario
