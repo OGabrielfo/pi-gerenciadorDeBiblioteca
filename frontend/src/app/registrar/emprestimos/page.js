@@ -15,6 +15,7 @@ const API_StatusEmprestimo = 'http://localhost:8000/api/status_emprestimo/'
 
 export default function registrarEmprestimos() {
     const [isOpen, setIsOpen] = useState(false);
+    const [opSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState('');
     const router = useRouter();
 
@@ -131,8 +132,10 @@ export default function registrarEmprestimos() {
             }
             limparFormulario()
             router.push('/registrar/emprestimos/')
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
             console.error(error)
         } finally {
@@ -234,7 +237,7 @@ export default function registrarEmprestimos() {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }

@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
-from django.core.exceptions import ValidationError
 from validate_docbr import CPF  # Esta importação requer a instalação do pacote 'validate-docbr'
 
 
@@ -168,19 +167,8 @@ class LivroEmprestimo(models.Model):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
 
 ##############################################
-class Login(models.Model):
-    id_login = models.AutoField(primary_key=True)
-    nome_do_usuario = models.CharField(max_length=150)
-    email = models.EmailField()
-    senha = models.CharField(max_length=150)
-    #data_registro = models.DateField(auto_now_add=True)
 
-    class Meta:
-        db_table = 'login'
-
-    def __str__(self):
-        return self.nome_do_usuario  # Definindo a representação como o nome do usuário
-
+# LOGIN
 
 ##############################################
 #CONSULTAS

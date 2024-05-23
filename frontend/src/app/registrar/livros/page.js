@@ -8,8 +8,9 @@ import Modal from '@/components/modal'
 var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
 function registrarLivros() {     
-    const [isOpen, setIsOpen] = useState(false);
-    const [message, setMessage] = useState('');
+    const [isOpen, setIsOpen] = useState(false)
+    const [opSuccess, setSuccess] = useState(false)
+    const [message, setMessage] = useState('')
 // Função de registro dos dados no banco
     // Definição das variáveis e useStates
     const [nome, setNome] = useState('')
@@ -50,9 +51,11 @@ function registrarLivros() {
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/livros/') // redireciona o usuário após o cadastro com sucesso
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
         } finally {
             setIsOpen(true)
@@ -153,7 +156,7 @@ function registrarLivros() {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }

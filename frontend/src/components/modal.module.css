@@ -1,9 +1,55 @@
-.container {
+.containerSuccess {
     position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
     top: 50%;
     left: 50%;
+    border-radius: 20px;
+    border: 2px solid var(--cor07);
+    box-shadow: 2px 2px 5px var(--cor07);
     transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 50px;
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
     z-index: 1000;
+}
+
+.containerError {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    top: 50%;
+    left: 50%;
+    border-radius: 20px;
+    border: 2px solid rgb(255, 130, 130);
+    box-shadow: 2px 2px 5px rgb(255, 130, 130);
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    z-index: 1000;
+}
+
+.button {
+    margin: 30px auto 0px auto;
+    justify-self: center;
+    width: 200px;
+    height: 50px;
+    border-radius: 15px;
+    border-color: transparent;
+    background-color: var(--cor03);
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: rgb(240, 240, 240);
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--cor05);
+    transition: 0.2s;
 }

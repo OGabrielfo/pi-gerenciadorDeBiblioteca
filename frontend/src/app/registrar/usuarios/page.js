@@ -11,6 +11,7 @@ var API_URL = ''
 
 const registrarUsuarios = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [opSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState('');
     const router = useRouter();
     
@@ -66,9 +67,11 @@ const registrarUsuarios = () => {
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
         } finally {
             setIsOpen(true)
@@ -203,7 +206,7 @@ const registrarUsuarios = () => {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }
