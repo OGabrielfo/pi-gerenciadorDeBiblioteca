@@ -203,7 +203,6 @@ export default function BtnEfetuarAlteracao(props) {
             document.getElementById("inputGenero").placeholder = dado.tipo;
             document.getElementById("inputNicho").placeholder = dado.id_nicho;
             document.getElementById("inputExemplaresTotais").placeholder = dado.quantidade_exemplar;
-            document.getElementById("inputExemplaresSaldo").placeholder = dado.quantidade_exemplar;
             document.getElementById("inputExemplaresSaldo").placeholder = dado.saldo_exemplar;
 
 

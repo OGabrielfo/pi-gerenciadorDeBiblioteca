@@ -8,7 +8,6 @@ import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
 import React, {useContext, useState} from "react";
 
 export default function TabelaAlterar(props) {
-    //const {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
 
     if (props.tipo == "livro"){
         var {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
@@ -80,10 +79,6 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputEmail").value = "";
         }
     }   
-    
-    const handleRadioClickUsuario = (event) => {
-        let dado = props.dados[event.target.id];
-    }
 
     function renderLines(dados, tipo, campo1, campo2, campo3){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)

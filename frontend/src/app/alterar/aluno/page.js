@@ -63,6 +63,20 @@ export default function alterar() {
             listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
         }
         setAlunosPesquisa(listaTemporaria);
+        resetarCampos();
+    }
+
+    function resetarCampos(){ // Resta os campos
+        document.getElementById("inputNome").placeholder = "Digite o nome do aluno";
+        document.getElementById("inputSala").placeholder = "Digite a sala";
+        document.getElementById("inputTelefone").placeholder = "Digite o telefone";
+        document.getElementById("inputEmail").placeholder = "Digite o email";
+
+        document.getElementById("inputNome").value = "";
+        document.getElementById("inputSala").value = "";
+        document.getElementById("inputTelefone").value = "";
+        document.getElementById("inputEmail").value = "";
+        document.getElementById("codigoSelecionado").textContent = "";
     }
     
     return(

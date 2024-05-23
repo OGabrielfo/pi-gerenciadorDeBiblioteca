@@ -64,8 +64,28 @@ const alterar = () => {
               listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
           }
           setLivrosPesquisa(listaTemporaria);
+          resetarCampos()
         }
     }
+
+    function resetarCampos(){ // Resta os campos de um livro
+        document.getElementById("inputTitulo").placeholder = "Digite o título do livro";
+        document.getElementById("inputAutor").placeholder = "Digite o autor do livro";
+        document.getElementById("inputGenero").placeholder = "Digite o gênero do livro";
+        document.getElementById("inputNicho").placeholder = "Digite o nicho";
+        document.getElementById("inputExemplaresTotais").placeholder = "Digite os exemplares totais";
+        document.getElementById("inputExemplaresSaldo").placeholder = "Digite o saldo de exemplares";
+
+
+        document.getElementById("inputTitulo").value = "";
+        document.getElementById("inputAutor").value = "";
+        document.getElementById("inputGenero").value = "";
+        document.getElementById("inputNicho").value = "";
+        document.getElementById("inputExemplaresTotais").value = "";
+        document.getElementById("inputExemplaresSaldo").value = "";
+        document.getElementById("codigoSelecionado").textContent = "";
+    }
+
     return(
         <>
             <Header>Alterar</Header>
