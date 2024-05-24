@@ -166,9 +166,6 @@ class LivroEmprestimo(models.Model):
     def __str__(self):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
 
-##############################################
-
-# LOGIN
 
 ##############################################
 #CONSULTAS

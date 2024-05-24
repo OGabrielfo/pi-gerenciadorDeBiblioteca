@@ -1,28 +1,34 @@
 'use client'
+import { useAuth } from '@/utils/useAuth'
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import styles from './consulta.module.css';
 import Header from '../../components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
-import { useAuth } from '@/utils/AuthProvider';
-import { useRouter } from 'next/navigation';
+import withAuth from '@/utils/withAuth';
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
-export default function Consulta() {
-  const router = useRouter();
-  const { authData } = useAuth();
+const Consulta = () => {
+  const { authData } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!authData) {
+      router.push('/login');
+      return null
+    }
+  }, [authData, router]);
 
   if (!authData) {
-    // Redireciona para a página de login
-    router.push('/login');
-    return null; // Evita renderizar a página protegida antes de redirecionar
+    return <div>Carregando...</div>; // Ou qualquer mensagem de carregamento
   }
 
-  const [nomeLivro, setNomeLivro] = useState('');
-  const [autor, setAutor] = useState('');
-  const [genero, setGenero] = useState('');
-  const [dados, setDados] = useState(null);  
-  const [dadosAPI, setDadosAPI] = useState(null);
+  const [nomeLivro, setNomeLivro] = useState('')
+  const [autor, setAutor] = useState('')
+  const [genero, setGenero] = useState('')
+  const [dados, setDados] = useState(null); 
+  const [dadosAPI, setDadosAPI] = useState(null)
 
   useEffect(() => {
     // Fazer a chamada à API para obter os dados dos livros
@@ -79,3 +85,4 @@ export default function Consulta() {
   );
 }
 
+export default withAuth(Consulta)

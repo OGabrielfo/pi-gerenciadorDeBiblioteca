@@ -1,37 +1,27 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { login } from '@/utils/authService';
 import styles from './login.module.css'
-import axios from 'axios'
 import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
-const API_URL = 'http://127.0.0.1:8000/api/login/'
 
-export default function LoginPage() {
-
+const LoginPage = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('');
   const [stayConnected, setStayConnected] = useState(false) // novo estado para a checkbox
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-  
-    const dados = {
-      username: email,
-      password: password,
-    }
 
     try {
-      const response = await axios.post(API_URL, dados);
-      
-      if (response.status === 200) {
-        router.push('/consulta');
-        return response.data;
-      }} catch (error) {
-        setError('Usuário ou senha inválidos');
-        throw error;
+      await login(username, password, stayConnected);
+      router.push('/consulta');
+    } catch (error) {
+      setError('Usuário ou senha inválidos');
+      throw error;
     }
   }
 
@@ -44,7 +34,7 @@ export default function LoginPage() {
         <div className={styles.login}>
           <h1 className={styles.h1}>Login</h1>
           <form onSubmit={handleSubmit} className={styles.inputs}>
-            <input type="text" placeholder="Digite seu usuário" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="text" placeholder="Digite seu usuário" value={username} onChange={(e) => setUsername(e.target.value)} />
             <input className={styles.inputPassword} type="password" placeholder="Digite sua senha" value={password} onChange={(e) => setPassword(e.target.value)} />
             <label className={styles.label}>
               <div className={styles.checkboxWrapper14}>
@@ -63,3 +53,5 @@ export default function LoginPage() {
     </body>
   )
 }
+
+export default LoginPage

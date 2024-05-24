@@ -1,10 +1,12 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from django.contrib.auth import authenticate
 from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo
-from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer, LoginSerializer
+from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer
 
 class NichoViewSet(viewsets.ModelViewSet):
     queryset = Nicho.objects.all()
@@ -42,22 +44,16 @@ class LivroEmprestimoViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
 
 class LoginViewSet(viewsets.ViewSet):
-    serializer_class = LoginSerializer
+    permission_classes = [AllowAny]
 
-    def create(self, request):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        username = serializer.validated_data['username']
-        password = serializer.validated_data['password']
+    @action(detail=False, methods=['post'])
+    def login(self, request):
+        view = TokenObtainPairView.as_view()
+        response = view(request._request)
+        return Response(response.data, status=response.status_code)
 
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({
-                'token': token.key,
-                'user_id': user.pk,
-                'email': user.email
-            })
-        else:
-            return Response({'error': 'Invalid credentials'}, status=400)
+    @action(detail=False, methods=['post'])
+    def refresh(self, request):
+        view = TokenRefreshView.as_view()
+        response = view(request._request)
+        return Response(response.data, status=response.status_code)
