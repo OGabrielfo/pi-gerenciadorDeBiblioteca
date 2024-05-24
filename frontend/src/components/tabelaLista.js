@@ -1,4 +1,5 @@
 'use client'
+import { fetchWithAuth } from '@/utils/authService';
 import { useEffect, useState } from "react"
 import styles from "./tabelaLista.module.css"
 
@@ -18,9 +19,9 @@ export default function TabelaConsultar(props) {
     useEffect(() => {
         async function fetchDados() {
             try {
-                const respEmprestimos = await fetch (API_URL)
-                const respAlunos = await fetch (API_Alunos)
-                const respFuncionarios = await fetch (API_Professor)
+                const respEmprestimos = await fetchWithAuth(API_URL)
+                const respAlunos = await fetchWithAuth(API_Alunos)
+                const respFuncionarios = await fetchWithAuth(API_Professor)
                 const dataEmprestimos = await respEmprestimos.json()
                 const dataAlunos = await respAlunos.json()
                 const dataFuncionarios = await respFuncionarios.json()

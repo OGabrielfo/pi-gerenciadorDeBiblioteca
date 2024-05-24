@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from '../../app/alterar/alterar.module.css'
 import Header from '../../components/header'
 import BtnAlterar from '@/components/btnAlterar'
@@ -13,12 +15,14 @@ const API_URL = 'http://127.0.0.1:8000/api/livro/'
 export const AlterarLivroContext = createContext();
 
 const alterar = () => { 
+    const { authData } = useAuth();
+
     const [isUpdated, setIsUpdated] = useState(false);
     const [dadosApi, setDadosApi] = useState();
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
     const fetchAllData = async () => { // Retorna todas as linhas da api
       try{
-        const response = await fetch(API_URL);
+        const response = await fetchWithAuth(API_URL);
         const data = await response.json();
         return data;
       } catch (error) {
@@ -84,6 +88,10 @@ const alterar = () => {
         document.getElementById("inputExemplaresTotais").value = "";
         document.getElementById("inputExemplaresSaldo").value = "";
         document.getElementById("codigoSelecionado").textContent = "";
+    }
+
+    if (!authData) {
+      return <p>Carregando...</p>;
     }
 
     return(

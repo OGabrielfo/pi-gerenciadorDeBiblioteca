@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from './livros.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
@@ -8,6 +10,8 @@ import Modal from '@/components/modal'
 var API_URL = 'http://127.0.0.1:8000/api/livro/'
 
 function registrarLivros() {     
+    const { authData } = useAuth();
+
     const [isOpen, setIsOpen] = useState(false)
     const [opSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState('')
@@ -47,7 +51,13 @@ function registrarLivros() {
 
         // Tentativa de envio para o backend
         try {
-            const response = await axios.post (API_URL, dados)
+            const response = await fetchWithAuth(API_URL, {
+                method: 'POST',
+                data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                headers: {
+                  'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
+                }
+            });
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/livros/') // redireciona o usuário após o cadastro com sucesso
@@ -68,7 +78,7 @@ function registrarLivros() {
     useEffect(() => {
         async function fetchNichos() {
             try {
-                const response = await fetch ('http://localhost:8000/api/nicho')
+                const response = await fetchWithAuth('http://localhost:8000/api/nicho/')
                 const data = await response.json()
                 setNichos(data)
             } catch (error) {
@@ -79,6 +89,10 @@ function registrarLivros() {
         fetchNichos()
     }, [])
         
+    if (!authData) {
+        return <p>Carregando...</p>;
+    }
+
     // Página html retornada pela função
     return(
         <section className={styles.container}>

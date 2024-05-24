@@ -34,7 +34,7 @@ export const getRefreshToken = () => {
   return Cookies.get('refreshToken');
 };
 
-export const fetchWithAuth = async (url, options = {}) => {
+export const fetchWithAuth = async (url, { method = 'GET', data, ...options } = {}) => {
   const token = getAccessToken();
   if (!token) {
     throw new Error('No access token available');
@@ -45,7 +45,14 @@ export const fetchWithAuth = async (url, options = {}) => {
     'Authorization': `Bearer ${token}`,
   };
 
-  const response = await fetch(url, { ...options, headers });
+  const requestOptions = {
+    ...options,
+    method,
+    headers,
+    body: data ? JSON.stringify(data) : null,
+  };
+
+  const response = await fetch(url, requestOptions);
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }

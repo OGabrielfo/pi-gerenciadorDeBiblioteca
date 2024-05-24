@@ -51,7 +51,7 @@ class Professor_Funcionario(models.Model):
     ocupacao = models.CharField(max_length=40, null=True)
     #cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
     telefone = models.CharField(max_length=11, null=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True)
     #data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
     #ativo = models.BooleanField(default=True)
 

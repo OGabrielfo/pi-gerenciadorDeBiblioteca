@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from '../../alterar/alterar.module.css'
 import Header from '@/components/header'
 import BtnAlterar from '@/components/btnAlterar'
@@ -14,6 +16,7 @@ const API_URL = 'http://127.0.0.1:8000/api/aluno/'
 export const AlterarAlunoContext = createContext();
 
 export default function alterar() {
+    const { authData } = useAuth();
 
     const [alunosPesquisa, setAlunosPesquisa] = useState();
     const [isUpdated, setIsUpdated] = useState(false);
@@ -22,7 +25,7 @@ export default function alterar() {
     
     const fetchAllData = async () => {
         try{
-            const response = await fetch(API_URL);
+            const response = await fetchWithAuth(API_URL);
             const data = await response.json();
             return data;
         } catch (error) {
@@ -80,6 +83,10 @@ export default function alterar() {
         document.getElementById("inputTelefone").value = "";
         document.getElementById("inputEmail").value = "";
         document.getElementById("codigoSelecionado").textContent = "";
+    }
+
+    if (!authData) {
+        return <p>Carregando...</p>;
     }
     
     return(

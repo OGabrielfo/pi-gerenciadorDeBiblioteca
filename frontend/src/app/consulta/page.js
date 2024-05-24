@@ -15,7 +15,7 @@ const Consulta = () => {
   const [autor, setAutor] = useState('');
   const [genero, setGenero] = useState('');
   const [dados, setDados] = useState(null); 
-  const [dadosAPI, setDadosAPI] = useState([]);
+  const [dadosAPI, setDadosAPI] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,21 +33,24 @@ const Consulta = () => {
     }
   }, [authData]);
 
-  console.log(dadosAPI)
+  useEffect(() => {
+    if (dadosAPI) {
+      console.log('dadosAPI atualizado:', dadosAPI);
+    }
+  }, [dadosAPI]); // TODO Remover função ao finalizar
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (dadosAPI) {
-      const resultados = dadosAPI.filter((livro) =>
-        (nomeLivro === '' || livro.nome_do_livro.toUpperCase() === nomeLivro.toUpperCase()) &&
-        (autor === '' || livro.autor.toUpperCase() === autor.toUpperCase()) &&
-        (genero === '' || livro.tipo.toUpperCase() === genero.toUpperCase())
-      );
-      if (resultados.length === 0) {
-        alert('Nenhum livro encontrado');
-      } else {
-        setDados(resultados);
-      }
+    const resultados = dadosAPI.filter((livro) =>
+      (nomeLivro === '' || livro.nome_do_livro.toUpperCase().includes(nomeLivro.toUpperCase())) &&
+      (autor === '' || livro.autor.toUpperCase().includes(autor.toUpperCase())) &&
+      (genero === '' || livro.tipo.toUpperCase().includes(genero.toUpperCase()))
+    );
+    
+    if (resultados.length === 0) {
+      alert('Nenhum livro encontrado');
+    } else {
+      setDados(resultados);
     }
   };
 
