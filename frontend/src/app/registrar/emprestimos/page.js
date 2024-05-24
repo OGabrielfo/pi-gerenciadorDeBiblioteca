@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from './emprestimos.module.css'
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
@@ -14,7 +16,10 @@ const API_LivrosEmprestimo = 'https://gerenciadordebibliotecaback-08343971641b.h
 const API_StatusEmprestimo = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/status_emprestimo/'
 
 export default function registrarEmprestimos() {
+    const { authData } = useAuth();
+
     const [isOpen, setIsOpen] = useState(false);
+    const [opSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState('');
     const router = useRouter();
 
@@ -54,10 +59,10 @@ export default function registrarEmprestimos() {
     useEffect(() => {
         async function fetchDados() {
             try {
-                const respLivros = await fetch (API_Livros)
-                const respAlunos = await fetch (API_Alunos)
-                const respFuncionarios = await fetch (API_Funcionarios)
-                const respStatusEmprestimo = await fetch (API_StatusEmprestimo)
+                const respLivros = await fetchWithAuth(API_Livros)
+                const respAlunos = await fetchWithAuth(API_Alunos)
+                const respFuncionarios = await fetchWithAuth(API_Funcionarios)
+                const respStatusEmprestimo = await fetchWithAuth(API_StatusEmprestimo)
                 const dataLivros = await respLivros.json()
                 const dataAlunos = await respAlunos.json()
                 const dataFuncionarios = await respFuncionarios.json()
@@ -109,10 +114,17 @@ export default function registrarEmprestimos() {
 
         // Tentativa de envio para o backend de emprestimo de livros
         try {
-            const responseEmprestimo = await axios.post (API_Emprestimo, dados)
+            const responseEmprestimo = await fetchWithAuth(API_Emprestimo, {
+                method: 'POST',
+                data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                headers: {
+                  'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
+                }
+            });
             console.log(responseEmprestimo.data)
 
-            const idEmprestimo = responseEmprestimo.data.id_emprestimo
+            const emprestimoData = await responseEmprestimo.json();
+            const idEmprestimo = emprestimoData.id_emprestimo;
 
             for (let livro of livros) {
                 let livroData = {
@@ -123,7 +135,13 @@ export default function registrarEmprestimos() {
                 }
                 // Tentativa de envio para o backend
                 try {
-                    const responseLivro = await axios.post (API_LivrosEmprestimo, livroData)
+                    const responseLivro = await fetchWithAuth(API_LivrosEmprestimo, {
+                        method: 'POST',
+                        data: livroData, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                        headers: {
+                          'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
+                        }
+                    });
                     console.log(responseLivro.data)
                 } catch (error) {
                     console.error(error)
@@ -131,8 +149,10 @@ export default function registrarEmprestimos() {
             }
             limparFormulario()
             router.push('/registrar/emprestimos/')
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
             console.error(error)
         } finally {
@@ -146,6 +166,10 @@ export default function registrarEmprestimos() {
         setSituacao(situacao.status)
         setIdSituacao(situacao.id_status)
     };
+
+    if (!authData) {
+        return <p>Carregando...</p>;
+      }
 
     return(
         <section className={styles.container}>
@@ -234,7 +258,7 @@ export default function registrarEmprestimos() {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }

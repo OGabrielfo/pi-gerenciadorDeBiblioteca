@@ -1,7 +1,7 @@
 from django.contrib import admin
 #from django.db.utils import DatabaseError
 #from django.contrib import messages
-from .models import Nicho, Livro, Aluno, Professor_Funcionario, StatusEmprestimo, Emprestimo, LivroEmprestimo, ConsultaLivroAdmin, EmprestimoAdmin, Login
+from .models import Nicho, Livro, Aluno, Professor_Funcionario, StatusEmprestimo, Emprestimo, LivroEmprestimo, ConsultaLivroAdmin, EmprestimoAdmin
 
 admin.site.register(Nicho)
 admin.site.register(Livro, ConsultaLivroAdmin)
@@ -18,4 +18,5 @@ class LivroEmprestimoAdmin(admin.ModelAdmin):
             messages.error(request, "Erro ao salvar empréstimo: Saldo de exemplares insuficiente.")
 """
 admin.site.register(LivroEmprestimo)
-admin.site.register(Login)
+
+

@@ -10,6 +10,6 @@ router.register(r'aluno', AlunoViewSet)
 router.register(r'status_emprestimo', StatusEmprestimoViewSet)
 router.register(r'emprestimo', EmprestimoViewSet)
 router.register(r'livro_emprestimo', LivroEmprestimoViewSet)
-router.register(r'login', LoginViewSet)
+router.register(r'auth', LoginViewSet, basename='auth')
 
 urlpatterns = router.urls

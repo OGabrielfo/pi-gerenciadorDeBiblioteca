@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from './usuarios.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
@@ -10,7 +12,10 @@ let $, mask
 var API_URL = ''
 
 const registrarUsuarios = () => {
+    const { authData } = useAuth();
+
     const [isOpen, setIsOpen] = useState(false);
+    const [opSuccess, setSuccess] = useState(false)
     const [message, setMessage] = useState('');
     const router = useRouter();
     
@@ -62,13 +67,21 @@ const registrarUsuarios = () => {
 
         // Tentativa de envio para o backend
         try {
-            const response = await axios.post(API_URL, dados)
+            const response = await fetchWithAuth(API_URL, {
+                method: 'POST',
+                data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                headers: {
+                  'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
+                }
+            });
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
         } finally {
             setIsOpen(true)
@@ -82,19 +95,19 @@ const registrarUsuarios = () => {
             const turmaInput = document.getElementById("turmaInput")
             const ocupacaoComp = document.getElementById("ocupacao")
             const ocupacaoInput = document.getElementById("ocupacaoInput")
-            ocupacaoComp.setAttribute("hidden", true)
-            turmaComp.setAttribute("hidden", true)
+            ocupacaoComp?.setAttribute("hidden", true)
+            turmaComp?.setAttribute("hidden", true)
 
             if(tipoComp){ // Ativa preenchimento de funcionário
-                turmaComp.setAttribute("hidden", true)
-                turmaInput.removeAttribute("required")
-                ocupacaoComp.removeAttribute("hidden")
-                ocupacaoInput.setAttribute("required", true)
+                turmaComp?.setAttribute("hidden", true)
+                turmaInput?.removeAttribute("required")
+                ocupacaoComp?.removeAttribute("hidden")
+                ocupacaoInput?.setAttribute("required", true)
             } else { // Ativa preenchimento de aluno
-                turmaComp.removeAttribute("hidden")
-                turmaInput.setAttribute("required", true)
-                ocupacaoComp.setAttribute("hidden", true)
-                ocupacaoInput.removeAttribute("required")
+                turmaComp?.removeAttribute("hidden")
+                turmaInput?.setAttribute("required", true)
+                ocupacaoComp?.setAttribute("hidden", true)
+                ocupacaoInput?.removeAttribute("required")
             }
         }
     }, [tipoComp])
@@ -109,6 +122,7 @@ const registrarUsuarios = () => {
             }
         }, []);
     }
+    
     
 
     return(
@@ -203,7 +217,7 @@ const registrarUsuarios = () => {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }

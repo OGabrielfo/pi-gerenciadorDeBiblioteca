@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
-from django.core.exceptions import ValidationError
 from validate_docbr import CPF  # Esta importação requer a instalação do pacote 'validate-docbr'
 
 
@@ -52,7 +51,7 @@ class Professor_Funcionario(models.Model):
     ocupacao = models.CharField(max_length=40, null=True)
     #cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
     telefone = models.CharField(max_length=11, null=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True)
     #data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
     #ativo = models.BooleanField(default=True)
 
@@ -166,20 +165,6 @@ class LivroEmprestimo(models.Model):
 
     def __str__(self):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
-
-##############################################
-class Login(models.Model):
-    id_login = models.AutoField(primary_key=True)
-    nome_do_usuario = models.CharField(max_length=150)
-    email = models.EmailField()
-    senha = models.CharField(max_length=150)
-    #data_registro = models.DateField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'login'
-
-    def __str__(self):
-        return self.nome_do_usuario  # Definindo a representação como o nome do usuário
 
 
 ##############################################

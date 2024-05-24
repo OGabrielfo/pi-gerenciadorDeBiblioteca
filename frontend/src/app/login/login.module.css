@@ -1,59 +1,13 @@
-@media (max-width:720px){
-
-  .body  .logo{
-    margin-top: 25%;
-    width: 100%;
-    height: auto;
-  }
-  .body .logo .img{
-    width: 60%;
-  }
-
-  .body .containerLogin .login{
-    margin-top: 10%;
-    width: 70%;
-    height: 62%;
-  }
-
-  .body .containerLogin .botao .button{
-    width: 50%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-  }
-
-}
-
-@media  (max-width:1440px) {
-  .body{
-    height: 80vh;
-  }
-
-  .logo{
-    height: 30vh;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    text-align: center;
-}
-
-  .logo .img{
-    width: 30%;
-  }
-
-  .containerLogin .login{
-    width: 35%;
-    height: 65%;
-  }
-
-  .inputs .inputPassword{
-    margin-top: 4%;
-  }
-}
-
-
 .body{
     font-family: var(--ZenMaru);
     color: #fff; 
-    font-weight: lighter;   
+    font-weight: lighter;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
   
 .zen-maru-gothic-regular {
@@ -70,7 +24,7 @@
 }
 
 .img{
-    width: 20%;
+    width: 400px;
     height: auto;
 }
 
@@ -81,11 +35,6 @@
     flex-direction: row;
     align-items: center;
 }
-
-.checkboxWrapper14 .label{
-  
-}
-
 
 @supports (-webkit-appearance: none) or (-moz-appearance: none) {
     .checkboxWrapper14 input[type=checkbox] {
@@ -180,8 +129,8 @@
       border-radius: 11px;
     }
     .checkboxWrapper14 input[type=checkbox].switch:after {
-      left: 2px;
-      top: 2px;
+      left: 1px;
+      top: 1px;
       border-radius: 50%;
       width: 17px;
       height: 17px;
@@ -196,7 +145,6 @@
       opacity: 0.6;
     }
   }
-
 
 .inputs{
     text-align: center;
@@ -216,29 +164,32 @@
     width: 94%;
 }
 
-.botao{
-    display: flex;
-    justify-content: center;
+.button {
+  margin: 30px auto 0px auto;
+  justify-self: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 15px;
+  border-color: transparent;
+  background-color: var(--cor03);
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: rgb(240, 240, 240);
+  transition: 0.2s;
+  cursor: pointer;
 }
 
-.botao button{
-  margin-top: 10%;
-  width: 45%;
-  height: 15%;
-  background-color: #335555;
-  padding-top: 1.5%;
-  padding-bottom: 1.5%;
-  font-size: 22px;
-  border-radius: 18px;
-  font-family: var(--ZenMaru);
-  color: #fff;
-  border: none;
+.button:hover {
+  background-color: var(--cor04);
+  transition: 0.2s;
 }
 
 .logo{
     height: auto;
-    margin-top: 8%;
-    margin-bottom: 2%;
+    margin-top: 40px;
+    margin-bottom: 15px;
     text-align: center;
 }
 
@@ -253,7 +204,59 @@
     border-radius: 25px;
     margin-top: 0.5%;
     padding: 5px 10px;
-    width: 26%;
-    height: 73%;
-    background-color: #558D8D;
+    height: 380px;
+    background-color: var(--cor05);
+}
+
+@media  (max-width:1440px) {
+  .body{
+    height: 80vh;
+  }
+
+  .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+  .img{
+    width: 350px;
+  }
+
+  .login{
+    width: 350px;
+    height: 380px
+  }
+
+  .inputs .inputPassword{
+    margin-top: 4%;
+  }
+}
+
+@media (max-width:720px){
+
+  .logo{
+    margin-top: 40px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: auto;
+  }
+  .img{
+    width: 300px;
+  }
+
+  .login{
+    width: 300px;
+    height: 350px;
+  }
+
+  .body .containerLogin .botao .button{
+    width: 50%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+
 }

@@ -1,4 +1,6 @@
-'use client'
+'use client';
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import { useState, useEffect } from 'react';
 import styles from './consulta.module.css';
 import Header from '../../components/header';
@@ -6,33 +8,45 @@ import TabelaConsultar from '@/components/tabelaConsultar';
 
 const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/livro/';
 
-export default function Consulta() {
+const Consulta = () => {
+  const { authData } = useAuth();
+
   const [nomeLivro, setNomeLivro] = useState('');
   const [autor, setAutor] = useState('');
   const [genero, setGenero] = useState('');
-  const [dados, setDados] = useState(null);  
+  const [dados, setDados] = useState(null); 
   const [dadosAPI, setDadosAPI] = useState(null);
 
   useEffect(() => {
-    // Fazer a chamada à API para obter os dados dos livros
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => {
-        // Atualizar o estado com os dados dos livros
-        setDadosAPI(data);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchWithAuth(API_URL);
+        const data = await response.json();
+        setDadosAPI(data); // Atualizar o estado com os dados
+      } catch (error) {
         console.error('Erro ao buscar dados dos livros:', error);
-      });
-  }, []); // Executa apenas uma vez quando o componente é montado
+      }
+    };
+
+    if (authData) {
+      fetchData();
+    }
+  }, [authData]);
+
+  useEffect(() => {
+    if (dadosAPI) {
+      console.log('dadosAPI atualizado:', dadosAPI);
+    }
+  }, [dadosAPI]); // TODO Remover função ao finalizar
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const resultados = dadosAPI.filter((livro) =>
-      (nomeLivro === '' || livro.nome_do_livro.toUpperCase() === nomeLivro.toUpperCase()) &&
-      (autor === '' || livro.autor.toUpperCase() === autor.toUpperCase()) &&
-      (genero === '' || livro.tipo.toUpperCase() === genero.toUpperCase())
+      (nomeLivro === '' || livro.nome_do_livro.toUpperCase().includes(nomeLivro.toUpperCase())) &&
+      (autor === '' || livro.autor.toUpperCase().includes(autor.toUpperCase())) &&
+      (genero === '' || livro.tipo.toUpperCase().includes(genero.toUpperCase()))
     );
+    
     if (resultados.length === 0) {
       alert('Nenhum livro encontrado');
     } else {
@@ -40,9 +54,13 @@ export default function Consulta() {
     }
   };
 
+  if (!authData) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <div>
-      <Header>Consulta </Header>   
+      <Header>Consulta</Header>   
       <div className={styles.container}>
         <div className={styles.title}>
           <label className={styles.label}>Título</label>
@@ -66,4 +84,6 @@ export default function Consulta() {
       </div>
     </div>
   );
-}
+};
+
+export default Consulta;

@@ -1,4 +1,6 @@
 'use client'
+import { useAuth } from '@/utils/useAuth';
+import { fetchWithAuth } from '@/utils/authService';
 import styles from './livros.module.css'
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation'
@@ -8,8 +10,11 @@ import Modal from '@/components/modal'
 var API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/livro/'
 
 function registrarLivros() {     
-    const [isOpen, setIsOpen] = useState(false);
-    const [message, setMessage] = useState('');
+    const { authData } = useAuth();
+
+    const [isOpen, setIsOpen] = useState(false)
+    const [opSuccess, setSuccess] = useState(false)
+    const [message, setMessage] = useState('')
 // Função de registro dos dados no banco
     // Definição das variáveis e useStates
     const [nome, setNome] = useState('')
@@ -46,13 +51,21 @@ function registrarLivros() {
 
         // Tentativa de envio para o backend
         try {
-            const response = await axios.post (API_URL, dados)
+            const response = await fetchWithAuth(API_URL, {
+                method: 'POST',
+                data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                headers: {
+                  'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
+                }
+            });
             console.log(response.data)
             limparFormulario()
             router.push('/registrar/livros/') // redireciona o usuário após o cadastro com sucesso
+            setSuccess(true)
             setMessage('Cadastro realizado com sucesso!')
         } catch (error) {
             console.error(error)
+            setSuccess(false)
             setMessage('Ocorreu um erro!')
         } finally {
             setIsOpen(true)
@@ -65,7 +78,7 @@ function registrarLivros() {
     useEffect(() => {
         async function fetchNichos() {
             try {
-                const response = await fetch ('https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/nicho')
+                const response = await fetchWithAuth('https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/nicho/')
                 const data = await response.json()
                 setNichos(data)
             } catch (error) {
@@ -76,6 +89,10 @@ function registrarLivros() {
         fetchNichos()
     }, [])
         
+    if (!authData) {
+        return <p>Carregando...</p>;
+    }
+
     // Página html retornada pela função
     return(
         <section className={styles.container}>
@@ -153,7 +170,7 @@ function registrarLivros() {
                     </button>
                 </div>
             </form>
-            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} />
+            <Modal isOpen={isOpen} message={message} onClose={() => setIsOpen(false)} status={opSuccess} />
         </section>
     )
 }

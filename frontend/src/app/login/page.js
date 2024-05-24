@@ -1,58 +1,35 @@
 'use client'
 import { useState } from 'react'
-import { setCookie } from 'nookies'
-import jwtSimple from 'jwt-simple'
+import { useRouter } from 'next/navigation'
+import { login } from '@/utils/authService';
 import styles from './login.module.css'
 import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
-const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/login'
+const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/auth/login'
 
-export default function LoginPage() {
-
+const LoginPage = () => {
+  const router = useRouter();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('');
   const [stayConnected, setStayConnected] = useState(false) // novo estado para a checkbox
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-  
-    try {
-      const response = await fetch(`${API_URL}?username=${username}&password=${password}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-  
-      if (!response.ok) {
-        throw new Error('Erro na solicitação à API');
-      }
 
-      const data = await response.json();
-      console.log(data);
-    
-      // Verifica se as credenciais são válidas
-      if (!data.) { //AQUI QUE N SEI OQ COLOCAR PARA QUE ELE EXECUTE CERTO
-        throw new Error('Usuário ou senha incorretos');
-      }
-  
-      const token = jwtSimple.encode({username, password}, 'PRIVATE_KEY');
-      setCookie(null, 'token', data.token, {
-        maxAge: stayConnected ? 6 * 30 * 24 * 60 * 60 : 24 * 60 * 60,
-        path: '/',
-     })
-  
-      window.location.href = '/consulta';
+    try {
+      await login(username, password, stayConnected);
+      router.push('/consulta');
     } catch (error) {
-      alert(error.message);
+      setError('Usuário ou senha inválidos');
+      throw error;
     }
   }
-  
 
   return (
-    <body className={styles.body}>
+    <div className={styles.body}>
       <div className={styles.logo}>
-        <Image className={styles.img} src={ Logo } alt="logo" />
+        <Image priority={true} className={styles.img} src={ Logo } alt="logo" />
       </div>
       <div className={styles.containerLogin}>
         <div className={styles.login}>
@@ -66,13 +43,14 @@ export default function LoginPage() {
                 <label htmlFor="s1-14">Permanecer Conectado</label>
               </div>
             </label>
-            <div className={styles.botao}>
-              <button className={styles.button} type="submit">Entrar</button>
-            </div>
+            {error && <p>{error}</p>}
+            <button className={styles.button} type="submit">Entrar</button>
           </form>
           <br />
         </div>
       </div>
-    </body>
+    </div>
   )
 }
+
+export default LoginPage
