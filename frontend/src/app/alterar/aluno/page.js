@@ -11,7 +11,7 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState, createContext, useEffect} from 'react';
 import lista from '@/app/lista/page'
 
-const API_URL = 'http://127.0.0.1:8000/api/aluno/'
+const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/aluno/'
 
 export const AlterarAlunoContext = createContext();
 

@@ -5,7 +5,6 @@ import { login } from '@/utils/authService';
 import styles from './login.module.css'
 import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
-const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/auth/login'
 
 const LoginPage = () => {
   const router = useRouter();

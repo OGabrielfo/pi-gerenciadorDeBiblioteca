@@ -10,7 +10,7 @@ import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState, createContext, useEffect} from 'react';
 
-const API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
+const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/professor_funcionario/'
 export const AlterarFuncionarioContext = createContext();
 
 
