@@ -3,14 +3,23 @@ import Image from "next/image";
 import TrashIMG from "/public/trash.png"
 import styles from "./tabelaAlterar.module.css";
 import { AlterarLivroContext } from "@/app/alterar/page";
+import { AlterarAlunoContext } from "@/app/alterar/aluno/page";
+import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
 import React, {useContext, useState} from "react";
 
 export default function TabelaAlterar(props) {
-    const {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
+
+    if (props.tipo == "livro"){
+        var {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
+    } else if (props.tipo == "aluno") {
+        var {isUpdated, setIsUpdated} = useContext(AlterarAlunoContext);
+    } else{
+        var {isUpdated, setIsUpdated} = useContext(AlterarFuncionarioContext);
+    }
 
     const deleteData = async (id) => { // Deleta uma linha de dados
         try{
-            const url = `http://127.0.0.1:8000/api/livro/${id}/`
+            const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
             const response = await fetch (url, {
                 method: "DELETE",
                 headers: {
@@ -46,10 +55,11 @@ export default function TabelaAlterar(props) {
             document.getElementById("codigoSelecionado").textContent = dado.id_livro;
         }
         else if (props.tipo == "aluno"){
-            document.getElementById("inputNome").placeholder = dado.nome;
+            document.getElementById("inputNome").placeholder = dado.nome_do_aluno;
             document.getElementById("inputSala").placeholder = dado.sala;
             document.getElementById("inputTelefone").placeholder = dado.telefone;
             document.getElementById("inputEmail").placeholder = dado.email;
+            document.getElementById("codigoSelecionado").textContent = dado.id_aluno;
 
             document.getElementById("inputNome").value = "";
             document.getElementById("inputSala").value = "";
@@ -57,10 +67,11 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputEmail").value = "";
         }
         else{
-            document.getElementById("inputNome").placeholder = dado.nome;
-            document.getElementById("inputOcupacao").placeholder = dado.funcao;
+            document.getElementById("inputNome").placeholder = dado.nome_do_professor_funcionario;
+            document.getElementById("inputOcupacao").placeholder = dado.ocupacao;
             document.getElementById("inputTelefone").placeholder = dado.telefone;
             document.getElementById("inputEmail").placeholder = dado.email;
+            document.getElementById("codigoSelecionado").textContent = dado.id_professor_funcionario;
 
             document.getElementById("inputNome").value = "";
             document.getElementById("inputOcupacao").value = "";
@@ -68,10 +79,6 @@ export default function TabelaAlterar(props) {
             document.getElementById("inputEmail").value = "";
         }
     }   
-    
-    const handleRadioClickUsuario = (event) => {
-        let dado = props.dados[event.target.id];
-    }
 
     function renderLines(dados, tipo, campo1, campo2, campo3){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
@@ -121,7 +128,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLines(props.dados, props.tipo, "codigo", "nome", "sala")}
+                        {renderLines(props.dados, props.tipo, "id_aluno", "nome_do_aluno", "sala")}
                     </tbody>
                 </table>
             </div>
@@ -159,7 +166,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLines(props.dados, props.tipo, "codigo", "nome", "funcao")}
+                        {renderLines(props.dados, props.tipo, "id_professor_funcionario", "nome_do_professor_funcionario", "ocupacao")}
                     </tbody>
                 </table>
             </div>

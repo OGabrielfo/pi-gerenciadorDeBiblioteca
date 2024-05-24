@@ -14,19 +14,16 @@ export const AlterarLivroContext = createContext();
 
 const alterar = () => { 
     const [isUpdated, setIsUpdated] = useState(false);
-    const [loading, setLoading] = useState();
     const [dadosApi, setDadosApi] = useState();
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
     const fetchAllData = async () => { // Retorna todas as linhas da api
       try{
-        setLoading(true);
         const response = await fetch(API_URL);
         const data = await response.json();
         return data;
       } catch (error) {
         console.log(error)
       } finally {
-        setLoading(false)
       }
     } 
 
@@ -40,6 +37,7 @@ const alterar = () => {
         (async () => {
           const data = await fetchAllData();
           procurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "nome_do_livro", "autor", data);
+          setDadosApi(data);
           setIsUpdated(false)
         })();
       }
@@ -54,21 +52,40 @@ const alterar = () => {
     const procurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => { // É efetuado quando o botao "procurar x" é selecionado ou quando uma linha é alterada/deletada.
         let valor1 = campoPesquisa1.value.toLowerCase();
         let valor2 = campoPesquisa2.value.toLowerCase();
-        if (valor1 != "" || valor2 != ""){
-          console.log("Procura feita");
-          let listaTemporaria;
-          if(valor1.trim() !== ""){
-              console.log("1 feita");
-              listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
-              listaTotal = [...listaTemporaria];
-          }
-          if(valor2.trim() != ""){
-              console.log("2 feita");
-              listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
-          }
-          setLivrosPesquisa(listaTemporaria);
+        let listaTemporaria;
+        if(valor1.trim() !== ""){
+            console.log("1 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
+            listaTotal = [...listaTemporaria];
         }
+        if(valor2.trim() != ""){
+            console.log("2 feita");
+            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
+        }
+        setLivrosPesquisa(listaTemporaria);
+        resetarCampos()
+        campoPesquisa1.value = "";
+        campoPesquisa2.value = "";
     }
+
+    function resetarCampos(){ // Resta os campos de um livro
+        document.getElementById("inputTitulo").placeholder = "Digite o título do livro";
+        document.getElementById("inputAutor").placeholder = "Digite o autor do livro";
+        document.getElementById("inputGenero").placeholder = "Digite o gênero do livro";
+        document.getElementById("inputNicho").placeholder = "Digite o nicho";
+        document.getElementById("inputExemplaresTotais").placeholder = "Digite os exemplares totais";
+        document.getElementById("inputExemplaresSaldo").placeholder = "Digite o saldo de exemplares";
+
+
+        document.getElementById("inputTitulo").value = "";
+        document.getElementById("inputAutor").value = "";
+        document.getElementById("inputGenero").value = "";
+        document.getElementById("inputNicho").value = "";
+        document.getElementById("inputExemplaresTotais").value = "";
+        document.getElementById("inputExemplaresSaldo").value = "";
+        document.getElementById("codigoSelecionado").textContent = "";
+    }
+
     return(
         <>
             <Header>Alterar</Header>
