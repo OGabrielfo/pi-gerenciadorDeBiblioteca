@@ -1,13 +1,11 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation';
-import { setCookie } from 'nookies'
-import jwtSimple from 'jwt-simple'
+import { useRouter } from 'next/navigation'
 import styles from './login.module.css'
 import axios from 'axios'
 import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
-const API_URL = 'http://127.0.0.1:8000/api/auth/login/'
+const API_URL = 'http://127.0.0.1:8000/api/login/'
 
 export default function LoginPage() {
 
@@ -20,17 +18,20 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
   
-    try {
-      const response = await axios.post(API_URL, { email, password });
-      if (response.status === 200) {
-        if (stayConnected) {
-          localStorage.setItem('token', response.data.access);
-        }
-        router.push('/consulta');
+    const dados = {
+      username: email,
+      password: password,
     }
+
+    try {
+      const response = await axios.post(API_URL, dados);
       
-    } catch (err) {
+      if (response.status === 200) {
+        router.push('/consulta');
+        return response.data;
+      }} catch (error) {
         setError('Usuário ou senha inválidos');
+        throw error;
     }
   }
 

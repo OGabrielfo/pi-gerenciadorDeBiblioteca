@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'biblioteca',
     'rest_framework',
+    'rest_framework.authtoken',
     'bootstrap4',
     'stdimage',
     "corsheaders",
@@ -66,19 +67,6 @@ CORS_ALLOWED_ORIGINS = [
 
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
-
-SIMPLE_JWT = {
-    'AUTH_COOKIE': 'access_token',  # Cookie name. Can be whatever you want.
-    'AUTH_COOKIE_SECURE': False,  # Whether the auth cookies should be secure (https). You should set this to True in production.
-    'AUTH_COOKIE_HTTP_ONLY': True,  # Whether the auth cookies should be HttpOnly. This is more secure and you should set it to True.
-    'AUTH_COOKIE_PATH': '/',  # The path of the auth cookie.
-    'AUTH_COOKIE_SAMESITE': 'Lax',  # The samesite attribute of the auth cookie. You should set it to 'Lax' or 'Strict'.
-}
 
 ROOT_URLCONF = 'drp03_pi.urls'
 

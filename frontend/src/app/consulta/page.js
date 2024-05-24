@@ -3,10 +3,21 @@ import { useState, useEffect } from 'react';
 import styles from './consulta.module.css';
 import Header from '../../components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
+import { useAuth } from '@/utils/AuthProvider';
+import { useRouter } from 'next/navigation';
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
 export default function Consulta() {
+  const router = useRouter();
+  const { authData } = useAuth();
+
+  if (!authData) {
+    // Redireciona para a página de login
+    router.push('/login');
+    return null; // Evita renderizar a página protegida antes de redirecionar
+  }
+
   const [nomeLivro, setNomeLivro] = useState('');
   const [autor, setAutor] = useState('');
   const [genero, setGenero] = useState('');
@@ -67,3 +78,4 @@ export default function Consulta() {
     </div>
   );
 }
+
