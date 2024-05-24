@@ -37,6 +37,6 @@ class LivroEmprestimoSerializer(serializers.ModelSerializer):
         model = LivroEmprestimo
         fields = ['id_livro', 'id_emprestimo', 'quantidade', 'id_status']
 
-#class LoginSerializer(serializers.Serializer):
-#    username = serializers.CharField()
-#    password = serializers.CharField()
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()

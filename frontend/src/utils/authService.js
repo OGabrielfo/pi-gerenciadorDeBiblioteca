@@ -13,7 +13,7 @@ export const login = async (username, password, stayConnected) => {
         Cookies.set('accessToken', access, { expires: 7 }); // expira em 7 dia
         Cookies.set('refreshToken', refresh, { expires: 30 }); // expira em 30 dias
     }
-    
+  
     return response.data;
   } catch (error) {
     console.error('Erro ao fazer login:', error);

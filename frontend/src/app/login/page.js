@@ -26,9 +26,9 @@ const LoginPage = () => {
   }
 
   return (
-    <body className={styles.body}>
+    <div className={styles.body}>
       <div className={styles.logo}>
-        <Image className={styles.img} src={ Logo } alt="logo" />
+        <Image priority={true} className={styles.img} src={ Logo } alt="logo" />
       </div>
       <div className={styles.containerLogin}>
         <div className={styles.login}>
@@ -43,14 +43,12 @@ const LoginPage = () => {
               </div>
             </label>
             {error && <p>{error}</p>}
-            <div className={styles.botao}>
-              <button className={styles.button} type="submit">Entrar</button>
-            </div>
+            <button className={styles.button} type="submit">Entrar</button>
           </form>
           <br />
         </div>
       </div>
-    </body>
+    </div>
   )
 }
 

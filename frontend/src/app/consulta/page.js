@@ -1,28 +1,15 @@
 'use client'
 import { useAuth } from '@/utils/useAuth'
-import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { redirect } from 'next/navigation'
 import styles from './consulta.module.css';
 import Header from '../../components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
-import withAuth from '@/utils/withAuth';
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
 const Consulta = () => {
   const { authData } = useAuth()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!authData) {
-      router.push('/login');
-      return null
-    }
-  }, [authData, router]);
-
-  if (!authData) {
-    return <div>Carregando...</div>; // Ou qualquer mensagem de carregamento
-  }
 
   const [nomeLivro, setNomeLivro] = useState('')
   const [autor, setAutor] = useState('')
@@ -57,6 +44,10 @@ const Consulta = () => {
     }
   };
 
+  if (!authData) {
+    return <p>Carregando...</p>
+  }
+
   return (
     <div>
       <Header>Consulta </Header>   
@@ -85,4 +76,4 @@ const Consulta = () => {
   );
 }
 
-export default withAuth(Consulta)
+export default Consulta
