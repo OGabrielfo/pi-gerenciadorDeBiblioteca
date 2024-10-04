@@ -11,7 +11,7 @@ export default function Header({children, PublicNav}) {
                 <div>
                     <Image src={ Logo } alt="Logotipo" />
                 </div>
-                {!PublicNavbar ? <Navbar /> : <PublicNavbar />}
+                {!PublicNav ? <Navbar /> : <PublicNavbar />}
                 <h1>{children}</h1>
             </header>
         </>

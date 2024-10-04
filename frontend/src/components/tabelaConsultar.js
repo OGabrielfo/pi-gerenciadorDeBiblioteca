@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
 
-export default function TabelaConsultar(props, publico) {
+export default function TabelaConsultar(props) {
     function renderLines(dados){
         if(dados == null){
             let linhasVazias = [];
@@ -18,6 +18,7 @@ export default function TabelaConsultar(props, publico) {
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado + " " + styles.terceira}>‎</td>
+                                    { props.publico ? <td id="reservar" className={styles.reserva}><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></td> : null}
                                   </tr>)
             }
             return(linhasVazias);
@@ -44,7 +45,7 @@ export default function TabelaConsultar(props, publico) {
                     <td id="disponiveis" className={styles.dado}>
                         {dado["quantidade_exemplar"]} 
                     </td>
-                    { publico ? <td id="reservar" className={styles.reserva}><button><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></button></td> : null} 
+                    { props.publico ? <td id="reservar" className={styles.reserva}><button><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></button></td> : null} 
                     
                 </tr>
             ))
@@ -62,7 +63,7 @@ export default function TabelaConsultar(props, publico) {
                             <th className={styles.dadoHeader}>Gênero</th>
                             <th className={styles.dadoHeader}>Nicho</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Disponíveis</th>
-                            { publico ? <th className={styles.dadoHeader}>Reservar</th> : null}
+                            { props.publico ? <th className={styles.dadoHeader + " " + styles.reserva}>Reservar</th> : null}
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>

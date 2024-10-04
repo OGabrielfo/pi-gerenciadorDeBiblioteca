@@ -70,7 +70,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.tabela}>
-        <TabelaConsultar dados={dados}/> 
+        <TabelaConsultar dados={dados} publico={true}/> 
       </div>
     </div>
   );
