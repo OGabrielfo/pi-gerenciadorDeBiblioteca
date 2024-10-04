@@ -16,7 +16,7 @@
     width: 100%;
 }
 .dadoHeader{
-    text-align: left;
+    text-align: center;
     padding: 0px 5px;
     border-right: 1px solid white;
 }
@@ -29,6 +29,12 @@
 }
 
 .dado{
+    padding: 0px 5px;
+    border-right: 1px solid white;
+}
+
+.reserva{
+    text-align: center;
     padding: 0px 5px;
     border-right: 1px solid white;
 }

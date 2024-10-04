@@ -2,7 +2,11 @@
 import Image from "next/image";
 import styles from "./tabelaConsultar.module.css";
 
-export default function TabelaConsultar(props) {
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
+
+export default function TabelaConsultar(props, publico) {
     function renderLines(dados){
         if(dados == null){
             let linhasVazias = [];
@@ -21,7 +25,7 @@ export default function TabelaConsultar(props) {
         else{
             let linhasComDados = [];
             linhasComDados = dados.map((dado, index) => (
-                <tr key={dado["codigo"]} className={styles.linha}>
+                <tr key={dado["id_livro"]} className={styles.linha}>
                     <td id="codigo" className={styles.dado}>
                         {dado["id_livro"]} 
                     </td>
@@ -40,6 +44,8 @@ export default function TabelaConsultar(props) {
                     <td id="disponiveis" className={styles.dado}>
                         {dado["quantidade_exemplar"]} 
                     </td>
+                    { publico ? <td id="reservar" className={styles.reserva}><button><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></button></td> : null} 
+                    
                 </tr>
             ))
             return(linhasComDados);
@@ -56,6 +62,7 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader}>Gênero</th>
                             <th className={styles.dadoHeader}>Nicho</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Disponíveis</th>
+                            { publico ? <th className={styles.dadoHeader}>Reservar</th> : null}
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
@@ -65,4 +72,4 @@ export default function TabelaConsultar(props) {
             </div>
     );
     
-}
+} //TODO Necessário ajustar o botão que realiza a função de reserva

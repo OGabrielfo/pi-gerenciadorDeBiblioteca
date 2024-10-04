@@ -1,0 +1,132 @@
+.container {
+    background-color: var(--cor04);
+    display: flex;
+    position: fixed;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    top: 90px;
+    width: 90px;
+    height: 100%;
+}
+
+.navbar {
+    background-color: var(--cor04);
+    display: flex;
+    position: fixed;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    top: 120px;
+    width: 90px;
+    height: 100%;
+}
+
+.navbar li {
+    list-style-type: none;
+}
+
+.link{
+    background-color: var(--cor03);
+    border-radius: 5px;
+    margin-top: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: var(--cor08);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.link:hover {
+    background-color: var(--cor06);
+    transition: 0.2s;
+}
+
+.activeLink{
+    list-style-type: none;
+    background-color: var(--cor05);
+    border-radius: 5px;
+    margin-top: 50px;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    color: rgb(240, 240, 240);
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.activeLink:hover {
+    background-color: var(--cor06);
+    transition: 0.2s;
+}
+
+.icones {
+    color: var(--cor08);
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.container .openNavbar {
+    display: none;
+    font-size: 1em;
+    color: var(--cor08);
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.container .openNavbar:hover {
+    color: var(--cor07);
+    transition: 0.2s;
+}
+
+@media (max-width: 947px) {
+    .container .openNavbar {
+        display: block;
+    }
+
+    .navbar {
+        display: none;
+        transition: 0.2s;
+    }
+
+    .activeNavbar {
+        display: flex;
+        align-self: flex-start;
+        background-color: var(--cor04);
+        border-radius: 0px 30px 0px 0px;
+        display: flex;
+        position: fixed;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        top: 120px;
+        width: 90px;
+        height: 100%;
+        transition: 0.2s;
+    }
+
+    .container {
+        background-color: var(--cor04);
+        display: flex;
+        position: fixed;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        top: 60px;
+        width: 60px;
+        height: 60px;
+    }
+}

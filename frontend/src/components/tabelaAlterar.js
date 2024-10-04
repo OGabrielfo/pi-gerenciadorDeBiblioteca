@@ -5,6 +5,7 @@ import styles from "./tabelaAlterar.module.css";
 import { AlterarLivroContext } from "@/app/alterar/page";
 import { AlterarAlunoContext } from "@/app/alterar/aluno/page";
 import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
+import { fetchWithAuth } from '@/utils/authService';
 import React, {useContext, useState} from "react";
 
 export default function TabelaAlterar(props) {
@@ -20,7 +21,7 @@ export default function TabelaAlterar(props) {
     const deleteData = async (id) => { // Deleta uma linha de dados
         try{
             const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
-            const response = await fetch (url, {
+            const response = await fetchWithAuth (url, {
                 method: "DELETE",
                 headers: {
                     'Content-type': 'application/json'
