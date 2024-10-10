@@ -190,6 +190,42 @@ class EmprestimoAdmin(admin.ModelAdmin):
     inlines = [LivroEmprestimoInline]
 
 #########################################
+#NOVAS TABELAS
+
+class ReservaLivro(models.Model):
+    id_reserva = models.AutoField(primary_key=True)
+    livro = models.OneToOneField(Livro, on_delete=models.CASCADE)  # Relação 1:1 com Livro
+    nome_aluno = models.CharField(max_length=150)
+    sala = models.CharField(max_length=15)
+    data_reserva = models.DateField(auto_now_add=True)  # Data da reserva
+
+    class Meta:
+        db_table = 'reserva_livro'
+
+    def __str__(self):
+        return f'Reserva: {self.livro.nome_do_livro} - Aluno: {self.nome_aluno}'
+
+#########################
+class SugestaoLivro(models.Model):
+    aluno = models.ForeignKey(Aluno, on_delete=models.SET_NULL, null=True, blank=True)  # Aluno opcional
+
+    id_sugestao = models.AutoField(primary_key=True)
+    nome_completo = models.CharField(max_length=150)  # Nome completo do aluno ou pessoa que faz a sugestão
+    sala = models.CharField(max_length=15, null=False, blank=False)  # Sala (obrigatório)
+    periodo = models.CharField(max_length=50, null=True, blank=True)  # Período (opcional)
+    nome_autor = models.CharField(max_length=255, null=True, blank=True)  # Nome do autor (obrigatório)
+    titulo_livro = models.CharField(max_length=255, null=False, blank=False)  # Título do livro (obrigatório)
+    comentario = models.TextField(null=True, blank=True)  # Comentário (opcional)
+
+
+
+    class Meta:
+        db_table = 'sugestao_livro'
+
+    def __str__(self):
+        return f'Sugestão de {self.nome_completo} para o livro {self.titulo_livro}'
+
+
 
 
 

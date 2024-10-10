@@ -1,0 +1,91 @@
+@media only screen and (min-width: 948px) {
+    .mainDiv{
+        padding: 90px 0px 0px 90px;
+    }
+}
+
+@media only screen and (max-width: 947px) {
+    .mainDiv{
+        padding: 115px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width: 695px) {
+    .alterarTelas{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pesquisar{
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex-wrap:nowrap;
+    }
+
+}
+
+@media only screen and (min-width: 695px) {
+    .pesquisar{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        flex-wrap:wrap;
+    }
+    
+}
+
+
+.alterarDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.alterarTelas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.camps{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 80vw;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnProcurar{
+    font-family: var(--ZenMaru);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.30em;
+    padding: 0 20px 5px 20px;
+    height: 40px;
+    background-color: hsl(180, 25%, 27%);
+    border: none;
+    color: azure;
+    border-radius: 25px;
+    margin-top: 10px;
+}
+
+.btnProcurar:hover{
+    background-color: hsl(180, 25%, 47%);
+    transition: background-color 0.2s;
+}
+.divRegistroSelecionado{
+    margin-top: 10px;
+    font-size: 1.3em;
+    font-family: var(--ZenMaru);
+    font-weight: 600;
+}
