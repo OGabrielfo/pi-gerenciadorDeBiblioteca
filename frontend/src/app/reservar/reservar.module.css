@@ -1,0 +1,51 @@
+@media only screen and (min-width: 948px) {
+    .mainDiv{
+        padding: 90px 0px 0px 90px;
+    }
+}
+
+@media only screen and (max-width: 947px) {
+    .mainDiv{
+        padding: 115px 0px 0px 0px;
+    }
+}
+
+@media only screen and (max-width: 695px) {
+    .alterarTelas{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
+
+@media only screen and (min-width: 695px) {
+    
+}
+
+
+.alterarDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.alterarTelas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.camps{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 80vw;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+

@@ -9,7 +9,7 @@
 .mainDiv{
     overflow: auto;
     width: 90vw;
-    max-height: 300px;
+    max-height: 60vh;
     margin-top: 20px;
     padding: 0;
     border-radius: 5px;
@@ -58,6 +58,9 @@
 .telefone{
     width: 40px;
 }
+.sala{
+    width: 20px;
+}
 
 .terceira{
     min-width: 110px;
@@ -72,3 +75,5 @@
     height: 20px;
     width: auto;
 }
+
+
