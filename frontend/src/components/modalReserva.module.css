@@ -9,6 +9,7 @@
     width:100%;
     border-radius: 15px;
     padding: 15px;
+    padding-top: 2px;
   }
   
   .modaloverlay {
@@ -23,12 +24,12 @@
     background-color: rgba(0, 0, 0, 0.5);
   }
   
-  .modalbody {
-    padding-top: 10px;
-  }
-  
   .modalheader {
     display: flex;
     justify-content: flex-end;
     font-size: 25px;
+  }
+
+  .exit{
+    margin: 0px;
   }

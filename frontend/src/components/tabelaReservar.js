@@ -1,7 +1,9 @@
 'use client'
 import Image from "next/image";
-import TrashIMG from "/public/trash.png"
+import Modal from '@/components/modalReserva'
 import styles from "./tabelaReservar.module.css";
+import {ReservaAlunoContexto} from "@/app/reservar/page";
+import Opcoes from "/public/opcoes.png"
 //import { AlterarAlunoContext } from "@/app/alterar/aluno/page";
 //import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
 import React, {useContext, useState} from "react";
@@ -33,7 +35,13 @@ export default function TabelaAlterar(props) {
         
     }
     */
-
+   const handleOpcoes = (event) =>{
+        setShowModal(true);
+        let dado = props.dados[event.target.id];
+        document.getElementById("modalPessoa")
+        console.log(document.getElementById("modalPessoa"));
+   }
+    let {showModal, setShowModal} = useContext(ReservaAlunoContexto);
     function renderLinesAluno(dados, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];
@@ -76,7 +84,7 @@ export default function TabelaAlterar(props) {
                         {dado[campo7]}
                     </td>
                     <td className={styles.colunaExcluir}>
-                        <Image src={TrashIMG} alt="excluir" className={styles.trashIMG} onClick={() => deleteData(dado[campo1])}></Image>
+                        <Image id={index} src={Opcoes} alt="opcoes" className={styles.trashIMG} onClick={handleOpcoes}></Image>
                     </td>
                     
                 </tr>
@@ -126,7 +134,7 @@ export default function TabelaAlterar(props) {
                         {dado[campo6]}
                     </td>
                     <td className={styles.colunaExcluir}>
-                        <Image src={TrashIMG} alt="excluir" className={styles.trashIMG} onClick={() => deleteData(dado[campo1])}></Image>
+                        <Image src={Opcoes} alt="opcoes" className={styles.trashIMG} onClick={() => setShowModal(true)}></Image>
                     </td>
                 </tr>
             ))
@@ -150,7 +158,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesAluno(props.dados, "id", "nome_do_aluno", "sala", "email", "telefone", "livro", "autor")}
+                        {renderLinesAluno(props.dados, "id", "pessoa", "sala", "email", "telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>

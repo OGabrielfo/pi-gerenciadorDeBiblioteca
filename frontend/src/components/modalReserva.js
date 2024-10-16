@@ -15,7 +15,7 @@ const Modal = ({ onClose, children, title }) => {
             <div className={styles.modalwrapper}>
                 <div className={styles.modal}>
                     <div className={styles.modalheader}>
-                        <a href="#" onClick={handleCloseClick}>
+                        <a href="#" onClick={handleCloseClick} className={styles.exit}>
                             x
                         </a>
                     </div>
