@@ -1,0 +1,44 @@
+.containerFormulario {
+    max-width: 900px;
+    margin-top: 0 ;
+    padding: 1em;
+    background: #447171;
+    border-radius: 25px;
+}
+
+.label {
+    margin-bottom: 0.5em;
+    color: #fff;
+    display: block; /* Garante que o label fique acima do input */
+}
+
+.input, .textarea {
+    border: 1px solid #cccccc;
+    padding: 0.5em;
+    font-size: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.button {
+    padding: 0.7em;
+    color: #fff;
+    background-color: #223939;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.button:hover {
+    background-color: #101B1B;
+}
+
+.form { 
+    padding-top: 150px; /* Adicionando padding ao formulário */
+}
+
+.campos {
+    margin-bottom: 20px; /* Adicionando margem inferior aos campos */
+}
