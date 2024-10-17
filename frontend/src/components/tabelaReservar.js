@@ -37,11 +37,10 @@ export default function TabelaAlterar(props) {
     */
    const handleOpcoes = (event) =>{
         setShowModal(true);
-        let dado = props.dados[event.target.id];
-        document.getElementById("modalPessoa")
-        console.log(document.getElementById("modalPessoa"));
+        setRegistro(props.dados[event.target.id]);
+        console.log(registro);
    }
-    let {showModal, setShowModal} = useContext(ReservaAlunoContexto);
+    let {showModal, setShowModal, registro, setRegistro} = useContext(ReservaAlunoContexto);
     function renderLinesAluno(dados, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];

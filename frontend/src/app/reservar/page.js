@@ -27,6 +27,7 @@ const dados = [
 
 const alterar = () => { 
     const [showModal, setShowModal] = useState(false);
+    const [registro, setRegistro] = useState([]);
       /* Codigo funcional alterar
       const { authData } = useAuth();
 
@@ -82,15 +83,15 @@ const alterar = () => {
                             <div className={styles.textoModal}>
                               <div>
                                 <span>Nome da pessoa: </span>
-                                <span id='modalPessoa'></span>
+                                <span id="modalPessoa">{registro.pessoa}</span>
                               </div>
                               <div>
                                 <span>Email: </span>
-                                <span id='modalEmail'></span>
+                                <span id="modalEmail">{registro.email}</span>
                               </div>
                               <div>
                                 <span>Nome do livro: </span>
-                                <span id='modalLivro'></span>
+                                <span id="modalLivro">{registro.livro}</span>
                               </div>
                             </div>
                             <div className={styles.botoesMainModal}>
@@ -98,6 +99,7 @@ const alterar = () => {
                               <button className={styles.btCadastrar + " " + styles.btGenerico}>Cadastrar Aluno</button>
                               <button className={styles.btDeletar + " " + styles.btGenerico}>Deletar Reserva</button>
                             </div>
+                            <div>{registro.pessoa}</div>
                             <div id="msgModal" className={styles.msgModal}></div>
                           </div>
                       </Modal>
@@ -109,7 +111,7 @@ const alterar = () => {
                 </div>
                 <div className={styles.alterarDiv} id="mainLivro">
                   <div>
-                    <ReservaAlunoContexto.Provider value={{showModal, setShowModal}}>
+                    <ReservaAlunoContexto.Provider value={{showModal, setShowModal, registro, setRegistro}}>
                       <TabelaReservar dados={dados} tipo="aluno"/>
                     </ReservaAlunoContexto.Provider>
                   </div>
