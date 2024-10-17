@@ -99,7 +99,6 @@ const alterar = () => {
                               <button className={styles.btCadastrar + " " + styles.btGenerico}>Cadastrar Aluno</button>
                               <button className={styles.btDeletar + " " + styles.btGenerico}>Deletar Reserva</button>
                             </div>
-                            <div>{registro.pessoa}</div>
                             <div id="msgModal" className={styles.msgModal}></div>
                           </div>
                       </Modal>
