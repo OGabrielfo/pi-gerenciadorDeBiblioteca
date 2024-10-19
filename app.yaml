@@ -1,0 +1,18 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT drp03_pi.wsgi
+
+runtime_config:
+  operating_system: "ubuntu22"  # Especifica que o sistema operacional base será Ubuntu 22.
+  runtime_version: "3.12"  # Define a versão do Python como 3.12.
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  cpu_utilization:
+    target_utilization: 0.6
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: drp03_pi.settings
+  SECRET_KEY: django-insecure-3jfg-zccyiz3o6gi^kb*_p+=d3_os8aw48qo-xf7bx&_qwt60e
+  DEBUG: 'False'
