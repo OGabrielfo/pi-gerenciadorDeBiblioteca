@@ -56,6 +56,9 @@ export default function TabelaConsultar(props) {
                         usuario.id_usuario_aluno === aluno.id_aluno ? aluno.telefone : null
                     )}
                 </td>
+                <td id="Deletar" className={styles.dado}>
+                    Lixinho {/* TODO Adicionar função de deletar */}
+                </td>
             </tr>
             :
             null
@@ -83,6 +86,9 @@ export default function TabelaConsultar(props) {
                         usuario.id_usuario_professor === funcionario.id_professor_funcionario ? funcionario.telefone : null
                     )}
                 </td>
+                <td id="Deletar" className={styles.dado}>
+                    Lixinho {/* TODO Adicionar função de deletar */}
+                </td>
             </tr> 
             :
             null
@@ -105,6 +111,7 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader}>Data de devolução</th>
                             <th className={styles.dadoHeader}>Situação</th>
                             <th className={styles.dadoHeader}>Telefone</th>
+                            <th className={styles.dadoHeader}>Deletar</th>
                         </tr>
                     </thead>
                     <tbody>
