@@ -88,24 +88,39 @@ export default function Home() {
                 <div className={styles.mainModal}>
                   <div className={styles.tituloModal}>Reservar Livro</div>
                   <div className={styles.textoModal}>
-                    <div>
-                      <span>Nome da pessoa: </span>
-                      <span id="modalTitulo">{registro.nome_do_livro}</span>
-                    </div>
-                    <div>
-                      <span>Email: </span>
-                      <span id="modalAutor">{registro.autor}</span>
-                    </div>
-                    <div>
-                      <span>Nome do gênero: </span>
-                      <span id="modalGenero">{registro.tipo}</span>
-                    </div>
+                    <span>Nome do livro: </span>
+                    <span id="modalTitulo">{registro.nome_do_livro}</span>
+                    <form>
+                      <div>
+                        <span>Nome*:</span>
+                        <input id="pessoaInput" className={styles.inputModal}></input>
+                      </div>
+                      <div>
+                        <span>Email*:</span>
+                        <input id="emailInput" className={styles.inputModal}></input>
+                      </div>
+                      <div>
+                        <span>Telefone:</span>
+                        <input id="telefoneInput" className={styles.inputModal}></input>
+                      </div>
+                      <div>
+                        <span>Sala:</span>
+                        <input id="salaInput" className={styles.inputModal}></input>
+                      </div>
+                      <fieldset id="group1" className={styles.radioModal}> 
+                        <input type="radio" value="aluno" id='aluno'></input>
+                        <label for="aluno">Aluno</label>
+                        <input type="radio" value="funcionario" id='funcionario'></input>
+                        <label for="funcionario">Funcionario</label>
+                      </fieldset>
+                      <div className={styles.botoesMainModal}>
+                        <button className={styles.btReserva + " " + styles.btGenerico}>Efetivar Reserva</button>
+                      </div>
+                    </form>
                   </div>
-                  <div className={styles.botoesMainModal}>
-                    <button className={styles.btReserva + " " + styles.btGenerico}>Efetivar Reserva</button>
                   </div>
+                  
                   <div id="msgModal" className={styles.msgModal}></div>
-                </div>
             </Modal>
         }
         </div>
