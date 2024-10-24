@@ -1,3 +1,72 @@
+@media only screen and (min-width: 948px) {
+    .mainDiv{
+        padding: 90px 0px 0px 90px;
+    }
+    .botoesMainModal{
+        display: flex;
+        width: 500px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btGenerico{
+        width: 150px;
+        margin: 5px;
+        font-family: 'Zen Maru Gothic';
+        font-size: 17px;
+    }
+    
+    .tituloModal{
+        font-family: 'Zen Maru Gothic';
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+    
+    .textoModal{
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .msgModal{
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+@media only screen and (max-width: 947px) {
+    .mainDiv{
+        padding: 115px 0px 0px 0px;
+    }
+    .botoesMainModal{
+        display: flex;
+        width: 270px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .btGenerico{
+        width: 80px;
+        margin: 5px;
+        font-family: 'Zen Maru Gothic';
+        font-size: 17px;
+    }
+    
+    .tituloModal{
+        font-family: 'Zen Maru Gothic';
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+    
+    .textoModal{
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .msgModal{
+        text-align: center;
+        margin-top: 10px;
+    }
+}
 .container{
     padding-left: 120px;
     padding-top: 120px;
