@@ -5,8 +5,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth import authenticate
-from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo
-from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer, LoginSerializer
+from .models import Nicho, Livro, Professor_Funcionario, Aluno, StatusEmprestimo, Emprestimo, LivroEmprestimo, ReservaLivro, SugestaoLivro
+from .serializers import NichoSerializer, LivroSerializer, Professor_FuncionarioSerializer, AlunoSerializer, StatusEmprestimoSerializer, EmprestimoSerializer, LivroEmprestimoSerializer, ReservaLivroSerializer, SugestaoLivroSerializer,  LoginSerializer
 
 class NichoViewSet(viewsets.ModelViewSet):
     queryset = Nicho.objects.all()
@@ -66,6 +66,24 @@ class LivroEmprestimoViewSet(viewsets.ModelViewSet):
     queryset = LivroEmprestimo.objects.all()
     serializer_class = LivroEmprestimoSerializer
     permission_classes = [IsAuthenticated]
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+class ReservaLivroSerializer(viewsets.ModelViewSet):
+    queryset = ReservaLivro.objects.all()
+    serializer_class = ReservaLivroSerializer
+    permission_classes = [AllowAny]
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+class SugestaoLivroSerializer(viewsets.ModelViewSet):
+    queryset = SugestaoLivro.objects.all()
+    serializer_class = SugestaoLivroSerializer
+    permission_classes = [AllowAny]
     def list(self, request):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
