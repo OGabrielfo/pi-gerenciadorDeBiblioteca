@@ -12,3 +12,11 @@ Após instalar todas as dependências do projeto realizar os passos a seguir.
    - executar comando "npm install" (Só executar na primeira vez este comando)
    - Acesse a pasta do frontend
    - executar comando "npm run dev"
+
+ - Logins e Senhas do sistema
+   - Login 1
+     - User: drp03-pi
+     - Senha: Univespdrp03@
+   - Login 2
+     - User: admin
+     - Senha: univespadmin@
