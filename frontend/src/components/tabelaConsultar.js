@@ -9,9 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function TabelaConsultar(props) {
-    let {showModal, setShowModal, registro, setRegistro} = useContext(ReservarLivroContexto);
+    let {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContexto);
     const handleReservar = (i) => {
-        setShowModal(true);
+        setModalState(true);
         setRegistro(props.dados[i]);
         console.log(registro);
     };

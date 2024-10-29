@@ -111,3 +111,26 @@
     margin-top: 2%;
     margin-left: 4%;
 }
+
+.radioModal{
+    text-align: center;
+    font-size: 14px;
+    border: none;
+}
+
+.radioModalX{
+    margin: 10px;
+}
+
+
+.inputModal{
+    font-size: 15px;
+    width: 220px;
+    font-weight: 500;
+}
+
+.spanInput{
+    width:70px;
+    height: 30px;
+}
+

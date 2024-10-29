@@ -3,7 +3,7 @@ import { useState, useEffect, createContext} from 'react';
 import styles from '@/app/consulta/consulta.module.css';
 import Header from '@/components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
-import Modal from '@/components/modalReserva'
+import Modal from '@/components/modalReserva2'
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
@@ -18,6 +18,7 @@ export default function Home() {
   const [showModal, setShowModal] = useState(false);
   const [registro, setRegistro] = useState([]);
   const [reserva, setReserva] = useState([]);
+  const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,6 +55,26 @@ export default function Home() {
     }
   };
 
+  const handleReservaClick = () => {
+    const nomeInput = document.getElementById("pessoaInput");
+    const emailInput = document.getElementById("emailInput");
+    const telefoneInput = document.getElementById("telefoneInput");
+    const salaInput = document.getElementById("salaInput");
+    const funcionarioInput = document.getElementById("funcionario");
+    const alunoInput = document.getElementById("aluno");
+    let tipoAluno = false;
+    let lista = {};
+
+    if (aluno.value){
+      lista = {nome: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, id_livro: registro.id_livro, nome_do_livro: registro.nome_do_livro};
+    }
+
+    if (funcionarioInput.value){
+      lista = {nome: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, id_livro: registro.id_livro, nome_do_livro: registro.nome_do_livro};
+    }
+
+    console.log(lista)
+  }
   return (
     <>
     <div>
@@ -77,54 +98,51 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.tabela}>
-        <ReservarLivroContexto.Provider value={{showModal, setShowModal, registro, setRegistro}}>
+        <ReservarLivroContexto.Provider value={{modalState, setModalState, registro, setRegistro}}>
           <TabelaConsultar dados={dados} publico={true}/> 
         </ReservarLivroContexto.Provider>
         </div>
-      </div>
-      <div>
-        {showModal &&
-            <Modal onClose={() => setShowModal(false)}>
-                <div className={styles.mainModal}>
+        <ReservarLivroContexto.Provider value={{modalState, setModalState}}>
+          <Modal>
+          <div className={styles.mainModal}>
                   <div className={styles.tituloModal}>Reservar Livro</div>
                   <div className={styles.textoModal}>
                     <span>Nome do livro: </span>
                     <span id="modalTitulo">{registro.nome_do_livro}</span>
-                    <form>
-                      <div>
-                        <span>Nome*:</span>
-                        <input id="pessoaInput" className={styles.inputModal}></input>
+                      <div className={styles.gridInput}>
+                          <div>
+                            <span className={styles.spanInput}>Nome*:</span>
+                            <input id="pessoaInput" className={styles.inputModal}></input>
+                          </div>
+                          <div>
+                            <span className={styles.spanInput}>Email*:</span>
+                            <input id="emailInput" className={styles.inputModal}></input>
+                          </div>
+                          <div>
+                            <span className={styles.spanInput}>Telefone:</span>
+                            <input id="telefoneInput" className={styles.inputModal}></input>
+                          </div>
+                          <div>
+                            <span className={styles.spanInput}>Sala:</span>
+                            <input id="salaInput" className={styles.inputModal}></input>
+                          </div>
                       </div>
-                      <div>
-                        <span>Email*:</span>
-                        <input id="emailInput" className={styles.inputModal}></input>
-                      </div>
-                      <div>
-                        <span>Telefone:</span>
-                        <input id="telefoneInput" className={styles.inputModal}></input>
-                      </div>
-                      <div>
-                        <span>Sala:</span>
-                        <input id="salaInput" className={styles.inputModal}></input>
-                      </div>
-                      <fieldset id="group1" className={styles.radioModal}> 
-                        <input type="radio" value="aluno" id='aluno'></input>
+                      <fieldset id="tipo" className={styles.radioModal}> 
+                        <input type="radio" value="aluno" id='aluno' name='tipo' className={styles.radioModalX}></input>
                         <label for="aluno">Aluno</label>
-                        <input type="radio" value="funcionario" id='funcionario'></input>
+                        <input type="radio" value="funcionario" id='funcionario' name='tipo' className={styles.radioModalX}></input>
                         <label for="funcionario">Funcionario</label>
                       </fieldset>
                       <div className={styles.botoesMainModal}>
-                        <button className={styles.btReserva + " " + styles.btGenerico}>Efetivar Reserva</button>
+                        <button className={styles.btReserva + " " + styles.btGenerico} onClick={handleReservaClick}>Efetivar Reserva</button>
                       </div>
-                    </form>
                   </div>
                   </div>
-                  
                   <div id="msgModal" className={styles.msgModal}></div>
-            </Modal>
-        }
-        </div>
-      <div id="modal-root"></div>
+          </Modal>
+        </ReservarLivroContexto.Provider>
+      </div>
+  
     </>
 
   );
