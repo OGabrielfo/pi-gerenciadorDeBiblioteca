@@ -34,14 +34,7 @@ const SuggestionForm = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({
-                        nome_completo: formData.nomeCompleto,
-                        sala: formData.sala,
-                        periodo: formData.periodo,
-                        nome_autor: formData.nomeAutor,
-                        titulo_livro: formData.tituloLivro,
-                        comentario: formData.comentario,
-                    }),
+                    body: JSON.stringify(formData),
                 });
 
                 if (response.ok) {
