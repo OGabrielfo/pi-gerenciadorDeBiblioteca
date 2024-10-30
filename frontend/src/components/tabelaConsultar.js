@@ -1,12 +1,20 @@
 'use client'
 import Image from "next/image";
 import styles from "./tabelaConsultar.module.css";
+import React, {useContext, useState} from "react";
+import {ReservarLivroContexto} from "@/app/page";
 
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function TabelaConsultar(props) {
+    let {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContexto);
+    const handleReservar = (i) => {
+        setModalState(true);
+        setRegistro(props.dados[i]);
+        console.log(registro);
+    };
     function renderLines(dados){
         if(dados == null){
             let linhasVazias = [];
@@ -45,12 +53,13 @@ export default function TabelaConsultar(props) {
                     <td id="disponiveis" className={styles.dado}>
                         {dado["quantidade_exemplar"]} 
                     </td>
-                    { props.publico ? <td id="reservar" className={styles.reserva}><button><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></button></td> : null} 
+                    { props.publico ? <td id="reservar" className={styles.reserva}><FontAwesomeIcon onClick={() => handleReservar(index)} className={styles.icones} icon={faCalendarCheck}/></td> : null} 
                     
                 </tr>
             ))
             return(linhasComDados);
         }
+        
     }
     return (
             <div className={styles.mainDiv}>

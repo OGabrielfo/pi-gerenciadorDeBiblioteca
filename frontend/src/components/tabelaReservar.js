@@ -1,7 +1,9 @@
 'use client'
 import Image from "next/image";
-import TrashIMG from "/public/trash.png"
+import Modal from '@/components/modalReserva'
 import styles from "./tabelaReservar.module.css";
+import {ReservaAlunoContexto} from "@/app/reservar/page";
+import Opcoes from "/public/opcoes.png"
 //import { AlterarAlunoContext } from "@/app/alterar/aluno/page";
 //import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
 import React, {useContext, useState} from "react";
@@ -33,40 +35,18 @@ export default function TabelaAlterar(props) {
         
     }
     */
-
-    const handleRadioClick = (event) => { // Altera os "campos de dados" de acordo com a linha que o radio button estava
-        let dado = props.dados[event.target.id]
-        if(props.tipo == "aluno"){
-            document.getElementById("inputNome").placeholder = dado.nome_do_aluno;
-            document.getElementById("inputSala").placeholder = dado.sala;
-            document.getElementById("inputTelefone").placeholder = dado.telefone;
-            document.getElementById("inputEmail").placeholder = dado.email;
-            document.getElementById("codigoSelecionado").textContent = dado.id_aluno;
-
-            document.getElementById("inputNome").value = "";
-            document.getElementById("inputSala").value = "";
-            document.getElementById("inputTelefone").value = "";
-            document.getElementById("inputEmail").value = "";
-        }
-        else{
-            document.getElementById("inputNome").placeholder = dado.nome_do_professor_funcionario;
-            document.getElementById("inputOcupacao").placeholder = dado.ocupacao;
-            document.getElementById("inputTelefone").placeholder = dado.telefone;
-            document.getElementById("inputEmail").placeholder = dado.email;
-            document.getElementById("codigoSelecionado").textContent = dado.id_professor_funcionario;
-
-            document.getElementById("inputNome").value = "";
-            document.getElementById("inputOcupacao").value = "";
-            document.getElementById("inputTelefone").value = "";
-            document.getElementById("inputEmail").value = "";
-        }
-    }   
-
-    function renderLinesAluno(dados, campo1, campo2, campo3, campo4, campo5, campo6){ // Cria as linhas das tabelas
+   const handleOpcoes = (event) =>{
+        setShowModal(true);
+        setRegistro(props.dados[event.target.id]);
+        console.log(registro);
+   }
+    let {showModal, setShowModal, registro, setRegistro} = useContext(ReservaAlunoContexto);
+    function renderLinesAluno(dados, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>
+                                    <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
@@ -96,11 +76,14 @@ export default function TabelaAlterar(props) {
                     <td id={campo5} className={styles.dado}>
                         {dado[campo5]}
                     </td>
-                    <td id={campo6} className={styles.dado + " " + styles.terceira}>
+                    <td id={campo6} className={styles.dado}>
                         {dado[campo6]}
                     </td>
+                    <td id={campo7} className={styles.dado + " " + styles.terceira}>
+                        {dado[campo7]}
+                    </td>
                     <td className={styles.colunaExcluir}>
-                        <Image src={TrashIMG} alt="excluir" className={styles.trashIMG} onClick={() => deleteData(dado[campo1])}></Image>
+                        <Image id={index} src={Opcoes} alt="opcoes" className={styles.trashIMG} onClick={handleOpcoes}></Image>
                     </td>
                     
                 </tr>
@@ -109,11 +92,12 @@ export default function TabelaAlterar(props) {
         }
     }
 
-    function renderLinesFuncionario(dados, campo1, campo2, campo3, campo4, campo5){ // Cria as linhas das tabelas
+    function renderLinesFuncionario(dados, campo1, campo2, campo3, campo4, campo5, campo6){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>
+                                    <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
@@ -136,17 +120,20 @@ export default function TabelaAlterar(props) {
                     <td id={campo3} className={styles.dado}>
                         {dado[campo3]}
                     </td>
-                    <td id={campo3} className={styles.dado}>
-                        {dado[campo3]}
+                    <td id={campo4} className={styles.dado}>
+                        {dado[campo4]}
                     </td>
                     <td id={campo4} className={styles.dado}>
                         {dado[campo4]}
                     </td>
-                    <td id={campo5} className={styles.dado + " " + styles.terceira}>
+                    <td id={campo5} className={styles.dado}>
                         {dado[campo5]}
                     </td>
+                    <td id={campo6} className={styles.dado + " " + styles.terceira}>
+                        {dado[campo6]}
+                    </td>
                     <td className={styles.colunaExcluir}>
-                        <Image src={TrashIMG} alt="excluir" className={styles.trashIMG} onClick={() => deleteData(dado[campo1])}></Image>
+                        <Image src={Opcoes} alt="opcoes" className={styles.trashIMG} onClick={() => setShowModal(true)}></Image>
                     </td>
                 </tr>
             ))
@@ -161,7 +148,8 @@ export default function TabelaAlterar(props) {
                         <tr>
                             <th className={styles.dadoHeader + " " + styles.primeira}>Id</th>
                             <th className={styles.dadoHeader}>Nome do Aluno</th>
-                            <th className={styles.dadoHeader}>Sala</th>
+                            <th className={styles.dadoHeader + " " + styles.sala}>Sala</th>
+                            <th className={styles.dadoHeader}>Email</th>
                             <th className={styles.dadoHeader + " " + styles.telefone}>Telefone</th>
                             <th className={styles.dadoHeader}>Livro</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Autor</th>
@@ -169,7 +157,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesAluno(props.dados, "id", "nome_do_aluno", "sala", "telefone", "livro", "autor")}
+                        {renderLinesAluno(props.dados, "id", "pessoa", "sala", "email", "telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>
@@ -184,13 +172,14 @@ export default function TabelaAlterar(props) {
                             <th className={styles.dadoHeader + " " + styles.primeira}>Id</th>
                             <th className={styles.dadoHeader}>Nome do funcionario</th>
                             <th className={styles.dadoHeader}>Telefone</th>
+                            <th className={styles.dadoHeader}>Email</th>
                             <th className={styles.dadoHeader}>Livro</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Autor</th>
                             <th className={styles.colunaExcluir}>‎</th>
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesFuncionario(props.dados, "id", "nome_do_funcionario", "telefone", "livro", "autor")}
+                        {renderLinesFuncionario(props.dados, "id", "nome_do_funcionario", "email","telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>

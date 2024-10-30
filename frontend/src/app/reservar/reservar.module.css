@@ -1,3 +1,12 @@
+@font-face {
+    font-family: 'Zen Maru Gothic';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 300;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-300-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/zen-maru-gothic@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 @media only screen and (min-width: 948px) {
     .mainDiv{
         padding: 90px 0px 0px 90px;
@@ -67,70 +76,44 @@
         margin-top: 10px;
     }
 }
-.container{
-    padding-left: 120px;
-    padding-top: 120px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+
+@media only screen and (max-width: 695px) {
+    .alterarTelas{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
 }
 
-.title, .aut, .gen{
+@media only screen and (min-width: 695px) {
+    
+}
+
+
+.alterarDiv{
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
-}
-
-.input[type="text"]{
-    border: 1px solid;
-    border-radius: 12px;
-    height: 34px;
-    width: 250px;
-    padding-left: 10px;
-    font-size: 16px;
-}
-
-.label{
-    font-size: 20px;
-}
-
-.button{
-    font-size: 22px;
-    width: 150px;
-    height: 40px;
-    border-radius: 25px;
-    background-color: #335555;
-    color: #fff;
-    border: transparent;
-}
-
-.tabela{
-    display: flex;
     justify-content: center;
-    margin-top: 2%;
-    margin-left: 4%;
+    align-items: center;
 }
 
-.radioModal{
-    text-align: center;
-    font-size: 14px;
-    border: none;
+.alterarTelas{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
-.radioModalX{
-    margin: 10px;
+.camps{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 80vw;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
-
-.inputModal{
-    font-size: 15px;
-    width: 220px;
-    font-weight: 500;
-}
-
-.spanInput{
-    width:70px;
-    height: 30px;
-}
 
