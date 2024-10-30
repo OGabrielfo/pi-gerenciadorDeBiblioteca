@@ -29,7 +29,7 @@ const SuggestionForm = () => {
 
         if (isFormValid) {
             try {
-                const response = await fetch('http://localhost:8000/sugestoes/', {
+                const response = await fetch('http://localhost:8000/api/sugestao_livro/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
