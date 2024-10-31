@@ -4,8 +4,10 @@ import styles from '@/app/consulta/consulta.module.css';
 import Header from '@/components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
 import Modal from '@/components/modalReserva2'
+import { fetchWithAuth } from '@/utils/authService';
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
+const API_URL_RESERVA = 'http://127.0.0.1:8000/api/reserva_livro/';
 
 export const ReservarLivroContexto = createContext();
 
@@ -54,7 +56,6 @@ export default function Home() {
       setDados(resultados);
     }
   };
-
   const handleReservaClick = () => {
     const nomeInput = document.getElementById("pessoaInput");
     const emailInput = document.getElementById("emailInput");
@@ -62,19 +63,31 @@ export default function Home() {
     const salaInput = document.getElementById("salaInput");
     const funcionarioInput = document.getElementById("funcionario");
     const alunoInput = document.getElementById("aluno");
-    let tipoAluno = false;
+    const date = new Date();
     let lista = {};
-
-    if (aluno.value){
-      lista = {nome: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, id_livro: registro.id_livro, nome_do_livro: registro.nome_do_livro};
-    }
-
-    if (funcionarioInput.value){
-      lista = {nome: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, id_livro: registro.id_livro, nome_do_livro: registro.nome_do_livro};
-    }
-
-    console.log(lista)
+    let fullDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    let registroReserva = {};
+    registroReserva = {livro: registro.id_livro, nome_aluno: nomeInput.value, sala: salaInput.value, data_reserva: fullDate};
+    postData(API_URL_RESERVA, registroReserva);
+    console.log(registroReserva);
   }
+
+  const postData = async (url, dados) =>{ 
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados), // Corrected from `data` to `body`
+      });
+      const data = await response.json();
+      console.log(data);
+      } catch (error) {
+          console.error(error)
+      }
+  }
+
   return (
     <>
     <div>
@@ -99,7 +112,7 @@ export default function Home() {
         </div>
         <div className={styles.tabela}>
         <ReservarLivroContexto.Provider value={{modalState, setModalState, registro, setRegistro}}>
-          <TabelaConsultar dados={dados} publico={true}/> 
+          <TabelaConsultar dados={dados} publico={true} privado={false}/> 
         </ReservarLivroContexto.Provider>
         </div>
         <ReservarLivroContexto.Provider value={{modalState, setModalState}}>

@@ -2,14 +2,19 @@
 import Image from "next/image";
 import styles from "./tabelaConsultar.module.css";
 import React, {useContext, useState} from "react";
-import {ReservarLivroContexto} from "@/app/page";
-
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-
+import {ReservarLivroContexto} from "@/app/page";
+import {ReservarLivroContextoPrivado} from "@/app/consulta/page";
+//export default function TabelaConsultar(props) {
 export default function TabelaConsultar(props) {
-    let {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContexto);
+    if(props.privado == true){
+        var {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContextoPrivado);
+    }
+    else{
+        var {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContexto);
+    }
     const handleReservar = (i) => {
         setModalState(true);
         setRegistro(props.dados[i]);

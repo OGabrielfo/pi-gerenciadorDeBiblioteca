@@ -1,10 +1,11 @@
 'use client';
 import { useAuth } from '@/utils/useAuth';
 import { fetchWithAuth } from '@/utils/authService';
-import { useState, useEffect } from 'react';
 import styles from './consulta.module.css';
 import Header from '../../components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
+import { useState, useEffect, createContext} from 'react';
+export const ReservarLivroContextoPrivado = createContext();
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
@@ -16,6 +17,8 @@ const Consulta = () => {
   const [genero, setGenero] = useState('');
   const [dados, setDados] = useState(null); 
   const [dadosAPI, setDadosAPI] = useState(null);
+  const [modalState, setModalState] = useState(false);
+  const [registro, setRegistro] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +84,9 @@ const Consulta = () => {
           </div>
         </div>
         <div className={styles.tabela}>
-          <TabelaConsultar dados={dados}/> 
+          <ReservarLivroContextoPrivado.Provider value={{modalState, setModalState, registro, setRegistro}}>
+            <TabelaConsultar dados={dados} publico={true} privado={true}/> 
+          </ReservarLivroContextoPrivado.Provider>
         </div>
       </div>
       <div> steste</div>
