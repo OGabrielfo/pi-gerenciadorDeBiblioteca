@@ -71,7 +71,7 @@ class LivroEmprestimoViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
-class ReservaLivroSerializer(viewsets.ModelViewSet):
+class ReservaLivroViewSet(viewsets.ModelViewSet):
     queryset = ReservaLivro.objects.all()
     serializer_class = ReservaLivroSerializer
     permission_classes = [AllowAny]
@@ -80,7 +80,7 @@ class ReservaLivroSerializer(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
-class SugestaoLivroSerializer(viewsets.ModelViewSet):
+class SugestaoLivroViewSet(viewsets.ModelViewSet):
     queryset = SugestaoLivro.objects.all()
     serializer_class = SugestaoLivroSerializer
     permission_classes = [AllowAny]

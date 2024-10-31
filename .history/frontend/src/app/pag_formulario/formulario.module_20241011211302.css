@@ -1,0 +1,12 @@
+.containerFormulario{
+    margin-top: ;
+    margin-left: 50%;
+    align-items: center;
+}
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1em;
+    background: #fff;
+    border-radius: 5px;
+}
