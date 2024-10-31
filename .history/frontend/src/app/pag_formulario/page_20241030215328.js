@@ -59,10 +59,10 @@ const SuggestionForm = () => {
                 }
             } catch (error) {
                 console.error('Erro:', error);
-                alert('Erro ao enviar sugestão. Tente novamente mais tarde.');
+                setMessage('Erro ao enviar sugestão. Tente novamente mais tarde.');
             }
         } else {
-            alert('Erro ao enviar sugestão. Verifique os campos obrigatórios.');
+            setMessage('Erro ao enviar sugestão. Verifique os campos obrigatórios.');
         }
 
         setTimeout(() => setMessage(''), 3000); // Limpar mensagem após 3 segundos
