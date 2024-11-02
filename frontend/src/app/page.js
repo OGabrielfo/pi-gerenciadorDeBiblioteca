@@ -3,7 +3,7 @@ import { useState, useEffect, createContext} from 'react';
 import styles from '@/app/consulta/consulta.module.css';
 import Header from '@/components/header';
 import TabelaConsultar from '@/components/tabelaConsultar';
-import Modal from '@/components/modalReserva2'
+import Modal from '@/components/modalReserva2';
 import { fetchWithAuth } from '@/utils/authService';
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
@@ -17,9 +17,7 @@ export default function Home() {
   const [genero, setGenero] = useState('');
   const [dados, setDados] = useState(null);
   const [dadosAPI, setDadosAPI] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [registro, setRegistro] = useState([]);
-  const [reserva, setReserva] = useState([]);
   const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
@@ -116,7 +114,7 @@ export default function Home() {
         </ReservarLivroContexto.Provider>
         </div>
         <ReservarLivroContexto.Provider value={{modalState, setModalState}}>
-          <Modal>
+          <Modal tipo={"pagina consulta"}>
           <div className={styles.mainModal}>
                   <div className={styles.tituloModal}>Reservar Livro</div>
                   <div className={styles.textoModal}>

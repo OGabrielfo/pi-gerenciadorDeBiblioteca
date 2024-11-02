@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Modal from '@/components/modalReserva'
 import styles from "./tabelaReservar.module.css";
-import {ReservaAlunoContexto} from "@/app/reservar/page";
+import {ReservaContextoAluno} from "@/app/reservar/page";
 import Opcoes from "/public/opcoes.png"
 //import { AlterarAlunoContext } from "@/app/alterar/aluno/page";
 //import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
@@ -35,15 +35,18 @@ export default function TabelaAlterar(props) {
         
     }
     */
-   const handleOpcoes = (event) =>{
-        setShowModal(true);
-        setRegistro(props.dados[event.target.id]);
-        console.log(registro);
-   }
-    let {showModal, setShowModal, registro, setRegistro} = useContext(ReservaAlunoContexto);
-    function renderLinesAluno(dados, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
+    console.log(props.dados);
+    console.log(props.dadosLivros);
+    const handleOpcoes = (event) =>{
+            setModalState(true);
+            setRegistro(props.dados[event.target.id]);
+            console.log(registro);
+    }
+    let {modalState, setModalState, registro, setRegistro} = useContext(ReservaContextoAluno);
+    function renderLinesAluno(dados, dadosLivros, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];
+            console.log(dadosLivros);
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>
                                     <td className={styles.dado}>‎</td>
@@ -77,10 +80,10 @@ export default function TabelaAlterar(props) {
                         {dado[campo5]}
                     </td>
                     <td id={campo6} className={styles.dado}>
-                        {dado[campo6]}
+                        {dadosLivros[dado[campo6] - 1].nome_do_livro}
                     </td>
                     <td id={campo7} className={styles.dado + " " + styles.terceira}>
-                        {dado[campo7]}
+                        {dadosLivros[dado[campo6] - 1].autor}
                     </td>
                     <td className={styles.colunaExcluir}>
                         <Image id={index} src={Opcoes} alt="opcoes" className={styles.trashIMG} onClick={handleOpcoes}></Image>
@@ -157,7 +160,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesAluno(props.dados, "id", "pessoa", "sala", "email", "telefone", "livro", "autor")}
+                        {renderLinesAluno(props.dados, props.dadosLivros, "id_reserva", "nome_aluno", "sala", "email", "telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>
@@ -179,7 +182,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesFuncionario(props.dados, "id", "nome_do_funcionario", "email","telefone", "livro", "autor")}
+                        {renderLinesFuncionario(props.dados, props.dadosLivros, "id", "nome_do_funcionario", "email","telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>

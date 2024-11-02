@@ -1,7 +1,13 @@
 import React, {useContext, useState} from "react";
 import {ReservarLivroContexto} from "@/app/page";
-const Modal = ({children}) => {
-  let {modalState, setModalState} = useContext(ReservarLivroContexto);
+import {ReservaContextoAluno} from "@/app/reservar/page";
+const Modal = ({children, tipo}) => {
+  if (tipo == "pagina consulta"){
+    var {modalState, setModalState} = useContext(ReservarLivroContexto);
+  } else if (tipo == "pagina reserva aluno"){
+    var {modalState, setModalState} = useContext(ReservaContextoAluno);
+  }
+  //var {modalState, setModalState} = useContext(ReservarLivroContexto);
   if (!modalState) return null;
   
   return (
@@ -31,7 +37,6 @@ const styles = {
     background: '#fff',
     padding: '20px',
     borderRadius: '8px',
-    width: '400px',
     maxWidth: '90%',
     textAlign: 'center',
   },
