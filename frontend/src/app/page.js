@@ -54,6 +54,7 @@ export default function Home() {
       setDados(resultados);
     }
   };
+  
   const handleReservaClick = () => {
     const nomeInput = document.getElementById("pessoaInput");
     const emailInput = document.getElementById("emailInput");
