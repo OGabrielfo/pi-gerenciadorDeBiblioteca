@@ -35,18 +35,25 @@ export default function TabelaAlterar(props) {
         
     }
     */
-    console.log(props.dados);
-    console.log(props.dadosLivros);
+    //console.log(props.dados);
+    //console.log(props.dadosLivros);
     const handleOpcoes = (event) =>{
             setModalState(true);
             setRegistro(props.dados[event.target.id]);
-            console.log(registro);
+            //console.log(registro);
+    }
+    const tipoPessoa = (valor) => {
+        if(valor){
+            return 'Aluno';
+        } else {
+            return 'Funcionario';
+        }
     }
     let {modalState, setModalState, registro, setRegistro} = useContext(ReservaContextoAluno);
     function renderLinesAluno(dados, dadosLivros, campo1, campo2, campo3, campo4, campo5, campo6, campo7){ // Cria as linhas das tabelas
         if(dados == null || dados.length == 0){ // Cria x numero de linhas vazias (default da tabela)
             let linhasVazias = [];
-            console.log(dadosLivros);
+            //console.log(dadosLivros);
             for(let i = 0; i < 3; i++){
                 linhasVazias.push(<tr key={i} className={styles.linha}>
                                     <td className={styles.dado}>‎</td>
@@ -70,8 +77,8 @@ export default function TabelaAlterar(props) {
                     </td>
                     <td id={campo2} className={styles.dado}>
                         {dado[campo2]}</td>
-                    <td id={campo3} className={styles.dado}>
-                        {dado[campo3]}
+                    <td className={styles.dado}>
+                        {tipoPessoa(dado[campo3])}
                     </td>
                     <td id={campo4} className={styles.dado}>
                         {dado[campo4]}
@@ -151,7 +158,7 @@ export default function TabelaAlterar(props) {
                         <tr>
                             <th className={styles.dadoHeader + " " + styles.primeira}>Id</th>
                             <th className={styles.dadoHeader}>Nome do Aluno</th>
-                            <th className={styles.dadoHeader + " " + styles.sala}>Sala</th>
+                            <th className={styles.dadoHeader + " " + styles.sala}>Tipo</th>
                             <th className={styles.dadoHeader}>Email</th>
                             <th className={styles.dadoHeader + " " + styles.telefone}>Telefone</th>
                             <th className={styles.dadoHeader}>Livro</th>
@@ -160,7 +167,7 @@ export default function TabelaAlterar(props) {
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
-                        {renderLinesAluno(props.dados, props.dadosLivros, "id_reserva", "nome_aluno", "sala", "email", "telefone", "livro", "autor")}
+                        {renderLinesAluno(props.dados, props.dadosLivros, "id_reserva", "nome_aluno", "aluno", "email", "telefone", "livro", "autor")}
                     </tbody>
                 </table>
             </div>

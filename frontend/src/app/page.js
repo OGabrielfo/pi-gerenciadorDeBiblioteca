@@ -54,7 +54,7 @@ export default function Home() {
       setDados(resultados);
     }
   };
-  
+
   const handleReservaClick = () => {
     const nomeInput = document.getElementById("pessoaInput");
     const emailInput = document.getElementById("emailInput");
@@ -63,12 +63,22 @@ export default function Home() {
     const funcionarioInput = document.getElementById("funcionario");
     const alunoInput = document.getElementById("aluno");
     const date = new Date();
-    let lista = {};
-    let fullDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
-    let registroReserva = {};
-    registroReserva = {livro: registro.id_livro, nome_aluno: nomeInput.value, sala: salaInput.value, data_reserva: fullDate};
-    postData(API_URL_RESERVA, registroReserva);
-    console.log(registroReserva);
+    console.log(alunoInput);
+    if(!funcionarioInput.checked  && !alunoInput.checked){
+      window.alert("Selecione se é aluno ou funcionario");
+    } else if(nomeInput.value == ""){
+      window.alert("Preencha o Nome");
+    } else if(emailInput.value == ""){
+      window.alert("Preencha o Email");
+    } else {
+      let lista = {};
+      let fullDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+      let registroReserva = {};
+      registroReserva = {livro: registro.id_livro, nome_aluno: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, aluno: alunoInput.checked, data_reserva: fullDate};
+      postData(API_URL_RESERVA, registroReserva);
+      console.log(registroReserva);
+      setModalState(false);
+    }
   }
 
   const postData = async (url, dados) =>{ 
