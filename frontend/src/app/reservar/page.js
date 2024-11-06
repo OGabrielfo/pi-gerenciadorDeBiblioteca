@@ -24,12 +24,12 @@ const alterar = () => {
       const [registro, setRegistro] = useState([]);
       const [modalState, setModalState] = useState(false);
       const { authData } = useAuth();
-      
+      const [dadosApiAlunos, setDadosApiAlunos] = useState();
+      const [dadosApiFunc, setDadosApiFunc] = useState();
       const [isUpdated, setIsUpdated] = useState(false);
       const [dadosApiReserva, setDadosApiReserva] = useState();
       const [dadosApiLivros, setDadosApiLivros] = useState();
-      const [dadosApiAlunos, setDadosApiAlunos] = useState();
-      const [dadosApiFunc, setDadosApiFunc] = useState();
+      
 
       const fetchAllData = async (api) => { // Retorna todas as linhas da api
           try{
@@ -46,6 +46,9 @@ const alterar = () => {
         const dataLivros = await fetchAllData(API_URL_LIVRO);
         const dataAlunos = await fetchAllData(API_Aluno);
         const dataFunc = await fetchAllData(API_Professor);
+        const dataEmprestimos = await fetchAllData(API_Emprestimo);
+        const dataLivrosEmprestimos = await fetchAllData(API_LivrosEmprestimo);
+        const status = await fetchAllData(API_StatusEmprestimo);
         setDadosApiReserva(data);
         setDadosApiLivros(dataLivros);
         setDadosApiAlunos(dataAlunos);
@@ -91,11 +94,8 @@ const alterar = () => {
             data: dados,
             headers: {
               'Content-Type': 'application/json',
-            },
-            //body: JSON.stringify(dados), // Corrected from `data` to `body`
-          });
-          const data = await response.json();
-          return data;
+            }});
+          let data = await response.json();
           } catch (error) {
               console.error(error)
           }
@@ -116,9 +116,7 @@ const alterar = () => {
           }
       }
       const verificarPessoa = (telefone, email, dados, idCampo) => {
-        
         for (const pessoa of dados){
-          console.log(telefone, pessoa['telefone'], pessoa['email'], email);
           if (pessoa['email'] == email){
             return [true, pessoa[idCampo]];
           }
@@ -135,7 +133,8 @@ const alterar = () => {
           console.log(verifica);
           if (verifica[0] == false){
             dado = {'nome_do_aluno': reserva.nome_aluno, 'sala': reserva.sala, 'telefone': reserva.telefone, 'email': reserva.email};
-            postDataAuth(API_Aluno, dado);
+            console.log(postDataAuth(API_Aluno, dado));
+            setIsUpdated(true);
             window.alert("Cadastro efetuado");
           } else{
             window.alert("Usuário já cadastrado");
@@ -147,6 +146,7 @@ const alterar = () => {
           if (verifica[0] == false){
             dado = {'nome_do_professor_funcionario': reserva.nome_aluno, 'telefone': reserva.telefone, 'email': reserva.email, 'ocupacao': 'Funcionario'};
             postDataAuth(API_Professor, dado);
+            setIsUpdated(true);
             window.alert("Cadastro efetuado");
           } else{
             window.alert("Usuário já cadastrado");
@@ -157,32 +157,48 @@ const alterar = () => {
         const handleReserva = async (registro) => {
           let dados = {};
           const date = new Date();
-          date.setDate(date.getDate() + 14);
-          let data_devolver = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+          let data_devolver = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
           if (!registro.aluno) {
+              const verifica = verificarPessoa(registro.telefone, registro.email, dadosApiFunc, 'id_professor_funcionario');
+              const id = verifica[1];
+              console.log(verifica);
+              if (verifica[0] == false){
+                window.alert("Precisa cadastrar o usuário");
+                return;
+              }
               dados = {
                   id_usuario_aluno: null,
-                  id_usuario_professor: registro['id_usuario_professor'],
+                  id_usuario_professor: id,
                   data_devolucao: data_devolver,
-                  situacao_emprestimo: 1,
+                  situacao_emprestimo: "Aberto",
               }
           } else {
+              const verifica = verificarPessoa(registro.telefone, registro.email, dadosApiAlunos, "id_aluno");
+              const id = verifica[1];
+              if (verifica[0] == false){
+                window.alert("Precisa cadastrar o usuário");
+                return;
+              }
               dados = {
-                  id_usuario_aluno: registro[id_usuario_aluno],
+                  id_usuario_aluno: id,
                   id_usuario_professor: null,
                   data_devolucao: data_devolver,
-                  situacao_emprestimo: 1,
+                  situacao_emprestimo: "Aberto",
               }
           }
           console.log(dados)
           // Tentativa de envio para o backend de emprestimo de livros
           try {
-              const responseEmprestimo = await postDataAuth(API_Emprestimo, dados);
-              //console.log(responseEmprestimo)
+              const responseEmprestimo = await fetchWithAuth(API_Emprestimo, {
+                  method: 'POST',
+                  data: dados,
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+              });
   
               const emprestimoData = await responseEmprestimo.json();
               const idEmprestimo = emprestimoData.id_emprestimo;
-  
                 let livroData = {
                     id_livro: registro.livro,
                     id_emprestimo: idEmprestimo,
@@ -191,8 +207,14 @@ const alterar = () => {
                 }
                 // Tentativa de envio para o backend
                 try {
-                    const responseLivro = await postDataAuth(API_LivrosEmprestimo, livroData);
-                    console.log(responseLivro.data)
+                    const responseLivro = await fetchWithAuth(API_LivrosEmprestimo, {
+                      method: 'POST',
+                      data: livroData,
+                      headers: {
+                        'Content-Type': 'application/json',
+                      }});
+                      window.alert("Emprestimo efetuado");
+                      deleteData(registro.id_reserva);
                 } catch (error) {
                     console.error(error)
                 }
@@ -200,6 +222,7 @@ const alterar = () => {
           } catch (error) {
               console.error(error)
           }
+         
         }
     if (!authData) {
       return <p>Carregando...</p>;

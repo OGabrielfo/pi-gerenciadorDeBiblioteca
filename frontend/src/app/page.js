@@ -77,7 +77,6 @@ export default function Home() {
       registroReserva = {livro: registro.id_livro, nome_aluno: nomeInput.value, email: emailInput.value, telefone: telefoneInput.value, sala: salaInput.value, aluno: alunoInput.checked, data_reserva: fullDate};
       postData(API_URL_RESERVA, registroReserva);
       console.log(registroReserva);
-      setModalState(false);
     }
   }
 
@@ -90,11 +89,16 @@ export default function Home() {
         },
         body: JSON.stringify(dados), // Corrected from `data` to `body`
       });
-      const data = await response.json();
-      console.log(data);
-      } catch (error) {
-          console.error(error)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      const data = await response.json();
+      //console.log("Success:", data); // Log successful data if needed
+      window.alert("Reserva efetuada");
+    } catch (error) {
+      window.alert("Já existe uma reserva desse livro ou faltou preencher todos os campos.");
+      console.error(error); // Now this will log for both network errors and HTTP errors
+    }
   }
 
   return (
@@ -141,11 +145,11 @@ export default function Home() {
                             <input id="emailInput" className={styles.inputModal}></input>
                           </div>
                           <div>
-                            <span className={styles.spanInput}>Telefone:</span>
+                            <span className={styles.spanInput}>Telefone*:</span>
                             <input id="telefoneInput" className={styles.inputModal}></input>
                           </div>
                           <div>
-                            <span className={styles.spanInput}>Sala:</span>
+                            <span className={styles.spanInput}>Sala*/Funçao*:</span>
                             <input id="salaInput" className={styles.inputModal}></input>
                           </div>
                       </div>
