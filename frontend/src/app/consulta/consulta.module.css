@@ -114,23 +114,34 @@
 
 .radioModal{
     text-align: center;
-    font-size: 14px;
+    font-size: 20px;
     border: none;
 }
 
-.radioModalX{
-    margin: 10px;
+.radioModalItem{
+    margin-left: 20px;
+    margin-right: 5px;
 }
 
 
 .inputModal{
-    font-size: 15px;
-    width: 220px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    width: 80%;
 }
 
-.spanInput{
-    width:70px;
-    height: 30px;
+.inputLabels{
+    text-align: right;
+    margin-right: 10px;
+    font-size: 20px;
 }
 
+.gridInput{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    row-gap: 10px
+}
+.nomeLivroModal{
+    text-align: left;
+    font-size: 20px;
+}

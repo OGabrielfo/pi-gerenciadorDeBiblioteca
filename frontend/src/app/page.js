@@ -133,30 +133,22 @@ export default function Home() {
           <div className={styles.mainModal}>
                   <div className={styles.tituloModal}>Reservar Livro</div>
                   <div className={styles.textoModal}>
-                    <span>Nome do livro: </span>
-                    <span id="modalTitulo">{registro.nome_do_livro}</span>
                       <div className={styles.gridInput}>
-                          <div>
-                            <span className={styles.spanInput}>Nome*:</span>
-                            <input id="pessoaInput" className={styles.inputModal}></input>
-                          </div>
-                          <div>
-                            <span className={styles.spanInput}>Email*:</span>
-                            <input id="emailInput" className={styles.inputModal}></input>
-                          </div>
-                          <div>
-                            <span className={styles.spanInput}>Telefone*:</span>
-                            <input id="telefoneInput" className={styles.inputModal}></input>
-                          </div>
-                          <div>
-                            <span className={styles.spanInput}>Sala*/Funçao*:</span>
-                            <input id="salaInput" className={styles.inputModal}></input>
-                          </div>
+                          <div className={styles.inputLabels}>Livro: </div>
+                          <div id="modalTitulo" className={styles.nomeLivroModal}>{registro.nome_do_livro}</div>
+                          <div className={styles.inputLabels}>Nome*:</div>
+                          <input id="pessoaInput" className={styles.inputModal}></input>
+                          <div className={styles.inputLabels}>Email*:</div>
+                          <input id="emailInput" className={styles.inputModal}></input>
+                          <div className={styles.inputLabels}>Telefone*:</div>
+                          <input id="telefoneInput" className={styles.inputModal}></input>
+                          <div className={styles.inputLabels}>Sala*/Funçao*:</div>
+                          <input id="salaInput" className={styles.inputModal}></input>
                       </div>
                       <fieldset id="tipo" className={styles.radioModal}> 
-                        <input type="radio" value="aluno" id='aluno' name='tipo' className={styles.radioModalX}></input>
+                        <input type="radio" value="aluno" id='aluno' name='tipo' className={styles.radioModalItem}></input>
                         <label for="aluno">Aluno</label>
-                        <input type="radio" value="funcionario" id='funcionario' name='tipo' className={styles.radioModalX}></input>
+                        <input type="radio" value="funcionario" id='funcionario' name='tipo' className={styles.radioModalItem}></input>
                         <label for="funcionario">Funcionario</label>
                       </fieldset>
                       <div className={styles.botoesMainModal}>

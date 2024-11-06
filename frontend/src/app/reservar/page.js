@@ -100,21 +100,6 @@ const alterar = () => {
               console.error(error)
           }
       }
-      const postData = async (url, dados) =>{ 
-        try {
-          const response = await fetchWithAuth(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dados), // Corrected from `data` to `body`
-          });
-          const data = await response.json();
-          } catch (error) {
-              window.alert("Pessoa cadastrada já cadastrada");
-              console.error(error);
-          }
-      }
       const verificarPessoa = (telefone, email, dados, idCampo) => {
         for (const pessoa of dados){
           if (pessoa['email'] == email){
@@ -237,19 +222,13 @@ const alterar = () => {
                   <Modal tipo={"pagina reserva aluno"}>
                     <div className={styles.mainModal}>
                       <div className={styles.tituloModal}>Reservar Livro</div>
-                      <div className={styles.textoModal}>
-                        <div>
-                          <span>Nome: </span>
-                          <span id="modalPessoa">{registro.nome_aluno}</span>
-                        </div>
-                        <div>
-                          <span>Email: </span>
-                          <span id="modalEmail">{registro.email}</span>
-                        </div>
-                        <div>
-                          <span>Id do livro: </span>
-                          <span id="modalLivro">{registro.livro}</span>
-                        </div>
+                      <div className={styles.textoModal + " " + styles.gridModal}>
+                          <div className={styles.labelModal}>Nome: </div>
+                          <div id="nome_aluno_modal" className={styles.textoApiModal}>{registro.nome_aluno}</div>
+                          <div className={styles.labelModal}>Email: </div>
+                          <div id="email_modal" className={styles.textoApiModal}>{registro.email}</div>
+                          <div className={styles.labelModal}>Id do livro: </div>
+                          <div id="livro_modal" className={styles.textoApiModal}>{registro.livro}</div>
                       </div>
                       <div className={styles.botoesMainModal}>
                         <button className={styles.btReserva + " " + styles.btGenerico} onClick={() => handleReserva(registro)}>Efetivar Reserva</button>

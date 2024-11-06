@@ -48,6 +48,8 @@ const styles = {
     border: 'none',
     fontSize: '1.5rem',
     cursor: 'pointer',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+    color: 'rgb(255, 99, 71)'
   },
 };
 
