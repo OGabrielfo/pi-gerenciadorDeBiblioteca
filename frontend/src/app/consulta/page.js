@@ -3,7 +3,7 @@ import { useAuth } from '@/utils/useAuth';
 import { fetchWithAuth } from '@/utils/authService';
 import styles from './consulta.module.css';
 import Header from '../../components/header';
-import TabelaConsultar from '@/components/tabelaConsultar';
+import TabelaConsultar from '@/components/tabelaConsultarPrivado';
 import { useState, useEffect, createContext} from 'react';
 export const ReservarLivroContextoPrivado = createContext();
 
