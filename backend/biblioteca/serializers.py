@@ -40,7 +40,7 @@ class LivroEmprestimoSerializer(serializers.ModelSerializer):
 class ReservaLivroSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReservaLivro
-        fields = ['id_reserva', 'livro', 'nome_aluno', 'sala', 'data_reserva']
+        fields = ['id_reserva', 'livro', 'nome_aluno', 'email', 'telefone', 'sala', 'aluno', 'data_reserva']
 
 class SugestaoLivroSerializer(serializers.ModelSerializer):
     class Meta:

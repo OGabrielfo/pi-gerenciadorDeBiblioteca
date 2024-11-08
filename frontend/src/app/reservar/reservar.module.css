@@ -116,4 +116,21 @@
     justify-content: center;
 }
 
+.gridModal{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    row-gap: 10px
+}
+
+.textoApiModal{
+    text-align: left;
+    font-size: 20px;
+}
+
+.labelModal{
+    text-align: right;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
 

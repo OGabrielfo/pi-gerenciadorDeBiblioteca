@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import styles from "./tabelaConsultar.module.css";
+import styles from "./tabelaConsultarPrivado.module.css";
 import React, {useContext, useState} from "react";
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,7 +31,6 @@ export default function TabelaConsultar(props) {
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado}>‎</td>
                                     <td className={styles.dado + " " + styles.terceira}>‎</td>
-                                    { props.publico ? <td id="reservar" className={styles.reserva}><FontAwesomeIcon className={styles.icones} icon={faCalendarCheck} /></td> : null}
                                   </tr>)
             }
             return(linhasVazias);
@@ -58,7 +57,6 @@ export default function TabelaConsultar(props) {
                     <td id="disponiveis" className={styles.dado}>
                         {dado["quantidade_exemplar"]} 
                     </td>
-                    { props.publico ? <td id="reservar" className={styles.reserva}><FontAwesomeIcon onClick={() => handleReservar(index)} className={styles.icones} icon={faCalendarCheck}/></td> : null} 
                     
                 </tr>
             ))
@@ -77,7 +75,6 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader}>Gênero</th>
                             <th className={styles.dadoHeader}>Nicho</th>
                             <th className={styles.dadoHeader + " " + styles.terceira}>Disponíveis</th>
-                            { props.publico ? <th className={styles.dadoHeader + " " + styles.reserva}>Reservar</th> : null}
                         </tr>
                     </thead>
                     <tbody className={styles.tbody}>
