@@ -7,9 +7,13 @@ from django.utils.html import strip_tags
 
 from drp03_pi import settings
 
+#nome_devedores = ['']
+#livro_devedores = ['']
+email_devedores = ['']
+
 
 def mail(request):
-    context = { "livro": "It" , "nome": "Matheus" }
+    context = { "livro": "livro" , "nome": "aluno(a)" }
     html_content= render_to_string('mail/test-mail.html', context)
     #plain_content = render_to_string('mail/test-mail.txt', context)
     text_content = strip_tags(html_content)
@@ -17,7 +21,7 @@ def mail(request):
         #subject='O prazo de devolução do livro emprestado da venceu!', 
         #message=plain_content,
         #from_email=settings.EMAIL_HOST_USER,
-        #recipient_list=['matheussutani@hotmail.com'],
+        #recipient_list=[''],
         #html_message=html_content
         #)
     
@@ -25,7 +29,7 @@ def mail(request):
         subject = 'O prazo de devolução do livro emprestado da venceu!', 
         body = text_content,
         from_email = settings.EMAIL_HOST_USER,
-        to = ['matheussutani@hotmail.com'],
+        to = email_devedores,
         )
     
     mail.attach_alternative(html_content, 'text/html')
