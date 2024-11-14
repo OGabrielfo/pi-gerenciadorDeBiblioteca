@@ -36,11 +36,11 @@ const Consulta = () => {
     }
   }, [authData]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (dadosAPI) {
       console.log('dadosAPI atualizado:', dadosAPI);
     }
-  }, [dadosAPI]); // TODO Remover função ao finalizar
+  }, [dadosAPI]); */
 
   const handleSubmit = (e) => {
     e.preventDefault();

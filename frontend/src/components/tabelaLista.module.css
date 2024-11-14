@@ -44,3 +44,21 @@
     position: sticky;
     top: 0;
 }
+
+.icones { 
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: black 2px 2px 2px;
+    background-color: var(--cor05);
+    color: white; 
+    margin: 5px; 
+    font-size: 1.2em;
+    transition: 0.4s;
+} 
+
+.icones:hover { 
+    background-color: var(--cor07); 
+    cursor: pointer;
+}

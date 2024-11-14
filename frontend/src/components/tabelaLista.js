@@ -1,7 +1,11 @@
 'use client'
 import { fetchWithAuth } from '@/utils/authService';
 import { useEffect, useState } from "react"
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import styles from "./tabelaLista.module.css"
+import router from 'next/router'
 
 let $, mask
 
@@ -35,11 +39,34 @@ export default function TabelaConsultar(props) {
         fetchDados()
     }, [])
 
+    //Deletar Cadastros
+    const deleteData = async (id) => { // Deleta uma linha de dados
+        try{
+            const url = `http://localhost:8000/api/emprestimo/${id}/`
+            const response = await fetchWithAuth (url, {
+                method: "DELETE",
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            });
+            //setIsUpdated(true);
+            window.alert("Os dados foram deletadas");
+            setEmprestimo(emprestimo.filter(item => item.id_emprestimo !== id))
+        } 
+        catch (e) {
+            window.alert("Nao foram deletados");
+            console.log(e);
+        }
+    }
+
     // Renderização das linhas da tabela Alunos
     function renderAlunos() {
         return emprestimo.map((usuario) => (
             usuario.id_usuario_aluno != null ?
             <tr key={usuario.id_usuario_aluno} className={styles.linha}>
+                <td id={ usuario.id_emprestimo } className={styles.dado}>
+                    { usuario.id_emprestimo }
+                </td>
                 <td id="Nome" className={styles.dado}>
                     { alunos.map((aluno) => 
                         usuario.id_usuario_aluno === aluno.id_aluno ? aluno.nome_do_aluno : null
@@ -57,7 +84,7 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Deletar" className={styles.dado}>
-                    Lixinho {/* TODO Adicionar função de deletar */}
+                    <button onClick={() => deleteData(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faTrashCan}/></button>
                 </td>
             </tr>
             :
@@ -69,7 +96,10 @@ export default function TabelaConsultar(props) {
     function renderFuncionarios() {
         return emprestimo.map((usuario) => (
             usuario.id_usuario_professor != null ?
-            <tr key={usuario.id_usuario_professor} className={styles.linha}>
+            <tr key={ usuario.id_emprestimo } className={styles.linha}>
+                <td id={ usuario.id_emprestimo } className={styles.dado}>
+                { usuario.id_emprestimo }
+                </td>                
                 <td id="Nome" className={styles.dado}>
                     { funcionarios.map((funcionario) => 
                         usuario.id_usuario_professor === funcionario.id_professor_funcionario ? funcionario.nome_do_professor_funcionario : null
@@ -87,7 +117,7 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Deletar" className={styles.dado}>
-                    Lixinho {/* TODO Adicionar função de deletar */}
+                    <FontAwesomeIcon icon={faTrashCan} onClick={() => deleteData(usuario.id_emprestimo)} className={styles.icones} />
                 </td>
             </tr> 
             :
@@ -107,6 +137,7 @@ export default function TabelaConsultar(props) {
                 <table className={styles.tabela}>
                     <thead className={styles.thead}>
                         <tr>
+                            <th className={styles.dadoHeader}>Código</th>
                             <th className={styles.dadoHeader}>Nome</th>
                             <th className={styles.dadoHeader}>Data de devolução</th>
                             <th className={styles.dadoHeader}>Situação</th>

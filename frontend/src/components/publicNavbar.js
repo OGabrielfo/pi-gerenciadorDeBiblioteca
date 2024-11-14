@@ -23,7 +23,7 @@ export default function publicNavbar(){
             break;
         case "/registrar/emprestimos":
             resp = "/registrar"
-            break;//TODO Necessário corrigir rota da função
+            break;
         default:
             resp = ""
     }

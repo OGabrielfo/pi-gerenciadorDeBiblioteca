@@ -15,6 +15,8 @@ export default function BtnEfetuarAlteracao(props) {
     } else{
         var {isUpdated, setIsUpdated} = useContext(AlterarFuncionarioContext);
     }
+
+    
     function handleClickLivro(){
         let registro = {};
         let index = 0;

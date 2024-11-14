@@ -94,19 +94,10 @@ class Aluno(models.Model):
 class StatusEmprestimo(models.Model):
     id_status = models.AutoField(primary_key=True)
     STATUS_CHOICES = (
-        ('Emprestado', 'Emprestado'),
-        ('Devolvido', 'Devolvido'),
-        ('Extraviado', 'Extraviado'),
-        ('Reservado', 'Reservado'),
-        ('Aguardando_retirada', 'Aguardando Retirada'),
-        ('Em_processamento', 'Em Processamento'),
-        ('Vencido', 'Vencido'),
-        ('Renovado', 'Renovado'),
-        ('Danificado', 'Danificado'),
-        ('Em_analise', 'Em Análise'),
-        ('Cancelado', 'Cancelado'),
+        ('Aberto', 'Aberto'),
+        ('Concluido', 'Concluido'),
     )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Aberto')
 
     class Meta:
         db_table = 'statusemprestimo'

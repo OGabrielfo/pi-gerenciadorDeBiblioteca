@@ -9,6 +9,7 @@ import {ReservarLivroContexto} from "@/app/page";
 import {ReservarLivroContextoPrivado} from "@/app/consulta/page";
 //export default function TabelaConsultar(props) {
 export default function TabelaConsultar(props) {
+
     if(props.privado == true){
         var {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContextoPrivado);
     }

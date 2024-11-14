@@ -20,3 +20,8 @@ Após instalar todas as dependências do projeto realizar os passos a seguir.
    - Login 2
      - User: admin
      - Senha: univespadmin@
+
+
+//TODO Fazer merge da parte final do Sutani
+//TODO Corrigir responsividade
+//TODO Encapsular com Docker
