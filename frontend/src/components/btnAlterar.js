@@ -5,7 +5,7 @@ import React, {useState} from "react";
 import Link from "next/link";
 
 
-export default function btnAlterar(props){
+export default function BtnAlterar(props){
     let color;
     let onde;
     if (props.estado == true){

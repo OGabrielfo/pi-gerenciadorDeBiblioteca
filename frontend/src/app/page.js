@@ -102,7 +102,6 @@ export default function Home() {
   }
 
   return (
-    <>
     <div>
         <Header PublicNav={true}>Consulta</Header>
         <div className={styles.container}>
@@ -160,8 +159,6 @@ export default function Home() {
           </Modal>
         </ReservarLivroContexto.Provider>
       </div>
-  
-    </>
 
   );
 };

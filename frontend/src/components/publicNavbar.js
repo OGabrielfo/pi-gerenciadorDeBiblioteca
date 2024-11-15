@@ -12,7 +12,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons"
 
 
 
-export default function publicNavbar(){
+export default function PublicNavbar(){
     var isActive = false
     const pathname = usePathname();
     var resp = ""

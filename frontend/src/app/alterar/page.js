@@ -8,13 +8,12 @@ import CampoPesquisar from '@/components/campoPesquisar'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
-import React,{useState, useEffect, createContext} from 'react'
+import React,{useState, useEffect, createContext, useCallback} from 'react'
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/'
+export const AlterarLivroContext = createContext(); //TODO erro de não definido nesta variável
 
-export const AlterarLivroContext = createContext();
-
-const alterar = () => { 
+export default function Alterar() { 
     const { authData } = useAuth();
 
     const [isUpdated, setIsUpdated] = useState(false);
@@ -31,46 +30,48 @@ const alterar = () => {
       }
     } 
 
+    const procurar = useCallback((campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => { // É efetuado quando o botao "procurar x" é selecionado ou quando uma linha é alterada/deletada.
+      let valor1 = campoPesquisa1.value.toLowerCase();
+      let valor2 = campoPesquisa2.value.toLowerCase();
+      let listaTemporaria;
+      if(valor1.trim() !== ""){
+          console.log("1 feita");
+          listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
+          listaTotal = [...listaTemporaria];
+      }
+      if(valor2.trim() != ""){
+          console.log("2 feita");
+          listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
+      }
+      setLivrosPesquisa(listaTemporaria);
+      resetarCampos()
+      campoPesquisa1.value = "";
+      campoPesquisa2.value = "";
+  }, []);
+
     useEffect(() => async () =>{ // Roda toda vez que entra na tela
       const data = await fetchAllData();
         setDadosApi(data);
     }, []); 
 
     useEffect(() => { // Roda quando uma linha é deletada ou alterada
-      if(isUpdated == true){
-        (async () => {
+      const fetchData = async () => {
+        if(isUpdated){
           const data = await fetchAllData();
           procurar(document.getElementById("campoTitulo"),document.getElementById("campoAutor"), "nome_do_livro", "autor", data);
           setDadosApi(data);
           setIsUpdated(false)
-        })();
-      }
-    }, [isUpdated]); 
+          }
+        };
+
+        fetchData();
+    }, [isUpdated, procurar]);
 
     const [livrosPesquisa, setLivrosPesquisa] = useState();
     
     function comparar(elemento, filtro, valor){
         return elemento[filtro].toLowerCase().includes(valor);
     } // Compara um campo de pesquisa com o respectivo campo da linha (Vai ficar dentro de um map)
-
-    const procurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => { // É efetuado quando o botao "procurar x" é selecionado ou quando uma linha é alterada/deletada.
-        let valor1 = campoPesquisa1.value.toLowerCase();
-        let valor2 = campoPesquisa2.value.toLowerCase();
-        let listaTemporaria;
-        if(valor1.trim() !== ""){
-            console.log("1 feita");
-            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro1, valor1));
-            listaTotal = [...listaTemporaria];
-        }
-        if(valor2.trim() != ""){
-            console.log("2 feita");
-            listaTemporaria = listaTotal.filter((elemento) => comparar(elemento, filtro2, valor2));
-        }
-        setLivrosPesquisa(listaTemporaria);
-        resetarCampos()
-        campoPesquisa1.value = "";
-        campoPesquisa2.value = "";
-    }
 
     function resetarCampos(){ // Resta os campos de um livro
         document.getElementById("inputTitulo").placeholder = "Digite o título do livro";
@@ -111,7 +112,7 @@ const alterar = () => {
                     </div>
                     <AlterarLivroContext.Provider value={{isUpdated, setIsUpdated}}>
                       <TabelaAlterar dados={livrosPesquisa} tipo="livro"/>
-                    </AlterarLivroContext.Provider>
+                      </AlterarLivroContext.Provider>
                     <div className={styles.divRegistroSelecionado}>Registro selecionado: <span id="codigoSelecionado"></span></div>
                     <div className={styles.camps}>
                         <CampoDados idInput="inputTitulo" nome="Título" ph="Digite o título do livro"/>
@@ -129,7 +130,5 @@ const alterar = () => {
         </>
     )
 }
-
-export default alterar;
 
 

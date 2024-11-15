@@ -2,16 +2,16 @@
 import { useAuth } from '@/utils/useAuth';
 import { fetchWithAuth } from '@/utils/authService';
 import styles from './usuarios.module.css'
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import Modal from '@/components/modal'
-
-let $, mask
+import $ from 'jquery';
+import 'jquery-mask-plugin';
 
 var API_URL = ''
-
-const registrarUsuarios = () => {
+//TODO Erro de window nesta página
+const RegistrarUsuarios = () => {
     const { authData } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -90,11 +90,12 @@ const registrarUsuarios = () => {
 
     // Alteração de componentes de acordo com o tipo de usuário
     useEffect(() => {        
-        if (typeof window !== 'undefined') {
+        if (typeof window !== "undefined") {
             const turmaComp = document.getElementById("turma")
             const turmaInput = document.getElementById("turmaInput")
             const ocupacaoComp = document.getElementById("ocupacao")
             const ocupacaoInput = document.getElementById("ocupacaoInput")
+            
             ocupacaoComp?.setAttribute("hidden", true)
             turmaComp?.setAttribute("hidden", true)
 
@@ -113,15 +114,20 @@ const registrarUsuarios = () => {
     }, [tipoComp])
         
     // Máscara do input Telefone
-    if (typeof window !== 'undefined') {
-        $ = require('jquery');
-        mask = require('jquery-mask-plugin');
-        useEffect(() => {
-            if ($) {
-                $('#tel').mask('(00) 00000-0000')
-            }
-        }, []);
-    }
+    const telefoneRef = useRef(null);
+    useEffect(() => {
+        if (typeof window !== "undefined" && telefoneRef.current) {
+            $(telefoneRef.current).mask('(00) 00000-0000')
+        }
+    }, []);
+
+    const handleChange = (e) => { 
+        if (typeof window !== "undefined" && telefoneRef.current) {
+            setVisTel(e.target.value); 
+            setTelefone($(telefoneRef.current).cleanVal()); 
+        }
+        
+    };
     
     
 
@@ -196,7 +202,8 @@ const registrarUsuarios = () => {
                         id="tel"
                         placeholder= "(00) 00000-0000"
                         value={ visTel }
-                        onChange={(e) => {setTelefone($('#tel').cleanVal()), setVisTel(e.target.value)}}
+                        onChange={handleChange}
+                        ref={telefoneRef}
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -222,4 +229,4 @@ const registrarUsuarios = () => {
     )
 }
 
-export default registrarUsuarios;
+export default RegistrarUsuarios;

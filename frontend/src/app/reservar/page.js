@@ -20,7 +20,7 @@ const API_StatusEmprestimo = 'http://localhost:8000/api/status_emprestimo/'
 export const ReservaContextoAluno = createContext();
 
 
-const alterar = () => { 
+const Alterar = () => { 
       const [registro, setRegistro] = useState([]);
       const [modalState, setModalState] = useState(false);
       const { authData } = useAuth();
@@ -252,6 +252,6 @@ const alterar = () => {
     )
   }
 
-export default alterar;
+export default Alterar;
 
 

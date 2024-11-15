@@ -4,7 +4,7 @@ import styles from './funcionarios.module.css'
 import TabelaConsulta from '@/components/tabelaLista'
 
 
-export default function listaFuncionarios() {
+export default function ListaFuncionarios() {
     const { authData } = useAuth();
     if (!authData) {
         return <p>Carregando...</p>;

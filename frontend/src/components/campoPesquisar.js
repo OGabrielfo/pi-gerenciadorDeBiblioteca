@@ -1,6 +1,6 @@
 import styles from "./campoPesquisar.module.css"
 
-export default function campoPesquisar(props) {
+export default function CampoPesquisar(props) {
     return (
         <div className={styles.divCampo}>
             <label htmlFor={props.idInput} className={styles.labelCampo}>{props.campoNome}</label>

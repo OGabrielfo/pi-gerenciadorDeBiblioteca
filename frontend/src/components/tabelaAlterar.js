@@ -9,14 +9,20 @@ import { fetchWithAuth } from '@/utils/authService';
 import React, {useContext, useState} from "react";
 
 export default function TabelaAlterar(props) {
+    const livroContext = useContext(AlterarLivroContext);
+    const alunoContext = useContext(AlterarAlunoContext);
+    const funcionarioContext = useContext(AlterarFuncionarioContext);
 
+    let context;
     if (props.tipo == "livro"){
-        var {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
+        context = livroContext;
     } else if (props.tipo == "aluno") {
-        var {isUpdated, setIsUpdated} = useContext(AlterarAlunoContext);
+        context = alunoContext;
     } else{
-        var {isUpdated, setIsUpdated} = useContext(AlterarFuncionarioContext);
+        context = funcionarioContext;
     }
+
+    const { isUpdated, setIsUpdated } = context;
 
     const deleteData = async (id) => { // Deleta uma linha de dados
         try{

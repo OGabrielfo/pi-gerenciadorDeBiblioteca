@@ -9,12 +9,20 @@ import {ReservarLivroContexto} from "@/app/page";
 import {ReservarLivroContextoPrivado} from "@/app/consulta/page";
 //export default function TabelaConsultar(props) {
 export default function TabelaConsultar(props) {
+    const livroPrivadoContext = useContext(ReservarLivroContextoPrivado);
+    const livroContext = useContext(ReservarLivroContexto);
+
+    let context;
     if(props.privado == true){
-        var {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContextoPrivado);
+        context = livroPrivadoContext;
     }
     else{
-        var {modalState, setModalState, registro, setRegistro} = useContext(ReservarLivroContexto);
+        context = livroContext;
     }
+
+    const {modalState, setModalState} = context;
+    const {registro, setRegistro} = context;
+
     const handleReservar = (i) => {
         setModalState(true);
         setRegistro(props.dados[i]);

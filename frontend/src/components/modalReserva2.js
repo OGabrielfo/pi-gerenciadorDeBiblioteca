@@ -2,11 +2,18 @@ import React, {useContext, useState} from "react";
 import {ReservarLivroContexto} from "@/app/page";
 import {ReservaContextoAluno} from "@/app/reservar/page";
 const Modal = ({children, tipo}) => {
+  const livroContext = useContext(AlterarLivroContext);
+  const alunoContext = useContext(ReservaContextoAluno);
+
+  let context;
   if (tipo == "pagina consulta"){
-    var {modalState, setModalState} = useContext(ReservarLivroContexto);
+    context = livroContext;
   } else if (tipo == "pagina reserva aluno"){
-    var {modalState, setModalState} = useContext(ReservaContextoAluno);
+    context = alunoContext;
   }
+
+  const {modalState, setModalState} = context
+
   //var {modalState, setModalState} = useContext(ReservarLivroContexto);
   if (!modalState) return null;
   

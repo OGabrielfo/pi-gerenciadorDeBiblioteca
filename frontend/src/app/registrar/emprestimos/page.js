@@ -15,7 +15,7 @@ const API_Emprestimo = 'http://localhost:8000/api/emprestimo/'
 const API_LivrosEmprestimo = 'http://localhost:8000/api/livro_emprestimo/'
 const API_StatusEmprestimo = 'http://localhost:8000/api/status_emprestimo/'
 
-export default function registrarEmprestimos() {
+export default function RegistrarEmprestimos() {
     const { authData } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false);
