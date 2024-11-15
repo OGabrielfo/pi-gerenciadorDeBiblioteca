@@ -11,7 +11,7 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React,{useState, useEffect, createContext, useCallback} from 'react'
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/'
-export const AlterarLivroContext = createContext(); //TODO erro de não definido nesta variável
+export const AlterarLivroContext = createContext();
 
 export default function Alterar() { 
     const { authData } = useAuth();

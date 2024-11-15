@@ -1,13 +1,15 @@
 .mainDiv{
     overflow: auto;
-    min-width: 450px;
-    width: 80vw;
+    width: 90vw;
     max-height: 300px;
     margin-top: 20px;
     padding: 0;
+    margin-left: 60px;
     border-radius: 5px;
 }
 .tabela{
+    min-width: 430px;
+    width: 80vw;
     border-collapse:collapse;
     font-family: 'Zen Maru Gothic';
     font-weight: 600;
@@ -43,7 +45,6 @@
 
 .thead{
     background-color: #223A3A;
-    position: sticky;
     top: 0;
 }
 
@@ -59,4 +60,10 @@
 
 .radio{
     margin-right: 2px;
+}
+
+@media only screen and (max-width: 947px) {
+    .mainDiv{
+        margin-left: 0px;
+    }
 }

@@ -5,12 +5,12 @@ import React, {useContext, useState} from "react";
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
-import {ReservarLivroContexto} from "@/app/page";
-import {ReservarLivroContextoPrivado} from "@/app/consulta/page";
+import {ReservarLivroContext} from "@/app/page";
+import {ReservarLivroContextPrivado} from "@/app/consulta/page";
 //export default function TabelaConsultar(props) {
 export default function TabelaConsultar(props) {
-    const livroPrivadoContext = useContext(ReservarLivroContextoPrivado);
-    const livroContext = useContext(ReservarLivroContexto);
+    const livroPrivadoContext = useContext(ReservarLivroContextPrivado);
+    const livroContext = useContext(ReservarLivroContext);
 
     let context;
     if(props.privado == true){

@@ -9,7 +9,7 @@ import { fetchWithAuth } from '@/utils/authService';
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 const API_URL_RESERVA = 'http://127.0.0.1:8000/api/reserva_livro/';
 
-export const ReservarLivroContexto = createContext();
+export const ReservarLivroContext = createContext();
 
 export default function Home() {
   const [nomeLivro, setNomeLivro] = useState('');
@@ -123,11 +123,11 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.tabela}>
-        <ReservarLivroContexto.Provider value={{modalState, setModalState, registro, setRegistro}}>
+        <ReservarLivroContext.Provider value={{modalState, setModalState, registro, setRegistro}}>
           <TabelaConsultar dados={dados} publico={true} privado={false}/> 
-        </ReservarLivroContexto.Provider>
+        </ReservarLivroContext.Provider>
         </div>
-        <ReservarLivroContexto.Provider value={{modalState, setModalState}}>
+        <ReservarLivroContext.Provider value={{modalState, setModalState}}>
           <Modal tipo={"pagina consulta"}>
           <div className={styles.mainModal}>
                   <div className={styles.tituloModal}>Reservar Livro</div>
@@ -157,7 +157,7 @@ export default function Home() {
                   </div>
                   <div id="msgModal" className={styles.msgModal}></div>
           </Modal>
-        </ReservarLivroContexto.Provider>
+        </ReservarLivroContext.Provider>
       </div>
 
   );

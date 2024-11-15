@@ -5,7 +5,8 @@ import styles from './consulta.module.css';
 import Header from '../../components/header';
 import TabelaConsultar from '@/components/tabelaConsultarPrivado';
 import { useState, useEffect, createContext} from 'react';
-export const ReservarLivroContextoPrivado = createContext();
+
+export const ReservarLivroContextPrivado = createContext();
 
 const API_URL = 'http://127.0.0.1:8000/api/livro/';
 
@@ -84,12 +85,11 @@ const Consulta = () => {
           </div>
         </div>
         <div className={styles.tabela}>
-          <ReservarLivroContextoPrivado.Provider value={{modalState, setModalState, registro, setRegistro}}>
+          <ReservarLivroContextPrivado.Provider value={{modalState, setModalState, registro, setRegistro}}>
             <TabelaConsultar dados={dados} publico={true} privado={true}/> 
-          </ReservarLivroContextoPrivado.Provider>
+          </ReservarLivroContextPrivado.Provider>
         </div>
       </div>
-      <div> steste</div>
     </>
   );
 };

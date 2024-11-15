@@ -1,8 +1,12 @@
 import React, {useContext, useState} from "react";
-import {ReservarLivroContexto} from "@/app/page";
+import {ReservarLivroContext} from "@/app/page";
 import {ReservaContextoAluno} from "@/app/reservar/page";
+
+
+
+
 const Modal = ({children, tipo}) => {
-  const livroContext = useContext(AlterarLivroContext);
+  const livroContext = useContext(ReservarLivroContext);
   const alunoContext = useContext(ReservaContextoAluno);
 
   let context;
