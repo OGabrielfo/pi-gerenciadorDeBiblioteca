@@ -1,16 +1,17 @@
 **Como executar o sistema completo localmente?**
 
-Após instalar todas as dependências do projeto realizar os passos a seguir.
+Após instalar o python, o node e baixar sua branch realizar os passos a seguir dentro do VSCode.
 
- - Abra dois terminais
+ - Abra dois terminais Powershell
+  
  - No primeiro
+   - Acesse a pasta do backend com "cd backend"
    - execute o comando "python install -r requirements.txt" (Só executar na primeira vez este comando)
-   - Acesse a pasta do backend
    - execute o comando "python manage.py runserver"
 
  - No segundo
+   - Acesse a pasta do frontend com "cd frontend"
    - executar comando "npm install" (Só executar na primeira vez este comando)
-   - Acesse a pasta do frontend
    - executar comando "npm run dev"
 
  - Logins e Senhas do sistema
@@ -23,5 +24,5 @@ Após instalar todas as dependências do projeto realizar os passos a seguir.
 
 
 //TODO Fazer merge da parte final do Sutani
-//TODO Corrigir responsividade
-//TODO Encapsular com Docker
+//TODO Fazer merge da parte do Kevin
+//TODO Corrigir responsividade e tirar prints
