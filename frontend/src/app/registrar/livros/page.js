@@ -9,7 +9,7 @@ import Modal from '@/components/modal'
 
 var API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/livro/'
 
-function registrarLivros() {     
+function RegistrarLivros() {     
     const { authData } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false)
@@ -176,4 +176,4 @@ function registrarLivros() {
 }
 
 // export da função principal que retorna a página
-export default registrarLivros;
+export default RegistrarLivros;

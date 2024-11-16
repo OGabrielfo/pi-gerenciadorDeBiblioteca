@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib import admin
+from django.core.exceptions import ValidationError
 from validate_docbr import CPF  # Esta importação requer a instalação do pacote 'validate-docbr'
 
 
@@ -47,11 +48,11 @@ class Professor_Funcionario(models.Model):
     )
 
     id_professor_funcionario = models.AutoField(primary_key=True)
-    nome_do_professor_funcionario = models.CharField(max_length=150, null=True)
-    ocupacao = models.CharField(max_length=40, null=True)
+    nome_do_professor_funcionario = models.CharField(max_length=150)
+    ocupacao = models.CharField(max_length=20, choices=TIPO_PROFESSOR_FUNCIONARIO_CHOICES, default='Professor')
     #cpf = models.CharField(max_length=14, unique=True, null=True)  # Mudança para 14 caracteres devido à formatação do CPF
-    telefone = models.CharField(max_length=11, null=True)
-    email = models.EmailField(unique=True, null=True)
+    telefone = models.CharField(max_length=11)
+    email = models.EmailField(unique=True)
     #data_registro = models.DateField(auto_now_add=True)  # Pega a data atual automaticamente
     #ativo = models.BooleanField(default=True)
 
@@ -77,7 +78,7 @@ class Aluno(models.Model):
     id_aluno = models.AutoField(primary_key=True)
     #tipo_aluno = models.CharField(max_length=20, default='Aluno')
     nome_do_aluno = models.CharField(max_length=150)
-    sala = models.CharField(max_length=15, null=True)
+    sala = models.CharField(max_length=15)
     #ra = models.CharField(max_length=15, null=True)
     telefone = models.CharField(max_length=11)
     email = models.EmailField()
@@ -93,19 +94,10 @@ class Aluno(models.Model):
 class StatusEmprestimo(models.Model):
     id_status = models.AutoField(primary_key=True)
     STATUS_CHOICES = (
-        ('Emprestado', 'Emprestado'),
-        ('Devolvido', 'Devolvido'),
-        ('Extraviado', 'Extraviado'),
-        ('Reservado', 'Reservado'),
-        ('Aguardando_retirada', 'Aguardando Retirada'),
-        ('Em_processamento', 'Em Processamento'),
-        ('Vencido', 'Vencido'),
-        ('Renovado', 'Renovado'),
-        ('Danificado', 'Danificado'),
-        ('Em_analise', 'Em Análise'),
-        ('Cancelado', 'Cancelado'),
+        ('Aberto', 'Aberto'),
+        ('Concluido', 'Concluido'),
     )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Aberto')
 
     class Meta:
         db_table = 'statusemprestimo'
@@ -139,7 +131,7 @@ class Emprestimo(models.Model):
     )
     data_emprestimo = models.DateField(auto_now_add=True)
     data_devolucao = models.DateField()
-    situacao_emprestimo = models.CharField(max_length=20)
+    situacao_emprestimo = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Aberto')
 
     class Meta:
         db_table = 'emprestimo'
@@ -166,7 +158,6 @@ class LivroEmprestimo(models.Model):
     def __str__(self):
         return f'Livro {self.id_livro} | Empréstimo {self.id_emprestimo} | Quantidade {self.quantidade}'
 
-
 ##############################################
 #CONSULTAS
 ##############################################
@@ -191,13 +182,18 @@ class EmprestimoAdmin(admin.ModelAdmin):
 
 #########################################
 #NOVAS TABELAS
+from django.db import models
+
 
 class ReservaLivro(models.Model):
     id_reserva = models.AutoField(primary_key=True)
     livro = models.OneToOneField(Livro, on_delete=models.CASCADE)  # Relação 1:1 com Livro
     nome_aluno = models.CharField(max_length=150)
+    email = models.EmailField(max_length=255, blank=True, null=True)  # Novo campo de email
+    telefone = models.CharField(max_length=20, blank=True, null=True)  # Novo campo de telefone
     sala = models.CharField(max_length=15)
     data_reserva = models.DateField(auto_now_add=True)  # Data da reserva
+    aluno = models.BooleanField(default=True)  # Novo campo para indicar se é um aluno ou funcionário
 
     class Meta:
         db_table = 'reserva_livro'
@@ -205,7 +201,6 @@ class ReservaLivro(models.Model):
     def __str__(self):
         return f'Reserva: {self.livro.nome_do_livro} - Aluno: {self.nome_aluno}'
 
-#########################
 class SugestaoLivro(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.SET_NULL, null=True, blank=True)  # Aluno opcional
 
@@ -224,7 +219,6 @@ class SugestaoLivro(models.Model):
 
     def __str__(self):
         return f'Sugestão de {self.nome_completo} para o livro {self.titulo_livro}'
-
 
 
 

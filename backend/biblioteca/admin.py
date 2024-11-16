@@ -1,7 +1,7 @@
 from django.contrib import admin
 #from django.db.utils import DatabaseError
 #from django.contrib import messages
-from .models import Nicho, Livro, Aluno, Professor_Funcionario, StatusEmprestimo, Emprestimo, LivroEmprestimo, ConsultaLivroAdmin, EmprestimoAdmin
+from .models import Nicho, Livro, Aluno, Professor_Funcionario, StatusEmprestimo, Emprestimo, LivroEmprestimo, ConsultaLivroAdmin, EmprestimoAdmin, SugestaoLivro, ReservaLivro
 
 admin.site.register(Nicho)
 admin.site.register(Livro, ConsultaLivroAdmin)
@@ -9,6 +9,8 @@ admin.site.register(StatusEmprestimo)
 admin.site.register(Emprestimo, EmprestimoAdmin)
 admin.site.register(Aluno)
 admin.site.register(Professor_Funcionario)
+admin.site.register(SugestaoLivro)
+admin.site.register(ReservaLivro)
 """
 class LivroEmprestimoAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):

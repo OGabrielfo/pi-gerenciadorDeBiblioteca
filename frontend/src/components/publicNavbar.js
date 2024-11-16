@@ -12,7 +12,7 @@ import { faBars } from "@fortawesome/free-solid-svg-icons"
 
 
 
-export default function publicNavbar(){
+export default function PublicNavbar(){
     var isActive = false
     const pathname = usePathname();
     var resp = ""
@@ -23,7 +23,7 @@ export default function publicNavbar(){
             break;
         case "/registrar/emprestimos":
             resp = "/registrar"
-            break;//TODO Necessário corrigir rota da função
+            break;
         default:
             resp = ""
     }
@@ -52,9 +52,9 @@ export default function publicNavbar(){
                     </Link>
                 </li>
                 <li>
-                    <Link className={resp === '/registrar' ? styles.activeLink : styles.link} href="/registrar">
+                    <Link className={resp === '/registrar' ? styles.activeLink : styles.link} href="/pag_formulario">
                         <FontAwesomeIcon className={styles.icones}  icon={faComment} />
-                        Sugestão
+                        Sugestões
                     </Link>
                 </li>
             </ul>

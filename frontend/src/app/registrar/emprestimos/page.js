@@ -15,7 +15,7 @@ const API_Emprestimo = 'https://gerenciadordebibliotecaback-08343971641b.herokua
 const API_LivrosEmprestimo = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/livro_emprestimo/'
 const API_StatusEmprestimo = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/status_emprestimo/'
 
-export default function registrarEmprestimos() {
+export default function RegistrarEmprestimos() {
     const { authData } = useAuth();
 
     const [isOpen, setIsOpen] = useState(false);

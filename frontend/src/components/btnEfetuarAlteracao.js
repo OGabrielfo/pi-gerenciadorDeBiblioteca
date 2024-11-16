@@ -7,14 +7,20 @@ import {AlterarFuncionarioContext} from "@/app/alterar/funcionario/page";
 
 export default function BtnEfetuarAlteracao(props) {
     //const {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
+    const livroContext = useContext(AlterarLivroContext);
+    const alunoContext = useContext(AlterarAlunoContext);
+    const funcionarioContext = useContext(AlterarFuncionarioContext);
 
+    let context;
     if (props.tipo == "livro"){
-        var {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
+        context = livroContext;
     } else if (props.tipo == "aluno") {
-        var {isUpdated, setIsUpdated} = useContext(AlterarAlunoContext);
+        context = alunoContext;
     } else{
-        var {isUpdated, setIsUpdated} = useContext(AlterarFuncionarioContext);
+        context = funcionarioContext;
     }
+    const {isUpdated, setIsUpdated} = context;
+    
     function handleClickLivro(){
         let registro = {};
         let index = 0;

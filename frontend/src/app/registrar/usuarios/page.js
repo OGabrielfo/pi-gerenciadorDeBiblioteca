@@ -1,127 +1,113 @@
-'use client'
+'use client';
 import { useAuth } from '@/utils/useAuth';
 import { fetchWithAuth } from '@/utils/authService';
-import styles from './usuarios.module.css'
-import { useEffect, useState } from "react"
-import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import Modal from '@/components/modal'
+import styles from './usuarios.module.css';
+import { useEffect, useState, useRef } from "react";
+import { useRouter } from 'next/navigation';
+import Modal from '@/components/modal';
+import $ from 'jquery';
+import dynamic from 'next/dynamic';
 
-let $, mask
-
-var API_URL = ''
-
-const registrarUsuarios = () => {
+const RegistrarUsuarios = () => {
     const { authData } = useAuth();
-
     const [isOpen, setIsOpen] = useState(false);
-    const [opSuccess, setSuccess] = useState(false)
+    const [opSuccess, setSuccess] = useState(false);
     const [message, setMessage] = useState('');
     const router = useRouter();
-    
-    // useStates dos campos necessários
-    const [nome, setNome] = useState('')
-    const [telefone, setTelefone] = useState('')
-    const [email, setEmail] = useState('')
-    const [sala, setSala] = useState('')
-    const [ocupacao, setOcupacao] = useState('')
+    const [nome, setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [email, setEmail] = useState('');
+    const [sala, setSala] = useState('');
+    const [ocupacao, setOcupacao] = useState('');
+    const [visTel, setVisTel] = useState('');
+    const [tipoComp, setTipoComp] = useState(false);
+    const telefoneRef = useRef(null);
 
-    const [visTel, setVisTel] = useState('') // useState para controle de alterações do formulário
+    const jQueryMask = dynamic(() => import('jquery-mask-plugin'), { ssr: false });
 
-    // useState de controle de formulário
-    const [ tipoComp, setTipoComp ] = useState(false)
-
-    // Reset das informações do formulário
     const limparFormulario = () => {
-        setNome('')
-        setTelefone('')
-        setEmail('')
-        setSala('')
-        setOcupacao('')
-        setVisTel('')
-    }
-    
-    // Função que será chamada ao clicar no botão de envio
+        setNome('');
+        setTelefone('');
+        setEmail('');
+        setSala('');
+        setOcupacao('');
+        setVisTel('');
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // Função de envio dos dados para o backend
-        if(tipoComp) { // Ativa form funcionário para envio
-            API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/professor_funcionario/'
-            
-            var dados = {
-                nome_do_professor_funcionario: nome,
-                ocupacao: ocupacao,
-                telefone: telefone,
-                email: email,
-            }
-        } else { // Ativa form aluno para envio
-            API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/aluno/'
-            
-            var dados = {
-                nome_do_aluno: nome,
-                sala: sala,
-                telefone: telefone,
-                email: email,
-            }
-        }
+        const API_URL = tipoComp ? 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/professor_funcionario/' : 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/aluno/';
+        const dados = tipoComp ? {
+            nome_do_professor_funcionario: nome,
+            ocupacao: ocupacao,
+            telefone: telefone,
+            email: email,
+        } : {
+            nome_do_aluno: nome,
+            sala: sala,
+            telefone: telefone,
+            email: email,
+        };
 
-        // Tentativa de envio para o backend
         try {
             const response = await fetchWithAuth(API_URL, {
                 method: 'POST',
-                data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
+                body: JSON.stringify(dados),
                 headers: {
-                  'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
-                }
+                    'Content-Type': 'application/json',
+                },
             });
-            console.log(response.data)
-            limparFormulario()
-            router.push('/registrar/usuarios') // redireciona o usuário após o cadastro com sucesso
-            setSuccess(true)
-            setMessage('Cadastro realizado com sucesso!')
+            console.log(response.data);
+            limparFormulario();
+            router.refresh();
+            setSuccess(true);
+            setMessage('Cadastro realizado com sucesso!');
         } catch (error) {
-            console.error(error)
-            setSuccess(false)
-            setMessage('Ocorreu um erro!')
+            console.error(error);
+            setSuccess(false);
+            setMessage('Ocorreu um erro!');
         } finally {
-            setIsOpen(true)
+            setIsOpen(true);
         }
     };
 
-    // Alteração de componentes de acordo com o tipo de usuário
-    useEffect(() => {        
-        if (typeof window !== 'undefined') {
-            const turmaComp = document.getElementById("turma")
-            const turmaInput = document.getElementById("turmaInput")
-            const ocupacaoComp = document.getElementById("ocupacao")
-            const ocupacaoInput = document.getElementById("ocupacaoInput")
-            ocupacaoComp?.setAttribute("hidden", true)
-            turmaComp?.setAttribute("hidden", true)
+    useEffect(() => {
+        const turmaComp = document.getElementById("turma");
+        const turmaInput = document.getElementById("turmaInput");
+        const ocupacaoComp = document .getElementById("ocupacao");
+        const ocupacaoInput = document.getElementById("ocupacaoInput");
 
-            if(tipoComp){ // Ativa preenchimento de funcionário
-                turmaComp?.setAttribute("hidden", true)
-                turmaInput?.removeAttribute("required")
-                ocupacaoComp?.removeAttribute("hidden")
-                ocupacaoInput?.setAttribute("required", true)
-            } else { // Ativa preenchimento de aluno
-                turmaComp?.removeAttribute("hidden")
-                turmaInput?.setAttribute("required", true)
-                ocupacaoComp?.setAttribute("hidden", true)
-                ocupacaoInput?.removeAttribute("required")
+        if (typeof window !== "undefined") {
+            ocupacaoComp?.setAttribute("hidden", true);
+            turmaComp?.setAttribute("hidden", true);
+
+            if (tipoComp) {
+                ocupacaoComp?.removeAttribute("hidden");
+                ocupacaoInput?.setAttribute("required", true);
+                turmaInput?.removeAttribute("required");
+            } else {
+                turmaComp?.removeAttribute("hidden");
+                turmaInput?.setAttribute("required", true);
+                ocupacaoComp?.setAttribute("hidden", true);
+                ocupacaoInput?.removeAttribute("required");
             }
         }
-    }, [tipoComp])
-        
-    // Máscara do input Telefone
-    if (typeof window !== 'undefined') {
-        $ = require('jquery');
-        mask = require('jquery-mask-plugin');
-        useEffect(() => {
-            if ($) {
-                $('#tel').mask('(00) 00000-0000')
-            }
-        }, []);
-    }
+    }, [tipoComp]);
+
+    useEffect(() => {
+        if (telefoneRef.current) {
+            import('jquery-mask-plugin').then(() => {
+                $(telefoneRef.current).mask('(00) 00000-0000');
+            });
+        }
+    }, []);
+
+    const handleChange = (e) => {
+        if (typeof window !== "undefined" && telefoneRef.current) {
+            setVisTel(e.target.value);
+            setTelefone($(telefoneRef.current).cleanVal());
+        }
+    };
     
     
 
@@ -196,7 +182,8 @@ const registrarUsuarios = () => {
                         id="tel"
                         placeholder= "(00) 00000-0000"
                         value={ visTel }
-                        onChange={(e) => {setTelefone($('#tel').cleanVal()), setVisTel(e.target.value)}}
+                        onChange={handleChange}
+                        ref={telefoneRef}
                     />
                 </div>
                 <div className={styles.formItem}>
@@ -222,4 +209,4 @@ const registrarUsuarios = () => {
     )
 }
 
-export default registrarUsuarios;
+export default RegistrarUsuarios;

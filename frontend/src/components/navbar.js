@@ -50,6 +50,9 @@ export default function Navbar(){
         case "/lista/funcionarios":
             resp = "/lista"
             break;
+        case "/reservar":
+            resp = "/reservar"
+            break;
         default:
             resp = ""
     }
@@ -93,6 +96,12 @@ export default function Navbar(){
                     <Link className={resp === '/lista' ? styles.activeLink : styles.link} href="/lista">
                         <FontAwesomeIcon className={styles.icones}  icon={faList} />
                         Lista
+                    </Link>
+                </li>
+                <li>
+                    <Link className={resp === '/reservar' ? styles.activeLink : styles.link} href="/reservar">
+                        <FontAwesomeIcon className={styles.icones}  icon={faList} />
+                        Reservas
                     </Link>
                 </li>
             </ul>

@@ -8,14 +8,14 @@ import CampoPesquisar from '@/components/campoPesquisar'
 import CampoDados from '@/components/campoDados'
 import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
-import React, {useState, createContext, useEffect} from 'react';
+import React, {useState, createContext, useEffect, useCallback} from 'react';
 import lista from '@/app/lista/page'
 
 const API_URL = 'https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/api/aluno/'
 
 export const AlterarAlunoContext = createContext();
 
-export default function alterar() {
+export default function Alterar() {
     const { authData } = useAuth();
 
     const [alunosPesquisa, setAlunosPesquisa] = useState();
@@ -33,27 +33,7 @@ export default function alterar() {
         }
     }
 
-    useEffect(() => async () => {
-        const data = await fetchAllData();
-        setDadosApi(data);
-    }, []);
-
-    useEffect(() => { // Roda quando uma linha é deletada ou alterada
-        if(isUpdated == true){
-          (async () => {
-            const data = await fetchAllData();
-            procurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome_do_aluno", "sala", data);
-            setDadosApi(data);
-            setIsUpdated(false)
-          })();
-        }
-      }, [isUpdated]); 
-    
-    function comparar(elemento, filtro, valor){
-        return elemento[filtro].toLowerCase().includes(valor);
-    }
-
-    const procurar = (campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
+    const procurar = useCallback((campoPesquisa1, campoPesquisa2, filtro1, filtro2, listaTotal) => {
         let valor1 = campoPesquisa1.value.toLowerCase();
         let valor2 = campoPesquisa2.value.toLowerCase();
         let listaTemporaria;
@@ -70,6 +50,38 @@ export default function alterar() {
         resetarCampos();
         campoPesquisa1.value = "";
         campoPesquisa2.value = "";
+    }, []);
+
+    useEffect(() => async () => {
+        const data = await fetchAllData();
+        setDadosApi(data);
+    }, []);
+
+    useEffect(() => { 
+        const fetchData = async () => { 
+            if (isUpdated) { 
+                const data = await fetchAllData(); 
+                procurar(document.getElementById("campoNomeAluno"), document.getElementById("campoSala"), "nome_do_aluno", "sala", data); setDadosApi(data); 
+                setIsUpdated(false); 
+            } 
+        }; 
+        
+        fetchData(); 
+    }, [isUpdated, procurar]);
+
+    /*useEffect(() => { // Roda quando uma linha é deletada ou alterada
+        if(isUpdated == true){
+          (async () => {
+            const data = await fetchAllData();
+            procurar(document.getElementById("campoNomeAluno"),document.getElementById("campoSala"), "nome_do_aluno", "sala", data);
+            setDadosApi(data);
+            setIsUpdated(false)
+          })();
+        }
+      }, [isUpdated]); */
+    
+    function comparar(elemento, filtro, valor){
+        return elemento[filtro].toLowerCase().includes(valor);
     }
 
     function resetarCampos(){ // Resta os campos

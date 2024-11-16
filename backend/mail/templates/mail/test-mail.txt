@@ -1,0 +1,7 @@
+Prezado {{ nome }}
+
+    
+O prazo para devolver o livro {{ livro }}, emprestado da Biblioteca da E.E Prof. Yolanda Bueno de Godoy venceu. Solicitamos que o exemplar sob sua posse seja entregue na biblioteca da escola com a máxima urgência!
+    
+Atenciosamente,
+A Direção!

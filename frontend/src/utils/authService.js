@@ -12,6 +12,9 @@ export const login = async (username, password, stayConnected) => {
     if (stayConnected){
         Cookies.set('accessToken', access, { expires: 7 }); // expira em 7 dia
         Cookies.set('refreshToken', refresh, { expires: 30 }); // expira em 30 dias
+    } else {
+      Cookies.set('accessToken', access, { expires: new Date(new Date().getTime() + 9 * 60 * 60 * 1000) }); // expira em 9 horas
+      Cookies.set('refreshToken', refresh, { expires: new Date(new Date().getTime() + 12 * 60 * 60 * 1000) }); // expira em 12 horas
     }
   
     return response.data;
