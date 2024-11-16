@@ -1,32 +1,19 @@
 version: '3'
 
 services:
-  backend:
-    build: ./backend
-    volumes:
-      - ./backend:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
   frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend:/app
+    build:
+      context: ./frontend
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - backend
 
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: meuusuario
-      POSTGRES_PASSWORD: minhasenha
-      POSTGRES_DB: meubanco
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - '8000:8000'
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - .:/app
 
-volumes:
-  postgres_data:

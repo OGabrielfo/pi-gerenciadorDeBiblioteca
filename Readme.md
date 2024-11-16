@@ -25,4 +25,3 @@ Após instalar o python, o node e baixar sua branch realizar os passos a seguir 
 
 //TODO Fazer merge da parte final do Sutani
 //TODO Fazer merge da parte do Kevin
-//TODO Corrigir responsividade e tirar prints
