@@ -2,7 +2,7 @@
 FROM node:21
 
 # Defina o diretório de trabalho no contêiner
-WORKDIR /app
+WORKDIR /frontend
 
 # Copie os arquivos package.json e package-lock.json
 COPY package*.json ./
