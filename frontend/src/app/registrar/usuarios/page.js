@@ -5,6 +5,7 @@ import styles from './usuarios.module.css';
 import { useEffect, useState, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import Modal from '@/components/modal';
+import $ from 'jquery';
 import dynamic from 'next/dynamic';
 
 const RegistrarUsuarios = () => {
@@ -21,6 +22,8 @@ const RegistrarUsuarios = () => {
     const [visTel, setVisTel] = useState('');
     const [tipoComp, setTipoComp] = useState(false);
     const telefoneRef = useRef(null);
+
+    const jQueryMask = dynamic(() => import('jquery-mask-plugin'), { ssr: false });
 
     const limparFormulario = () => {
         setNome('');
@@ -92,9 +95,10 @@ const RegistrarUsuarios = () => {
     }, [tipoComp]);
 
     useEffect(() => {
-        const jQueryMask = dynamic(() => import('jquery-mask-plugin'), { ssr: false });
         if (telefoneRef.current) {
-            jQueryMask(telefoneRef.current).mask('(00) 00000-0000');
+            import('jquery-mask-plugin').then(() => {
+                $(telefoneRef.current).mask('(00) 00000-0000');
+            });
         }
     }, []);
 
