@@ -2,7 +2,7 @@
 FROM python:3.10
 
 # Defina o diretório de trabalho no contêiner
-WORKDIR /app
+WORKDIR /backend
 
 # Copie os requisitos do projeto
 COPY requirements.txt .
@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Defina a variável de ambiente para o Django
-ENV DJANGO_SETTINGS_MODULE=meuprojeto.settings
+ENV DJANGO_SETTINGS_MODULE=drp03_pi.settings
 
 # Exponha a porta que o Django utilizará
 EXPOSE 8000

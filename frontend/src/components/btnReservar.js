@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "./BtnReservar.module.css";
+import styles from "./btnReservar.module.css";
 import React, {useState} from "react";
 import Link from "next/link";
 

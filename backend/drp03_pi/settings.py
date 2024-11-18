@@ -26,9 +26,9 @@ SECRET_KEY = 'django-insecure-3jfg-zccyiz3o6gi^kb*_p+=d3_os8aw48qo-xf7bx&_qwt60e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'gerenciadordebibliotecaback-08343971641b.herokuapp.com']
+#ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'gerenciadordebibliotecaback-08343971641b.herokuapp.com']
 
-#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -64,6 +64,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "http://frontend:3000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     #"https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/",
@@ -182,13 +183,13 @@ STATICFILES_DIRS = [
 
 # Email
 
-DEFAULT_FROM_EMAIL = "throwawaymatsu@gmail.com"
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST = config('EMAIL_HOST')
+#DEFAULT_FROM_EMAIL = "throwawaymatsu@gmail.com"
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+#EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+#EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+#EMAIL_PORT = config('EMAIL_PORT')
+#EMAIL_HOST = config('EMAIL_HOST')
 
 #STATICFILES_DIRS = [
  #   BASE_DIR / 'static',

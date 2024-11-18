@@ -2,20 +2,32 @@ version: '3'
 
 services:
   frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
       - '3000:3000'
+    networks:
+      - application
     depends_on:
       - backend
+    environment:
+    - NEXT_PUBLIC_API_URL=http://backend:8000/api/
+    
 
   backend:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
       - '8000:8000'
+    networks:
+      - application
     volumes:
       - .:/app
 
+networks:
+  application:
+    driver: bridge

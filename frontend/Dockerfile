@@ -2,30 +2,29 @@
 FROM node:21
 
 # Defina o diretório de trabalho
-WORKDIR /frontend 
+WORKDIR /frontend
 
-# Copie o arquivo package.json e package-lock.json
+# Copie o arquivo package.json e package-lock.json para o contêiner
 COPY package.json package-lock.json ./
 
-# Instale as dependências do projeto
+# Instale as dependências do Node.js no contêiner
 RUN npm install
 
-# Adicione comandos para verificar o estado do node e npm
-RUN node -v
-RUN npm -v
-RUN ls -la
-
-# Copie o restante do código do projeto
+# Copie todo o restante do código do frontend, excluindo a pasta node_modules
 COPY . .
 
-# Garanta que o node esteja no PATH durante o build
-RUN ln -s /frontend/node_modules/.bin/node /usr/local/bin/node
+# Remova qualquer pasta node_modules que possa ter sido copiada inadvertidamente
+RUN rm -rf ./node_modules
 
-# Construa o projeto Next.js
+# Instale as dependências do Node.js no contêiner
+RUN npm install
+
+# Construa o aplicativo
 RUN npm run build
 
-# Exponha a porta que o Next.js utilizará
+# Exponha a porta em que o app vai rodar
 EXPOSE 3000
 
-# Comando para iniciar o servidor Next.js
+# Comando para iniciar o aplicativo
 CMD ["npm", "start"]
+

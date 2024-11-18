@@ -3,7 +3,7 @@ import { useAuth } from '@/utils/useAuth';
 import { fetchWithAuth } from '@/utils/authService';
 import styles from './reservar.module.css'
 import Header from '../../components/header'
-import BtnReservar from '@/components/btnReservar'
+import BtnReservar from '@/components/btnReservar';
 import TabelaReservar from '@/components/tabelaReservar'
 import Modal from '@/components/modalReserva2';
 import React,{useState, useEffect, createContext} from 'react'
