@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './consulta.module.css'
 import Header from '../../components/header'
 import TabelaConsultar from '@/components/tabelaConsultar'
-const API_URL = 'http://127.0.0.1:8000/api/livro/'
+const API_URL = 'http://127.0.0.1:8080/api/livro/'
 
 
 export default function consulta() {

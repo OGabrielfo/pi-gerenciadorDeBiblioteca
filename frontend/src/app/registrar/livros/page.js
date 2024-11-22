@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import Modal from '@/components/modal'
 
-var API_URL = 'http://127.0.0.1:8000/api/livro/'
+var API_URL = 'http://127.0.0.1:8080/api/livro/'
 
 function RegistrarLivros() {     
     const { authData } = useAuth();
@@ -78,7 +78,7 @@ function RegistrarLivros() {
     useEffect(() => {
         async function fetchNichos() {
             try {
-                const response = await fetchWithAuth('http://localhost:8000/api/nicho/')
+                const response = await fetchWithAuth('http://localhost:8080/api/nicho/')
                 const data = await response.json()
                 setNichos(data)
             } catch (error) {

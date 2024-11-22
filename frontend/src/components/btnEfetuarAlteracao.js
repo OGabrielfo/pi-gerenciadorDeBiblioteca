@@ -275,7 +275,7 @@ export default function BtnEfetuarAlteracao(props) {
 
         if (registro != false){    
             const id = document.getElementById("codigoSelecionado").textContent;
-            const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
+            const url = `http://127.0.0.1:8080/api/${props.tipo}/${id}/`
             console.log(url);
             putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
             console.log(isUpdated);

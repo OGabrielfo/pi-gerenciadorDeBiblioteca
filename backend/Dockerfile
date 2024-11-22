@@ -17,7 +17,7 @@ COPY . .
 ENV DJANGO_SETTINGS_MODULE=drp03_pi.settings
 
 # Exponha a porta que o Django utilizará
-EXPOSE 8000
+EXPOSE 8080
 
 # Comando para iniciar o servidor Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8080"]

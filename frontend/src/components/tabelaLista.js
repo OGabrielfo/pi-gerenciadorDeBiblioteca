@@ -9,9 +9,9 @@ import router from 'next/router'
 
 let $, mask
 
-const API_URL = 'http://127.0.0.1:8000/api/emprestimo/'
-const API_Alunos = 'http://127.0.0.1:8000/api/aluno/'
-const API_Professor = 'http://127.0.0.1:8000/api/professor_funcionario/'
+const API_URL = 'http://127.0.0.1:8080/api/emprestimo/'
+const API_Alunos = 'http://127.0.0.1:8080/api/aluno/'
+const API_Professor = 'http://127.0.0.1:8080/api/professor_funcionario/'
 
 export default function TabelaConsultar(props) {
     // Função GET que retorna o que foi solicitado
@@ -42,7 +42,7 @@ export default function TabelaConsultar(props) {
     //Deletar Cadastros
     const deleteData = async (id) => { // Deleta uma linha de dados
         try{
-            const url = `http://localhost:8000/api/emprestimo/${id}/`
+            const url = `http://localhost:8080/api/emprestimo/${id}/`
             const response = await fetchWithAuth (url, {
                 method: "DELETE",
                 headers: {

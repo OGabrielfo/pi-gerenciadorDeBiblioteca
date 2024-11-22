@@ -36,7 +36,7 @@ const RegistrarUsuarios = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const API_URL = tipoComp ? 'http://127.0.0.1:8000/api/professor_funcionario/' : 'http://127.0.0.1:8000/api/aluno/';
+        const API_URL = tipoComp ? 'http://127.0.0.1:8080/api/professor_funcionario/' : 'http://127.0.0.1:8080/api/aluno/';
         const dados = tipoComp ? {
             nome_do_professor_funcionario: nome,
             ocupacao: ocupacao,

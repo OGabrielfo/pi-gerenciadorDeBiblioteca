@@ -5,7 +5,7 @@ import jwtSimple from 'jwt-simple'
 import styles from './login.module.css'
 import Image from 'next/image'
 import Logo from '../../assets/Logotipo.png'
-const API_URL = 'http://127.0.0.1:8000/api/login'
+const API_URL = 'http://127.0.0.1:8080/api/login'
 
 export default function LoginPage() {
 

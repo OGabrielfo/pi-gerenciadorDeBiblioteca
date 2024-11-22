@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://127.0.0.1:8000/api/auth/login/';
+const API_URL = 'http://127.0.0.1:8080/api/auth/login/';
 
 export const login = async (username, password, stayConnected) => {
   try {

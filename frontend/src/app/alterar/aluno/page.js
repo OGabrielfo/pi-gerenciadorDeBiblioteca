@@ -11,16 +11,16 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState, createContext, useEffect, useCallback} from 'react';
 import lista from '@/app/lista/page'
 
-const API_URL = 'http://127.0.0.1:8000/api/aluno/'
+const API_URL = 'http://127.0.0.1:8080/api/aluno/'
 
 export const AlterarAlunoContext = createContext();
 
 export default function Alterar() {
     const { authData } = useAuth();
 
-    const [alunosPesquisa, setAlunosPesquisa] = useState();
+    const [alunosPesquisa, setAlunosPesquisa] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
-    const [dadosApi, setDadosApi] = useState();
+    const [dadosApi, setDadosApi] = useState([]);
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
     
     const fetchAllData = async () => {

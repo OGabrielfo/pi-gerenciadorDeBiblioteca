@@ -8,7 +8,7 @@ import { useState, useEffect, createContext} from 'react';
 
 export const ReservarLivroContextPrivado = createContext();
 
-const API_URL = 'http://127.0.0.1:8000/api/livro/';
+const API_URL = 'http://127.0.0.1:8080/api/livro/';
 
 const Consulta = () => {
   const { authData } = useAuth();

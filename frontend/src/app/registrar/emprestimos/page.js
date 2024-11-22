@@ -8,12 +8,12 @@ import axios from 'axios'
 import Modal from '@/components/modal'
 
 
-const API_Alunos = 'http://localhost:8000/api/aluno/'
-const API_Funcionarios = 'http://localhost:8000/api/professor_funcionario/'
-const API_Livros = 'http://localhost:8000/api/livro/'
-const API_Emprestimo = 'http://localhost:8000/api/emprestimo/'
-const API_LivrosEmprestimo = 'http://localhost:8000/api/livro_emprestimo/'
-const API_StatusEmprestimo = 'http://localhost:8000/api/status_emprestimo/'
+const API_Alunos = 'http://localhost:8080/api/aluno/'
+const API_Funcionarios = 'http://localhost:8080/api/professor_funcionario/'
+const API_Livros = 'http://localhost:8080/api/livro/'
+const API_Emprestimo = 'http://localhost:8080/api/emprestimo/'
+const API_LivrosEmprestimo = 'http://localhost:8080/api/livro_emprestimo/'
+const API_StatusEmprestimo = 'http://localhost:8080/api/status_emprestimo/'
 
 export default function RegistrarEmprestimos() {
     const { authData } = useAuth();

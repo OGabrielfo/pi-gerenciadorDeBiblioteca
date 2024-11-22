@@ -6,8 +6,8 @@ import TabelaConsultar from '@/components/tabelaConsultar';
 import Modal from '@/components/modalReserva2';
 import { fetchWithAuth } from '@/utils/authService';
 
-const API_URL = 'http://127.0.0.1:8000/api/livro/';
-const API_URL_RESERVA = 'http://127.0.0.1:8000/api/reserva_livro/';
+const API_URL = 'http://127.0.0.1:8080/api/livro/';
+const API_URL_RESERVA = 'http://127.0.0.1:8080/api/reserva_livro/';
 
 export const ReservarLivroContext = createContext();
 

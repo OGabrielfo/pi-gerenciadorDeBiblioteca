@@ -10,15 +10,15 @@ import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState, createContext, useEffect, useCallback} from 'react';
 
-const API_URL = 'http://127.0.0.1:8000/api/professor_funcionario/'
+const API_URL = 'http://127.0.0.1:8080/api/professor_funcionario/'
 export const AlterarFuncionarioContext = createContext();
 
 export default function Alterar() {
     const { authData } = useAuth();
 
-    const [funcionariosPesquisa, setfuncionariosPesquisa] = useState();
+    const [funcionariosPesquisa, setfuncionariosPesquisa] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
-    const [dadosApi, setDadosApi] = useState();
+    const [dadosApi, setDadosApi] = useState([]);
     const [dadosFiltrados, setDadosFiltrados] = useState([]);
 
     const fetchAllData = async () => {
