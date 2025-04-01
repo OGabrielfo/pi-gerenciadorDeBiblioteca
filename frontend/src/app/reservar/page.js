@@ -8,14 +8,16 @@ import TabelaReservar from '@/components/tabelaReservar'
 import Modal from '@/components/modalReserva2';
 import React,{useState, useEffect, createContext} from 'react'
 
-const API_URL_RESERVA = 'http://127.0.0.1:8000/api/reserva_livro/'
-const API_URL_LIVRO = 'http://127.0.0.1:8000/api/livro/'
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-const API_Professor = 'http://127.0.0.1:8000/api/professor_funcionario/'
-const API_Aluno = 'http://127.0.0.1:8000/api/aluno/'
-const API_Emprestimo = 'http://localhost:8000/api/emprestimo/'
-const API_LivrosEmprestimo = 'http://localhost:8000/api/livro_emprestimo/'
-const API_StatusEmprestimo = 'http://localhost:8000/api/status_emprestimo/'
+const API_URL_RESERVA = apiUrl+'/reserva_livro/'
+const API_URL_LIVRO = apiUrl+'/livro/'
+
+const API_Professor = apiUrl+'/professor_funcionario/'
+const API_Aluno = apiUrl+'/aluno/'
+const API_Emprestimo = apiUrl+'/emprestimo/'
+const API_LivrosEmprestimo = apiUrl+'/livro_emprestimo/'
+const API_StatusEmprestimo = apiUrl+'/status_emprestimo/'
 
 export const ReservaContextoAluno = createContext();
 
@@ -72,7 +74,7 @@ const Alterar = () => {
       }, [isUpdated]); 
       const deleteData = async (id) => { // Deleta uma linha de dados
         try{
-            const url = `http://127.0.0.1:8000/api/reserva_livro/${id}/`
+            const url = `${API_URL_RESERVA}/${id}/`
             const response = await fetch (url, {
                 method: "DELETE",
                 headers: {

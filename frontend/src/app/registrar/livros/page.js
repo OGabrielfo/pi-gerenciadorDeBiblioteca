@@ -7,7 +7,9 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import Modal from '@/components/modal'
 
-var API_URL = 'http://127.0.0.1:8000/api/livro/'
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL_LIVRO = apiUrl+'/livro/'
+const API_URL_NICHO = apiUrl+'/nicho/'
 
 function RegistrarLivros() {     
     const { authData } = useAuth();
@@ -51,7 +53,7 @@ function RegistrarLivros() {
 
         // Tentativa de envio para o backend
         try {
-            const response = await fetchWithAuth(API_URL, {
+            const response = await fetchWithAuth(API_URL_LIVRO, {
                 method: 'POST',
                 data: dados, // Aqui você insere os dados que deseja enviar no corpo da requisição
                 headers: {
@@ -78,7 +80,7 @@ function RegistrarLivros() {
     useEffect(() => {
         async function fetchNichos() {
             try {
-                const response = await fetchWithAuth('http://localhost:8000/api/nicho/')
+                const response = await fetchWithAuth(API_URL_NICHO)
                 const data = await response.json()
                 setNichos(data)
             } catch (error) {

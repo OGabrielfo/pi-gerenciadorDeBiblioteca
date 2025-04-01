@@ -3,6 +3,9 @@ import { useState } from 'react';
 import Header from '../../components/header';
 import styles from '../../app/pag_formulario/formulario.module.css';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL_SUGESTLIVRO = apiUrl+'/sugestao_livro/';
+
 const SuggestionForm = () => {
     const [formData, setFormData] = useState({
         nomeCompleto: '',
@@ -29,7 +32,7 @@ const SuggestionForm = () => {
 
         if (isFormValid) {
             try {
-                const response = await fetch('http://localhost:8000/api/sugestao_livro/', {
+                const response = await fetch(API_URL_SUGESTLIVRO, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

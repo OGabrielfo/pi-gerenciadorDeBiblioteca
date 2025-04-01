@@ -21,7 +21,3 @@ Após instalar o python, o node e baixar sua branch realizar os passos a seguir 
    - Login 2
      - User: admin
      - Senha: univespadmin@
-
-
-//TODO Fazer merge da parte final do Sutani
-//TODO Fazer merge da parte do Kevin

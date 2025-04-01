@@ -6,8 +6,10 @@ import TabelaConsultar from '@/components/tabelaConsultar';
 import Modal from '@/components/modalReserva2';
 import { fetchWithAuth } from '@/utils/authService';
 
-const API_URL = 'http://127.0.0.1:8000/api/livro/';
-const API_URL_RESERVA = 'http://127.0.0.1:8000/api/reserva_livro/';
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL_ACERVO = apiUrl+'/livro/';
+const API_URL_RESERVA = apiUrl+'/reserva_livro/';
 
 export const ReservarLivroContext = createContext();
 
@@ -23,7 +25,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL_ACERVO);
         const data = await response.json();
         setDadosAPI(data); // Atualizar o estado com os dados
       } catch (error) {
