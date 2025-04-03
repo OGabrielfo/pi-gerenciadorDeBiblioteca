@@ -5,6 +5,8 @@ import {AlterarLivroContext} from '../app/alterar/page';
 import {AlterarAlunoContext} from "@/app/alterar/aluno/page";
 import {AlterarFuncionarioContext} from "@/app/alterar/funcionario/page";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
 export default function BtnEfetuarAlteracao(props) {
     //const {isUpdated, setIsUpdated} = useContext(AlterarLivroContext);
     const livroContext = useContext(AlterarLivroContext);
@@ -275,7 +277,7 @@ export default function BtnEfetuarAlteracao(props) {
 
         if (registro != false){    
             const id = document.getElementById("codigoSelecionado").textContent;
-            const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
+            const url = `${apiUrl}/${props.tipo}/${id}/`
             console.log(url);
             putData(url, registro).then(data => console.log(data)).catch(err => console.log(err));
             console.log(isUpdated);

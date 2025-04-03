@@ -10,7 +10,8 @@ import BtnEfetuarAlteracao from '@/components/btnEfetuarAlteracao'
 import TabelaAlterar from '@/components/tabelaAlterar'
 import React,{useState, useEffect, createContext, useCallback} from 'react'
 
-const API_URL = 'http://127.0.0.1:8000/api/livro/'
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL = apiUrl+'/livro/'
 export const AlterarLivroContext = createContext();
 
 export default function Alterar() { 

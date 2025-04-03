@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const API_URL = 'http://127.0.0.1:8000/api/auth/login/';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL = apiUrl+'/auth/login/';
 
 export const login = async (username, password, stayConnected) => {
   try {

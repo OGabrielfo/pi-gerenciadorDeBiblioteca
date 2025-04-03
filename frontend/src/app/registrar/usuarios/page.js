@@ -8,6 +8,10 @@ import Modal from '@/components/modal';
 import $ from 'jquery';
 import dynamic from 'next/dynamic';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL_PROFFUN = apiUrl+'/professor_funcionario/'
+const API_URL_ALUNO = apiUrl+'/aluno/'
+
 const RegistrarUsuarios = () => {
     const { authData } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +40,7 @@ const RegistrarUsuarios = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const API_URL = tipoComp ? 'http://127.0.0.1:8000/api/professor_funcionario/' : 'http://127.0.0.1:8000/api/aluno/';
+        const API_URL = tipoComp ? API_URL_PROFFUN : API_URL_ALUNO;
         const dados = tipoComp ? {
             nome_do_professor_funcionario: nome,
             ocupacao: ocupacao,

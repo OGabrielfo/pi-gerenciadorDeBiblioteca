@@ -11,7 +11,8 @@ import TabelaAlterar from '@/components/tabelaAlterar'
 import React, {useState, createContext, useEffect, useCallback} from 'react';
 import lista from '@/app/lista/page'
 
-const API_URL = 'http://127.0.0.1:8000/api/aluno/'
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL = apiUrl+'/aluno/'
 
 export const AlterarAlunoContext = createContext();
 

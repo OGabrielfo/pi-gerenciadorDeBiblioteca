@@ -8,6 +8,8 @@ import { AlterarFuncionarioContext } from "@/app/alterar/funcionario/page";
 import { fetchWithAuth } from '@/utils/authService';
 import React, {useContext, useState} from "react";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
 export default function TabelaAlterar(props) {
     const livroContext = useContext(AlterarLivroContext);
     const alunoContext = useContext(AlterarAlunoContext);
@@ -26,7 +28,7 @@ export default function TabelaAlterar(props) {
 
     const deleteData = async (id) => { // Deleta uma linha de dados
         try{
-            const url = `http://127.0.0.1:8000/api/${props.tipo}/${id}/`
+            const url = `${apiUrl}/${props.tipo}/${id}/`
             const response = await fetchWithAuth (url, {
                 method: "DELETE",
                 headers: {

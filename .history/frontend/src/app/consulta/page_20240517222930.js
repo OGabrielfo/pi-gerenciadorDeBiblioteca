@@ -3,7 +3,8 @@ import { useState } from 'react';
 import styles from './consulta.module.css'
 import Header from '../../components/header'
 import TabelaConsultar from '@/components/tabelaConsultar'
-const API_URL = 'http://127.0.0.1:8000/api/livro/'
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const API_URL = apiUrl+'/livro/'
 export default function consulta() {
   const [nomeLivro, setNomeLivro] = useState('');
   const [autor, setAutor] = useState('');
