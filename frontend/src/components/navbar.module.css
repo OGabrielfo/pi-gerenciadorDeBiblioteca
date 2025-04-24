@@ -17,7 +17,7 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    top: 120px;
+    top: 90px;
     width: 90px;
     height: 100%;
 }
@@ -29,14 +29,14 @@
 .link{
     background-color: var(--cor03);
     border-radius: 5px;
-    margin-top: 50px;
-    width: 80px;
-    height: 80px;
+    margin-top: 30px;
+    width: 70px;
+    height: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1em;
+    font-size: 0.9em;
     color: var(--cor08);
     text-decoration: none;
     transition: 0.2s;
@@ -51,14 +51,14 @@
     list-style-type: none;
     background-color: var(--cor05);
     border-radius: 5px;
-    margin-top: 50px;
-    width: 80px;
-    height: 80px;
+    margin-top: 30px;
+    width: 70px;
+    height: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1em;
+    font-size: 0.9em;
     color: rgb(240, 240, 240);
     text-decoration: none;
     transition: 0.2s;
@@ -71,7 +71,7 @@
 
 .icones {
     color: var(--cor08);
-    font-size: 2.5em;
+    font-size: 2em;
     text-align: center;
     margin-bottom: 5px;
 }

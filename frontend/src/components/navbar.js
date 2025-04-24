@@ -11,6 +11,7 @@ import { faUserPlus } from "@fortawesome/free-solid-svg-icons/faUserPlus"
 import { faList } from "@fortawesome/free-solid-svg-icons/faList"
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons/faPenToSquare"
 import { faBars } from "@fortawesome/free-solid-svg-icons"
+import { faChartLine } from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -52,6 +53,9 @@ export default function Navbar(){
             break;
         case "/reservar":
             resp = "/reservar"
+            break;
+        case "/dados":
+            resp = "/dados"
             break;
         default:
             resp = ""
@@ -95,13 +99,19 @@ export default function Navbar(){
                 <li>
                     <Link className={resp === '/lista' ? styles.activeLink : styles.link} href="/lista">
                         <FontAwesomeIcon className={styles.icones}  icon={faList} />
-                        Lista
+                        Devedores
                     </Link>
                 </li>
                 <li>
                     <Link className={resp === '/reservar' ? styles.activeLink : styles.link} href="/reservar">
                         <FontAwesomeIcon className={styles.icones}  icon={faList} />
                         Reservas
+                    </Link>
+                </li>
+                <li>
+                    <Link className={resp === '/dados' ? styles.activeLink : styles.link} href="/dados">
+                        <FontAwesomeIcon className={styles.icones}  icon={faChartLine} />
+                        Dados
                     </Link>
                 </li>
             </ul>

@@ -40,24 +40,39 @@ export default function TabelaConsultar(props) {
         fetchDados()
     }, [])
 
-    //Deletar Cadastros
-    const deleteData = async (id) => { // Deleta uma linha de dados
+    //Alterar Cadastros
+    const setConclude = async (id) => {
+        const item = emprestimo.find( item => item.id_emprestimo === id)
+        if(!item) {
+            alert("Item não encontrado!")
+            return
+        }
+
+        let dados = {
+            id_usuario_aluno: item.id_usuario_aluno,
+            id_usuario_professor: item.id_usuario_professor,
+            data_devolucao: item.data_devolucao,
+            situacao_emprestimo: 'Concluido',
+        }
+
         try{
             const url = `${API_Emprestimo}${id}/`
             const response = await fetchWithAuth (url, {
-                method: "DELETE",
+                method: "PUT",
                 headers: {
                     'Content-type': 'application/json'
-                }
+                },
+                body: JSON.stringify ({dados})
             });
             //setIsUpdated(true);
-            window.alert("Os dados foram deletadas");
+            window.alert("O empréstimo foi concluído");
             setEmprestimo(emprestimo.filter(item => item.id_emprestimo !== id))
         } 
         catch (e) {
-            window.alert("Nao foram deletados");
+            window.alert("Alteração não realizada, tente novamente");
             console.log(e);
         }
+        console.log (dados)
     }
 
     // Renderização das linhas da tabela Alunos
@@ -85,7 +100,7 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Deletar" className={styles.dado}>
-                    <button onClick={() => deleteData(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faTrashCan}/></button>
+                    <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faTrashCan}/></button>
                 </td>
             </tr>
             :
@@ -118,7 +133,7 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Deletar" className={styles.dado}>
-                    <FontAwesomeIcon icon={faTrashCan} onClick={() => deleteData(usuario.id_emprestimo)} className={styles.icones} />
+                    <FontAwesomeIcon icon={faTrashCan} onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} />
                 </td>
             </tr> 
             :

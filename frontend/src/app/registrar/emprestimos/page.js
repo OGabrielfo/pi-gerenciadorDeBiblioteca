@@ -121,7 +121,7 @@ export default function RegistrarEmprestimos() {
                   'Content-Type': 'application/json', // Defina o tipo de conteúdo como JSON
                 }
             });
-            console.log(responseEmprestimo.data)
+            console.log(dados)
 
             const emprestimoData = await responseEmprestimo.json();
             const idEmprestimo = emprestimoData.id_emprestimo;
