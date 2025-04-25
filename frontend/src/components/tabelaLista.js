@@ -11,12 +11,16 @@ let $, mask
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const API_Emprestimo = apiUrl+'/emprestimo/'
+const API_LivroEmprestimo = apiUrl+'/livro_emprestimo/'
+const API_StatusEmprestimo = apiUrl+'/status_emprestimo/'
 const API_Alunos = apiUrl+'/aluno/'
 const API_Professor = apiUrl+'/professor_funcionario/'
 
 export default function TabelaConsultar(props) {
     // Função GET que retorna o que foi solicitado
     const [emprestimo, setEmprestimo] = useState([])
+    const [livroEmprest, setLivroEmprest] = useState([])
+    const [statusEmprestimo, setStatusEmprestimo] = useState([])
     const [alunos, setAlunos] = useState([])
     const [funcionarios, setFuncionarios] = useState([])
 
@@ -25,12 +29,18 @@ export default function TabelaConsultar(props) {
         async function fetchDados() {
             try {
                 const respEmprestimos = await fetchWithAuth(API_Emprestimo)
+                const respLivroEmprest = await fetchWithAuth(API_LivroEmprestimo)
+                const respStatusEmprestimo = await fetchWithAuth(API_StatusEmprestimo)
                 const respAlunos = await fetchWithAuth(API_Alunos)
                 const respFuncionarios = await fetchWithAuth(API_Professor)
                 const dataEmprestimos = await respEmprestimos.json()
+                const dataLivroEmprest = await respLivroEmprest.json()
+                const dataStatusEmprestimo = await respStatusEmprestimo.json()
                 const dataAlunos = await respAlunos.json()
                 const dataFuncionarios = await respFuncionarios.json()
                 setEmprestimo(dataEmprestimos)
+                setLivroEmprest(dataLivroEmprest)
+                setStatusEmprestimo(dataStatusEmprestimo)
                 setAlunos(dataAlunos)
                 setFuncionarios(dataFuncionarios)
             } catch (error) {
@@ -47,32 +57,38 @@ export default function TabelaConsultar(props) {
             alert("Item não encontrado!")
             return
         }
-
-        let dados = {
-            id_usuario_aluno: item.id_usuario_aluno,
-            id_usuario_professor: item.id_usuario_professor,
-            data_devolucao: item.data_devolucao,
-            situacao_emprestimo: 'Concluido',
+        const updateData = {
+            situacao_emprestimo: "Concluido",
         }
 
         try{
-            const url = `${API_Emprestimo}${id}/`
+            const url = `${API_Emprestimo}${id}/`;
+
             const response = await fetchWithAuth (url, {
-                method: "PUT",
+                method: "PATCH",
+                data: updateData,
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify ({dados})
             });
-            //setIsUpdated(true);
-            window.alert("O empréstimo foi concluído");
-            setEmprestimo(emprestimo.filter(item => item.id_emprestimo !== id))
+
+            //TODO fazer atualização do estado dos livros de cada empréstimo também
+            //TODO ocultar completos
+
+            if (response.ok) {
+                window.alert("O empréstimo foi concluído.");
+                console.log(response)
+                setEmprestimo(emprestimo.map(item =>
+                    item.id_emprestimo === id ? { ...item, situacao_emprestimo: 'Concluido' } : item
+                )); // Atualiza o estado corretamente
+            } else {
+                window.alert("Erro ao concluir o empréstimo.");
+            }    
         } 
         catch (e) {
             window.alert("Alteração não realizada, tente novamente");
             console.log(e);
         }
-        console.log (dados)
     }
 
     // Renderização das linhas da tabela Alunos

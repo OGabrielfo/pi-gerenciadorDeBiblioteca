@@ -175,7 +175,7 @@ class ConsultaLivroAdmin(admin.ModelAdmin):
 ##############################################
 class LivroEmprestimoInline(admin.TabularInline):
     model = LivroEmprestimo
-    extra = 1  # Define o número inicial de formulários vazios exibidos para adicionar livros
+    extra = 0  # Define o número inicial de formulários vazios exibidos para adicionar livros
 
 class EmprestimoAdmin(admin.ModelAdmin):
     inlines = [LivroEmprestimoInline]

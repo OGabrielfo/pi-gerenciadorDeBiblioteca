@@ -1,6 +1,7 @@
 'use client'
 import styles from "./btnEfetuarAlteracao.module.css";
 import React, {useState, useContext} from "react";
+import { fetchWithAuth } from "@/utils/authService";
 import {AlterarLivroContext} from '../app/alterar/page';
 import {AlterarAlunoContext} from "@/app/alterar/aluno/page";
 import {AlterarFuncionarioContext} from "@/app/alterar/funcionario/page";
@@ -249,12 +250,12 @@ export default function BtnEfetuarAlteracao(props) {
     }
 
     const putData = async (url, data) =>{ // função utilizada para alterar uma linha
-        const response = await fetch(url, {
-            method: 'PUT',
+        const response = await fetchWithAuth(url, {
+            method: 'PATCH',
+            data: data,
             headers: {
                 'Content-type': 'application/json' 
             },
-            body: JSON.stringify(data)
         })
 
         const resData = await response.json(); 

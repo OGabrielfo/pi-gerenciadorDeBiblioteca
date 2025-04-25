@@ -62,6 +62,7 @@ class EmprestimoViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
+
 class LivroEmprestimoViewSet(viewsets.ModelViewSet):
     queryset = LivroEmprestimo.objects.all()
     serializer_class = LivroEmprestimoSerializer

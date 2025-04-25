@@ -67,7 +67,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://frontend:3000",
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    #"https://gerenciadordebibliotecaback-08343971641b.herokuapp.com/",
+    "https://frontend-service-147302781677.us-central1.run.app",
+    #"https://gerenciadordebibliotecaback-08343971641b.herokuapp.com",
 
 ]
 
@@ -78,6 +79,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',  # Necessário para interpretar JSON
+    ],
+
+
 }
 
 from datetime import timedelta
