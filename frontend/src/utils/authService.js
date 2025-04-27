@@ -39,7 +39,7 @@ export const getRefreshToken = () => {
 };
 
 export const fetchWithAuth = async (url, { method = 'GET', data, ...options } = {}) => {
-  console.log(data)
+  //console.log(data)
   const token = getAccessToken();
   if (!token) {
     throw new Error('No access token available');

@@ -43,6 +43,7 @@ const Alterar = () => {
           } finally {
           }
       } 
+      
       useEffect(() => async () =>{ // Roda toda vez que entra na tela
         const data = await fetchAllData(API_URL_RESERVA);
         const dataLivros = await fetchAllData(API_URL_LIVRO);
