@@ -6,7 +6,7 @@ Após instalar o python, o node e baixar sua branch realizar os passos a seguir 
   
  - No primeiro
    - Acesse a pasta do backend com "cd backend"
-   - execute o comando "python install -r requirements.txt" (Só executar na primeira vez este comando)
+   - execute o comando "pip install -r requirements.txt" (Só executar na primeira vez este comando)
    - execute o comando "python manage.py runserver"
 
  - No segundo
