@@ -8,32 +8,43 @@ import Logo from "../../assets/Logotipo.png";
 
 import CategorySelect from "../../components/filtro";
 import MetricCard from "../../components/cardMes";
+import AuthorPieChart from "../../components/autorPizza";
 
 const sampleData = [
-  { name: "Book One", category: "Books", type: "Fiction", date: "2025-02-05" },
+  {
+    name: "Book One",
+    category: "Books",
+    type: "Fiction",
+    date: "2025-05-05",
+    author: "Maurício de Souza",
+  },
   {
     name: "Gadget Pro",
     category: "Electronics",
     type: "Device",
-    date: "2025-02-12",
+    date: "2025-05-12",
+    author: "Monteiro Lobato",
   },
   {
     name: "Notebook",
     category: "Books",
     type: "Stationery",
-    date: "2025-02-18",
+    date: "2025-05-18",
+    author: "Monteiro Lobato",
   },
   {
     name: "Wireless Mouse",
     category: "Electronics",
     type: "Accessory",
-    date: "2025-02-25",
+    date: "2025-03-25",
+    author: "Monteiro Lobato",
   },
   {
     name: "Pen Set",
     category: "Stationery",
     type: "Writing",
     date: "2025-03-03",
+    author: "Monteiro Lobato",
   },
 ];
 
@@ -85,6 +96,7 @@ const TestePage = () => {
         <h2>Graficos</h2>
         <div>
           <MetricCard value={filteredData} label="Empréstimos do Mês" />
+          <AuthorPieChart data={filteredData} />
         </div>
       </div>
     </div>

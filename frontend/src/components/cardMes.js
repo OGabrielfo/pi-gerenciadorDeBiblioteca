@@ -6,11 +6,14 @@ const MetricCard = ({ value, label }) => {
   let total = 0;
   value.forEach((item) => {
     const itemDate = new Date(item.date);
+    console.log(
+      itemDate.getMonth() == date.getMonth() &&
+        itemDate.getFullYear() == date.getFullYear()
+    );
     if (itemDate.getMonth() == date.getMonth()) {
       total++;
     }
   });
-
   return (
     <div className={styles["metric-card"]}>
       <div className={styles["metric-value"]}>{total}</div>
