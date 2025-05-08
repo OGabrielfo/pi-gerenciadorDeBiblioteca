@@ -9,19 +9,43 @@ import Logo from "../../assets/Logotipo.png";
 import CategorySelect from "../../components/filtro";
 
 const sampleData = [
-  { name: "Book One", category: "Books" },
-  { name: "Gadget Pro", category: "Electronics" },
-  { name: "Notebook", category: "Books" },
+  { name: "Book One", category: "Books", type: "Fiction" },
+  { name: "Gadget Pro", category: "Electronics", type: "Device" },
+  { name: "Notebook", category: "Books", type: "Stationery" },
+  { name: "Wireless Mouse", category: "Electronics", type: "Accessory" },
+  { name: "Pen Set", category: "Stationery", type: "Writing" },
 ];
 
 const TestePage = () => {
+  const [filters, setFilters] = useState({ category: "" });
   const [filteredData, setFilteredData] = useState(sampleData);
 
-  const handleFilter = (category) => {
+  const handleFilter = (category, type) => {
+    console.log(filters);
+    const newFilters = filters;
+    newFilters[type] = category;
+
     const result = sampleData.filter((item) => {
-      const matchCategory = category ? item.category === category : true;
+      console.log("__________");
+      let matchCategory = true;
+
+      Object.keys(newFilters).forEach((key) => {
+        console.log(newFilters[key] + "==" + item[key]);
+        if (newFilters[key] == "" || newFilters[key] == item[key]) {
+          matchCategory = true && matchCategory;
+        } else {
+          matchCategory = false && matchCategory;
+        }
+      });
+      console.log(matchCategory);
+      // const matchCategory = category ? item.category === category : true;
       return matchCategory;
     });
+
+    // const result = filteredData.filter((item) => {
+    //   const matchCategory = category ? item.category === category : true;
+    //   return matchCategory;
+    // });
     setFilteredData(result);
     console.log(result);
   };
@@ -30,10 +54,20 @@ const TestePage = () => {
     <div>
       <h1>teste</h1>
       <CategorySelect
-        categories={["Books", "Electronics"]}
+        categories={[...new Set(sampleData.map((item) => item.category))]}
         onChange={handleFilter}
-        text="Todos Genêros"
+        text="Todas categorias"
+        type="category"
       />
+      <CategorySelect
+        categories={[...new Set(sampleData.map((item) => item.type))]}
+        onChange={handleFilter}
+        text="Todos os tipos"
+        type="type"
+      />
+      <div>
+        <h2>Graficos</h2>
+      </div>
     </div>
   );
 };
