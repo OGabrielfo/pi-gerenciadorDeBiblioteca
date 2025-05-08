@@ -7,13 +7,34 @@ import Image from "next/image";
 import Logo from "../../assets/Logotipo.png";
 
 import CategorySelect from "../../components/filtro";
+import MetricCard from "../../components/cardMes";
 
 const sampleData = [
-  { name: "Book One", category: "Books", type: "Fiction" },
-  { name: "Gadget Pro", category: "Electronics", type: "Device" },
-  { name: "Notebook", category: "Books", type: "Stationery" },
-  { name: "Wireless Mouse", category: "Electronics", type: "Accessory" },
-  { name: "Pen Set", category: "Stationery", type: "Writing" },
+  { name: "Book One", category: "Books", type: "Fiction", date: "2025-02-05" },
+  {
+    name: "Gadget Pro",
+    category: "Electronics",
+    type: "Device",
+    date: "2025-02-12",
+  },
+  {
+    name: "Notebook",
+    category: "Books",
+    type: "Stationery",
+    date: "2025-02-18",
+  },
+  {
+    name: "Wireless Mouse",
+    category: "Electronics",
+    type: "Accessory",
+    date: "2025-02-25",
+  },
+  {
+    name: "Pen Set",
+    category: "Stationery",
+    type: "Writing",
+    date: "2025-03-03",
+  },
 ];
 
 const TestePage = () => {
@@ -21,24 +42,19 @@ const TestePage = () => {
   const [filteredData, setFilteredData] = useState(sampleData);
 
   const handleFilter = (category, type) => {
-    console.log(filters);
     const newFilters = filters;
     newFilters[type] = category;
 
     const result = sampleData.filter((item) => {
-      console.log("__________");
       let matchCategory = true;
 
       Object.keys(newFilters).forEach((key) => {
-        console.log(newFilters[key] + "==" + item[key]);
         if (newFilters[key] == "" || newFilters[key] == item[key]) {
           matchCategory = true && matchCategory;
         } else {
           matchCategory = false && matchCategory;
         }
       });
-      console.log(matchCategory);
-      // const matchCategory = category ? item.category === category : true;
       return matchCategory;
     });
 
@@ -67,6 +83,9 @@ const TestePage = () => {
       />
       <div>
         <h2>Graficos</h2>
+        <div>
+          <MetricCard value={filteredData} label="Empréstimos do Mês" />
+        </div>
       </div>
     </div>
   );
