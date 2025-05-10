@@ -47,7 +47,7 @@ export default function TabelaConsultar(props) {
             setStatusEmprestimo(dataStatusEmprestimo)
             setAlunos(dataAlunos)
             setFuncionarios(dataFuncionarios)
-            console.log(filtrar)
+            //console.log(filtrar)
         } catch (error) {
             console.error('Erro: ', error)
         }
@@ -75,7 +75,7 @@ export default function TabelaConsultar(props) {
         }
 
         const updateDataLivro = {
-            id_status : "Concluido",
+            id_status : 9,
         }
 
         try{
@@ -89,22 +89,43 @@ export default function TabelaConsultar(props) {
                 },
             });
 
-            //TODO fazer atualização do estado dos livros de cada empréstimo também
-
             if (response.ok) {
-                window.alert("O empréstimo foi concluído.");
-                console.log(response)
+                const livrosDoEmprestimo = livroEmprest.filter(livro => livro.id_emprestimo === id);
+
+                const updateLivros = livrosDoEmprestimo.map(livro => {
+                    const urlLivro = `${API_LivroEmprestimo}${livro.id}/`;
+                    return fetchWithAuth(urlLivro, {
+                        method: "PATCH",
+                        data: updateDataLivro,
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                    })
+                    /*.then(response => {
+                        console.log(`Response do livro ${livro.id}:`, response); // Exibe a resposta bruta
+                        return response.json();
+                    })
+                    .then(data => console.log(`Dados do livro ${livro.id} atualizados:`, data)) // Exibe o JSON da resposta
+                    .catch(error => console.error(`Erro ao atualizar livro ${livro.id}:`, error));*/
+                });
+
+                await Promise.all(updateLivros);
+
                 setEmprestimo(emprestimo.map(item =>
                     item.id_emprestimo === id ? { ...item, situacao_emprestimo: 'Concluido' } : item
                 ));
+
+                window.alert("O empréstimo foi concluído.");
+                //console.log(response)
                 fetchDados()
+
             } else {
                 window.alert("Erro ao concluir o empréstimo.");
             }    
         } 
         catch (e) {
             window.alert("Alteração não realizada, tente novamente");
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -133,7 +154,11 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Concluir" className={styles.dado}>
-                    <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    {usuario.situacao_emprestimo === "Aberto" ? 
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    :
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.iconesDisabled} disabled ><FontAwesomeIcon icon={faCheck}/></button>
+                    }
                 </td>
             </tr>
             :
@@ -166,7 +191,12 @@ export default function TabelaConsultar(props) {
                     )}
                 </td>
                 <td id="Concluir" className={styles.dado}>
-                    <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    {usuario.situacao_emprestimo === "Aberto" ? 
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    :
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.iconesDisabled} disabled ><FontAwesomeIcon icon={faCheck}/></button>
+                    }
+                    
                 </td>
             </tr> 
             :
@@ -202,7 +232,7 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader}>Data de devolução</th>
                             <th className={styles.dadoHeader}>Situação</th>
                             <th className={styles.dadoHeader}>Telefone</th>
-                            <th className={styles.dadoHeader}>Deletar</th>
+                            <th className={styles.dadoHeader}>Concluir</th>
                         </tr>
                     </thead>
                     <tbody>
