@@ -34,6 +34,8 @@ const AuthorPieChart = ({ data }) => {
       formatter: "{b}: {c}",
     },
 
+    color: ["#a8e6cf", "#81c784", "#66bb6a", "#388e3c", "#2e7d32"],
+
     series: [
       {
         type: "pie",
