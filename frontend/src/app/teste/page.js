@@ -8,7 +8,7 @@ import Logo from "../../assets/Logotipo.png";
 
 import CategorySelect from "../../components/filtro";
 import MetricCard from "../../components/cardMes";
-import AuthorPieChart from "../../components/autorPizza";
+import GraficoAutor from "../../components/graficoAutor";
 
 const sampleData = [
   {
@@ -96,7 +96,7 @@ const TestePage = () => {
         <h2>Graficos</h2>
         <div>
           <MetricCard value={filteredData} label="Empréstimos do Mês" />
-          <AuthorPieChart data={filteredData} />
+          <GraficoAutor data={[]} />
         </div>
       </div>
     </div>
