@@ -22,8 +22,6 @@ export default function GraficoLivro(props) {
         .sort((a, b) => b[1] - a[1])
         .map(([nome, quantidade]) => ({ nome, quantidade }));
 
-        console.log(resultadoOrdenado)
-
     const option = {
         title: {
           text: 'Gráfico por Título do Livro',
