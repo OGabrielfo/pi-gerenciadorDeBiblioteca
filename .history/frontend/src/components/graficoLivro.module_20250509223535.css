@@ -1,0 +1,22 @@
+.scrollContainer {
+    max-height: 300px; /* Limita a altura do contêiner */
+    overflow-y: auto; /* Adiciona barra de rolagem vertical */
+    border: 1px solid #ccc; /* Estiliza o contêiner */
+    padding: 10px;
+    background-color: #f9f9f9; /* Cor de fundo para destacar */
+}
+
+.item {
+    margin-bottom: 15px; /* Espaçamento entre os itens */
+    border-bottom: 1px solid #ddd; /* Linha de separação entre os itens */
+    padding-bottom: 10px;
+}
+option{
+    color[ 
+    #223939,
+    #335555
+    #447171  
+    #558D8D
+    #66A9A9
+    ]
+}

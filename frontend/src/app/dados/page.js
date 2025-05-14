@@ -17,7 +17,36 @@ const API_URL_EMPRESTIMO = apiUrl+'/emprestimo/';
 const API_URL_LIVROEMPRESTIMO = apiUrl+'/livro_emprestimo/';
 const API_URL_LIVRO = apiUrl+'/livro/';
 
-//TODO Criar componentes e adicionar na página
+/*
+
+EXEMPLO DE RESPOSTA DA API:
+
+- Exemplo da API emprestimo
+0: {
+  data_devolucao: "2025-04-25"
+  data_emprestimo: "2025-04-23"
+  id_emprestimo: 26
+  id_usuario_aluno: 6
+  id_usuario_professor: null
+  situacao_emprestimo: "Concluido"
+}
+
+-----------------------------------------------
+
+ENDPOINTS DA API:
+
+- Aluno: 'id_aluno', 'nome_do_aluno', 'sala', 'telefone', 'email'
+- Empréstimo: 'id_emprestimo', 'id_usuario_aluno', 'id_usuario_professor', 'data_emprestimo', 'data_devolucao', 'situacao_emprestimo'
+- Livro Empréstimo: 'id', 'id_livro', 'id_emprestimo', 'quantidade', 'id_status'
+- Livro: 'id_livro', 'nome_do_livro', 'autor', 'tipo', 'quantidade_exemplar', 'saldo_exemplar', 'id_nicho', 'observacao_livro'
+
+-----------------------------------------------
+
+OBS. 1: Necessário apenas adicionar a lógica de filtragem dos dados e retornar os dados corretos, pode até mesmo criar um novo objeto apenas com as informações necessárias
+OBS. 2: Para criar este novo objeto vai ser necessário pegar o id do aluno e do empréstimo, no caso do aluno puxar a turma para salvar o objeto em um array e no caso do empréstimo usar o id do empréstimo para consultar os livros no livro_emprestimo e daí consultar o id do livro na api dos livros para aí sim salvar o nome, gênero e autor no array, podem ser informações salvas em arrays separados mesmo, o importante é enviar isso para os componentes.
+
+*/
+
 export default function  Dados() {
   const { authData } = useAuth();
 
@@ -29,6 +58,8 @@ export default function  Dados() {
   const [dadosEmprestimo, setDadosEmprestimo] = useState(null);
   const [dadosLivroEmprestimo, setDadosLivroEmprestimo] = useState(null);
   const [dadosLivro, setDadosLivro] = useState(null);
+
+  const [tipoGrafico, setTipoGrafico] = useState("autor");
 
   // GET dos dados necessários
   const fetchAllData = async (api) => {
@@ -54,7 +85,7 @@ export default function  Dados() {
       setDadosApiLivroEmprestimo(dataApiLivroEmprestimo);
       setDadosApiLivro(dataApiLivro);
 
-      // Set provisório dos dados, vai se substituído pelos dados filtrados
+      // Set provisório dos dados, vai ser substituído pelos dados filtrados
       setDadosAluno(dataApiAluno);
       setDadosEmprestimo(dataApiEmprestimo);
       setDadosLivroEmprestimo(dataApiLivroEmprestimo);
@@ -68,7 +99,7 @@ export default function  Dados() {
     // Obs. 01: Necessário encontrar os livros filtrando quais são os que estão com o id de empréstimo na api dos livros, para conseguir retornar as informações necessárias para os gráficos
     // Obs. 02: Os elementos setDados já estão criados para ter os dados dos filtros inseridos
     
-    /*
+    /* 
     useEffect(() => {
       const fetchData = async () => {
         setDadosAluno(dadosApiAluno); // Substituir a variável da função pela variável com o resultado do filtro
@@ -81,19 +112,45 @@ export default function  Dados() {
     }, []);
     */
 
+    const handleChange = (e) => {
+      setTipoGrafico(e.target.value);
+    }
   // Proteção de Rota
   if (!authData) {
     return <p>Carregando...</p>;
   }
 
+  console.log(tipoGrafico)
+
   return (
     <>
       <Header>Consulta</Header>
       <div className={styles.container}>
-        <GraficoAutor dados={dadosLivro} />
-        <GraficoGenero dados={dadosLivro} />
-        <GraficoLivro dados={dadosLivro} />
-        <GraficoTurma dados={dadosAluno} />
+        <fieldset className={styles.filtroContainer} name="filtro" onChange={handleChange}>
+          <legend className={styles.filtroLegenda}>Selecione uma visualização</legend>
+          <div>
+            <input type="radio" id="autor" value="autor" name="filtro" defaultChecked />
+            <label for="autor">Autor</label>
+          </div>
+          <div>
+            <input type="radio" id="genero" value="genero" name="filtro" />
+            <label for="genero">Gênero</label>
+          </div>
+          <div>
+            <input type="radio" id="titulo" value="titulo" name="filtro" />
+            <label for="titulo">Título</label>
+          </div>
+          <div>
+            <input type="radio" id="turma" value="turma" name="filtro" />
+            <label for="turma">Turma</label>
+          </div>
+        </fieldset>
+
+        {tipoGrafico === 'autor' && <GraficoAutor dados={dadosLivro} />}
+        {tipoGrafico === 'genero' && <GraficoGenero dados={dadosLivro} />}
+        {tipoGrafico === 'titulo' && <GraficoLivro dados={dadosLivro} />}
+        {tipoGrafico === 'turma' && <GraficoTurma dados={dadosAluno} />}
+
       </div>
     </>
   );

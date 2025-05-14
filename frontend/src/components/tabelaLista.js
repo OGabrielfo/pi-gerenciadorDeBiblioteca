@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import styles from "./tabelaLista.module.css"
 import router from 'next/router'
 
@@ -24,32 +25,43 @@ export default function TabelaConsultar(props) {
     const [alunos, setAlunos] = useState([])
     const [funcionarios, setFuncionarios] = useState([])
 
-    // Captura de dados dos empréstimos, alunos e funcionários
-    useEffect(() => {
-        async function fetchDados() {
-            try {
-                const respEmprestimos = await fetchWithAuth(API_Emprestimo)
-                const respLivroEmprest = await fetchWithAuth(API_LivroEmprestimo)
-                const respStatusEmprestimo = await fetchWithAuth(API_StatusEmprestimo)
-                const respAlunos = await fetchWithAuth(API_Alunos)
-                const respFuncionarios = await fetchWithAuth(API_Professor)
-                const dataEmprestimos = await respEmprestimos.json()
-                const dataLivroEmprest = await respLivroEmprest.json()
-                const dataStatusEmprestimo = await respStatusEmprestimo.json()
-                const dataAlunos = await respAlunos.json()
-                const dataFuncionarios = await respFuncionarios.json()
-                setEmprestimo(dataEmprestimos)
-                setLivroEmprest(dataLivroEmprest)
-                setStatusEmprestimo(dataStatusEmprestimo)
-                setAlunos(dataAlunos)
-                setFuncionarios(dataFuncionarios)
-            } catch (error) {
-                console.error('Erro: ', error)
-            }
-        }
-        fetchDados()
-    }, [])
+    // Para retornar filtro corretamente
+    const [filtrar, setFiltrar] = useState(false);
 
+    // Captura de dados dos empréstimos, alunos e funcionários
+    async function fetchDados() {
+        try {
+            const respEmprestimos = await fetchWithAuth(API_Emprestimo)
+            const respLivroEmprest = await fetchWithAuth(API_LivroEmprestimo)
+            const respStatusEmprestimo = await fetchWithAuth(API_StatusEmprestimo)
+            const respAlunos = await fetchWithAuth(API_Alunos)
+            const respFuncionarios = await fetchWithAuth(API_Professor)
+            const dataEmprestimosCompleto = await respEmprestimos.json()
+            const dataEmprestimos = filtrar ? dataEmprestimosCompleto.filter(item => item.situacao_emprestimo != "Concluido") : dataEmprestimosCompleto;
+            const dataLivroEmprest = await respLivroEmprest.json()
+            const dataStatusEmprestimo = await respStatusEmprestimo.json()
+            const dataAlunos = await respAlunos.json()
+            const dataFuncionarios = await respFuncionarios.json()
+            setEmprestimo(dataEmprestimos)
+            setLivroEmprest(dataLivroEmprest)
+            setStatusEmprestimo(dataStatusEmprestimo)
+            setAlunos(dataAlunos)
+            setFuncionarios(dataFuncionarios)
+            //console.log(filtrar)
+        } catch (error) {
+            console.error('Erro: ', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchDados()
+    }, [filtrar])
+
+    const handleFiltroChange = (e) => {
+        setFiltrar(e.target.checked);
+        fetchDados();
+    };
+    
     //Alterar Cadastros
     const setConclude = async (id) => {
         const item = emprestimo.find( item => item.id_emprestimo === id)
@@ -57,8 +69,13 @@ export default function TabelaConsultar(props) {
             alert("Item não encontrado!")
             return
         }
+
         const updateData = {
             situacao_emprestimo: "Concluido",
+        }
+
+        const updateDataLivro = {
+            id_status : 9,
         }
 
         try{
@@ -72,22 +89,43 @@ export default function TabelaConsultar(props) {
                 },
             });
 
-            //TODO fazer atualização do estado dos livros de cada empréstimo também
-            //TODO ocultar completos
-
             if (response.ok) {
-                window.alert("O empréstimo foi concluído.");
-                console.log(response)
+                const livrosDoEmprestimo = livroEmprest.filter(livro => livro.id_emprestimo === id);
+
+                const updateLivros = livrosDoEmprestimo.map(livro => {
+                    const urlLivro = `${API_LivroEmprestimo}${livro.id}/`;
+                    return fetchWithAuth(urlLivro, {
+                        method: "PATCH",
+                        data: updateDataLivro,
+                        headers: {
+                            'Content-type': 'application/json'
+                        },
+                    })
+                    /*.then(response => {
+                        console.log(`Response do livro ${livro.id}:`, response); // Exibe a resposta bruta
+                        return response.json();
+                    })
+                    .then(data => console.log(`Dados do livro ${livro.id} atualizados:`, data)) // Exibe o JSON da resposta
+                    .catch(error => console.error(`Erro ao atualizar livro ${livro.id}:`, error));*/
+                });
+
+                await Promise.all(updateLivros);
+
                 setEmprestimo(emprestimo.map(item =>
                     item.id_emprestimo === id ? { ...item, situacao_emprestimo: 'Concluido' } : item
-                )); // Atualiza o estado corretamente
+                ));
+
+                window.alert("O empréstimo foi concluído.");
+                //console.log(response)
+                fetchDados()
+
             } else {
                 window.alert("Erro ao concluir o empréstimo.");
             }    
         } 
         catch (e) {
             window.alert("Alteração não realizada, tente novamente");
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -95,7 +133,7 @@ export default function TabelaConsultar(props) {
     function renderAlunos() {
         return emprestimo.map((usuario) => (
             usuario.id_usuario_aluno != null ?
-            <tr key={usuario.id_usuario_aluno} className={styles.linha}>
+            <tr key={`${usuario.id_usuario_aluno}-${usuario.id_emprestimo}`} className={styles.linha}>
                 <td id={ usuario.id_emprestimo } className={styles.dado}>
                     { usuario.id_emprestimo }
                 </td>
@@ -115,8 +153,12 @@ export default function TabelaConsultar(props) {
                         usuario.id_usuario_aluno === aluno.id_aluno ? aluno.telefone : null
                     )}
                 </td>
-                <td id="Deletar" className={styles.dado}>
-                    <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faTrashCan}/></button>
+                <td id="Concluir" className={styles.dado}>
+                    {usuario.situacao_emprestimo === "Aberto" ? 
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    :
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.iconesDisabled} disabled ><FontAwesomeIcon icon={faCheck}/></button>
+                    }
                 </td>
             </tr>
             :
@@ -148,8 +190,13 @@ export default function TabelaConsultar(props) {
                         usuario.id_usuario_professor === funcionario.id_professor_funcionario ? funcionario.telefone : null
                     )}
                 </td>
-                <td id="Deletar" className={styles.dado}>
-                    <FontAwesomeIcon icon={faTrashCan} onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} />
+                <td id="Concluir" className={styles.dado}>
+                    {usuario.situacao_emprestimo === "Aberto" ? 
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.icones} ><FontAwesomeIcon icon={faCheck}/></button>
+                    :
+                        <button onClick={() => setConclude(usuario.id_emprestimo)} className={styles.iconesDisabled} disabled ><FontAwesomeIcon icon={faCheck}/></button>
+                    }
+                    
                 </td>
             </tr> 
             :
@@ -166,6 +213,17 @@ export default function TabelaConsultar(props) {
     
     return (
             <div className={styles.mainDiv}>
+                <div className={styles.checkboxWrapper14}>
+                    <input 
+                        className={styles.switch}
+                        type="checkbox"
+                        id="filtro"
+                        name="filtro"
+                        onChange={handleFiltroChange}
+                    />
+                    <p className={styles.tudo}><b>Mostrar:</b> Tudo</p>
+                    <p className={styles.aberto}><b>Mostrar:</b> Em Aberto</p>
+                </div>
                 <table className={styles.tabela}>
                     <thead className={styles.thead}>
                         <tr>
@@ -174,7 +232,7 @@ export default function TabelaConsultar(props) {
                             <th className={styles.dadoHeader}>Data de devolução</th>
                             <th className={styles.dadoHeader}>Situação</th>
                             <th className={styles.dadoHeader}>Telefone</th>
-                            <th className={styles.dadoHeader}>Deletar</th>
+                            <th className={styles.dadoHeader}>Concluir</th>
                         </tr>
                     </thead>
                     <tbody>

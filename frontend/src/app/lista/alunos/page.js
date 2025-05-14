@@ -3,7 +3,7 @@ import { useAuth } from '@/utils/useAuth';
 import styles from './alunos.module.css'
 import TabelaConsulta from '@/components/tabelaLista'
 
-export default function ListaAlunos() {   
+export default function ListaAlunos() {
     const { authData } = useAuth();
     if (!authData) {
         return <p>Carregando...</p>;

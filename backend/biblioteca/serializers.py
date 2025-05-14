@@ -35,7 +35,7 @@ class EmprestimoSerializer(serializers.ModelSerializer):
 class LivroEmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = LivroEmprestimo
-        fields = ['id_livro', 'id_emprestimo', 'quantidade', 'id_status']
+        fields = ['id', 'id_livro', 'id_emprestimo', 'quantidade', 'id_status']
 
 class ReservaLivroSerializer(serializers.ModelSerializer):
     class Meta:
