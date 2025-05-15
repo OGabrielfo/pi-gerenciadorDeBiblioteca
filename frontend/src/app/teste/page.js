@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { login } from "@/utils/authService";
 import styles from "./teste.module.css";
@@ -227,33 +227,41 @@ const emprestimosCompletos = livroEmprestimos.map((le) => {
 });
 
 const TestePage = () => {
-  const [filters, setFilters] = useState({ category: "" });
+  const [filters, setFilters] = useState({});
   const [filteredData, setFilteredData] = useState(emprestimosCompletos);
+  const handleFilter = (categories, type) => {
+    const newFilters = { ...filters };
 
-  const handleFilter = (category, type) => {
-    const newFilters = filters;
-    newFilters[type] = category;
-
-    const result = emprestimosCompletos.filter((item) => {
-      let matchCategory = true;
-
-      Object.keys(newFilters).forEach((key) => {
-        if (newFilters[key] == "" || newFilters[key] == item[key]) {
-          matchCategory = true && matchCategory;
-        } else {
-          matchCategory = false && matchCategory;
-        }
-      });
-      return matchCategory;
-    });
-
-    // const result = filteredData.filter((item) => {
-    //   const matchCategory = category ? item.category === category : true;
-    //   return matchCategory;
-    // });
-    setFilteredData(result);
-    console.log(result);
+    newFilters[type] = categories;
+    setFilters(newFilters);
   };
+
+  useEffect(() => {
+    // Só filtra se filters não estiver vazio
+    if (Object.keys(filters).length !== 0) {
+      const result = emprestimosCompletos.filter((item) => {
+        let matchCategory = true;
+
+        Object.keys(filters).forEach((key) => {
+          const filterValues = filters[key];
+
+          if (!filterValues || filterValues.length === 0) {
+            matchCategory = matchCategory && true;
+          } else {
+            if (filterValues.includes(item[key])) {
+              matchCategory = matchCategory && true;
+            } else {
+              matchCategory = false && matchCategory;
+            }
+          }
+        });
+
+        return matchCategory;
+      });
+
+      setFilteredData(result);
+    }
+  }, [filters]);
 
   return (
     <div>
