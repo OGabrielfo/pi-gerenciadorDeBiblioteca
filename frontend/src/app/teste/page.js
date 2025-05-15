@@ -10,108 +10,231 @@ import CategorySelect from "../../components/filtro";
 import MetricCard from "../../components/cardMes";
 import GraficoAutor from "../../components/graficoAutor";
 
-const sampleData = [
+// const sampleData = [
+//   {
+//     student: "João Silva",
+//     class: "3A",
+//     loanId: "E123",
+//     author: "Machado de Assis",
+//     bookTitle: "Dom Casmurro",
+//     genre: "Romance",
+//     date: "2025-05-01",
+//   },
+//   {
+//     student: "Maria Oliveira",
+//     class: "2B",
+//     loanId: "E124",
+//     author: "Clarice Lispector",
+//     bookTitle: "A Hora da Estrela",
+//     genre: "Fiction",
+//     date: "2025-05-03",
+//   },
+//   {
+//     student: "Carlos Mendes",
+//     class: "1C",
+//     loanId: "E125",
+//     author: "J.K. Rowling",
+//     bookTitle: "Harry Potter e a Pedra Filosofal",
+//     genre: "Fantasy",
+//     date: "2025-05-05",
+//   },
+//   {
+//     student: "Ana Paula",
+//     class: "3B",
+//     loanId: "E126",
+//     author: "Machado de Assis",
+//     bookTitle: "Dom Casmurro",
+//     genre: "Romance",
+//     date: "2025-05-06",
+//   },
+//   {
+//     student: "Lucas Almeida",
+//     class: "2A",
+//     loanId: "E127",
+//     author: "George Orwell",
+//     bookTitle: "1984",
+//     genre: "Dystopia",
+//     date: "2025-05-06",
+//   },
+//   {
+//     student: "Beatriz Souza",
+//     class: "1B",
+//     loanId: "E128",
+//     author: "J.K. Rowling",
+//     bookTitle: "Harry Potter e a Pedra Filosofal",
+//     genre: "Fantasy",
+//     date: "2025-05-07",
+//   },
+//   {
+//     student: "Pedro Henrique",
+//     class: "3A",
+//     loanId: "E129",
+//     author: "George Orwell",
+//     bookTitle: "1984",
+//     genre: "Dystopia",
+//     date: "2025-05-08",
+//   },
+//   {
+//     student: "Fernanda Lima",
+//     class: "2C",
+//     loanId: "E130",
+//     author: "Clarice Lispector",
+//     bookTitle: "A Hora da Estrela",
+//     genre: "Fiction",
+//     date: "2025-05-09",
+//   },
+//   {
+//     student: "Rafael Torres",
+//     class: "1A",
+//     loanId: "E131",
+//     author: "Machado de Assis",
+//     bookTitle: "Dom Casmurro",
+//     genre: "Romance",
+//     date: "2025-05-10",
+//   },
+//   {
+//     student: "Juliana Costa",
+//     class: "2B",
+//     loanId: "E132",
+//     author: "J.K. Rowling",
+//     bookTitle: "Harry Potter e a Pedra Filosofal",
+//     genre: "Fantasy",
+//     date: "2025-05-11",
+//   },
+// ];
+
+const alunos = [
   {
-    student: "João Silva",
-    class: "3A",
-    loanId: "E123",
-    author: "Machado de Assis",
-    bookTitle: "Dom Casmurro",
-    genre: "Romance",
-    date: "2025-05-01",
+    id_aluno: 1,
+    nome_do_aluno: "João Silva",
+    sala: "101A",
+    telefone: "(11) 91234-5678",
+    email: "joao.silva@example.com",
   },
   {
-    student: "Maria Oliveira",
-    class: "2B",
-    loanId: "E124",
-    author: "Clarice Lispector",
-    bookTitle: "A Hora da Estrela",
-    genre: "Fiction",
-    date: "2025-05-03",
+    id_aluno: 2,
+    nome_do_aluno: "Maria Oliveira",
+    sala: "101A",
+    telefone: "(11) 98765-4321",
+    email: "maria.oliveira@example.com",
   },
   {
-    student: "Carlos Mendes",
-    class: "1C",
-    loanId: "E125",
-    author: "J.K. Rowling",
-    bookTitle: "Harry Potter e a Pedra Filosofal",
-    genre: "Fantasy",
-    date: "2025-05-05",
-  },
-  {
-    student: "Ana Paula",
-    class: "3B",
-    loanId: "E126",
-    author: "Machado de Assis",
-    bookTitle: "Dom Casmurro",
-    genre: "Romance",
-    date: "2025-05-06",
-  },
-  {
-    student: "Lucas Almeida",
-    class: "2A",
-    loanId: "E127",
-    author: "George Orwell",
-    bookTitle: "1984",
-    genre: "Dystopia",
-    date: "2025-05-06",
-  },
-  {
-    student: "Beatriz Souza",
-    class: "1B",
-    loanId: "E128",
-    author: "J.K. Rowling",
-    bookTitle: "Harry Potter e a Pedra Filosofal",
-    genre: "Fantasy",
-    date: "2025-05-07",
-  },
-  {
-    student: "Pedro Henrique",
-    class: "3A",
-    loanId: "E129",
-    author: "George Orwell",
-    bookTitle: "1984",
-    genre: "Dystopia",
-    date: "2025-05-08",
-  },
-  {
-    student: "Fernanda Lima",
-    class: "2C",
-    loanId: "E130",
-    author: "Clarice Lispector",
-    bookTitle: "A Hora da Estrela",
-    genre: "Fiction",
-    date: "2025-05-09",
-  },
-  {
-    student: "Rafael Torres",
-    class: "1A",
-    loanId: "E131",
-    author: "Machado de Assis",
-    bookTitle: "Dom Casmurro",
-    genre: "Romance",
-    date: "2025-05-10",
-  },
-  {
-    student: "Juliana Costa",
-    class: "2B",
-    loanId: "E132",
-    author: "J.K. Rowling",
-    bookTitle: "Harry Potter e a Pedra Filosofal",
-    genre: "Fantasy",
-    date: "2025-05-11",
+    id_aluno: 3,
+    nome_do_aluno: "Carlos Souza",
+    sala: "102B",
+    telefone: "(21) 99876-5432",
+    email: "carlos.souza@example.com",
   },
 ];
 
+const livros = [
+  {
+    id_livro: 1,
+    nome_do_livro: "Dom Casmurro",
+    autor: "Machado de Assis",
+    tipo: "Romance",
+    quantidade_exemplar: 5,
+    saldo_exemplar: 3,
+    id_nicho: 101,
+    observacao_livro: "Capa levemente danificada",
+  },
+  {
+    id_livro: 2,
+    nome_do_livro: "O Pequeno Príncipe",
+    autor: "Antoine de Saint-Exupéry",
+    tipo: "Fábula",
+    quantidade_exemplar: 8,
+    saldo_exemplar: 6,
+    id_nicho: 102,
+    observacao_livro: "Edição bilíngue",
+  },
+  {
+    id_livro: 3,
+    nome_do_livro: "1984",
+    autor: "George Orwell",
+    tipo: "Ficção científica",
+    quantidade_exemplar: 10,
+    saldo_exemplar: 10,
+    id_nicho: 103,
+    observacao_livro: "",
+  },
+];
+
+const emprestimos = [
+  {
+    id_emprestimo: 101,
+    id_usuario_aluno: 1, // João Silva
+    id_usuario_professor: null,
+    data_emprestimo: "2025-05-01",
+    data_devolucao: "2025-05-10",
+    situacao_emprestimo: "Ativo",
+  },
+  {
+    id_emprestimo: 102,
+    id_usuario_aluno: 2, // Maria Oliveira
+    id_usuario_professor: null,
+    data_emprestimo: "2025-04-20",
+    data_devolucao: "2025-04-27",
+    situacao_emprestimo: "Devolvido",
+  },
+  {
+    id_emprestimo: 103,
+    id_usuario_aluno: 3, // Carlos Souza
+    id_usuario_professor: null,
+    data_emprestimo: "2025-04-28",
+    data_devolucao: "2025-05-05",
+    situacao_emprestimo: "Atrasado",
+  },
+];
+
+const livroEmprestimos = [
+  {
+    id: 1,
+    id_livro: 1, // Dom Casmurro
+    id_emprestimo: 101,
+    quantidade: 1,
+    id_status: 1, // Ativo
+  },
+  {
+    id: 2,
+    id_livro: 2, // O Pequeno Príncipe
+    id_emprestimo: 102,
+    quantidade: 2,
+    id_status: 2, // Devolvido
+  },
+  {
+    id: 3,
+    id_livro: 3, // 1984
+    id_emprestimo: 103,
+    quantidade: 1,
+    id_status: 3, // Atrasado
+  },
+];
+
+const emprestimosCompletos = livroEmprestimos.map((le) => {
+  const emprestimo = emprestimos.find(
+    (e) => e.id_emprestimo === le.id_emprestimo
+  );
+  const aluno = alunos.find((a) => a.id_aluno === emprestimo.id_usuario_aluno);
+  const livro = livros.find((l) => l.id_livro === le.id_livro);
+
+  return {
+    ...le,
+    ...emprestimo,
+    ...aluno,
+    ...livro,
+  };
+});
+
 const TestePage = () => {
   const [filters, setFilters] = useState({ category: "" });
-  const [filteredData, setFilteredData] = useState(sampleData);
+  const [filteredData, setFilteredData] = useState(emprestimosCompletos);
 
   const handleFilter = (category, type) => {
     const newFilters = filters;
     newFilters[type] = category;
 
-    const result = sampleData.filter((item) => {
+    const result = emprestimosCompletos.filter((item) => {
       let matchCategory = true;
 
       Object.keys(newFilters).forEach((key) => {
@@ -136,22 +259,22 @@ const TestePage = () => {
     <div>
       <h1>teste</h1>
       <CategorySelect
-        categories={[...new Set(sampleData.map((item) => item.category))]}
+        categories={[...new Set(emprestimosCompletos.map((item) => item.tipo))]}
         onChange={handleFilter}
         text="Todas categorias"
-        type="category"
+        type="tipo"
       />
       <CategorySelect
-        categories={[...new Set(sampleData.map((item) => item.type))]}
+        categories={[...new Set(emprestimosCompletos.map((item) => item.sala))]}
         onChange={handleFilter}
-        text="Todos os tipos"
-        type="type"
+        text="Todas as salas"
+        type="sala"
       />
       <div>
         <h2>Graficos</h2>
         <div>
           <MetricCard value={filteredData} label="Empréstimos do Mês" />
-          <GraficoAutor data={sampleData} />
+          <GraficoAutor data={filteredData} />
         </div>
       </div>
     </div>

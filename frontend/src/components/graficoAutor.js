@@ -6,8 +6,8 @@ export default function GraficoAutor({ data }) {
   const authors = {};
 
   data.forEach((item) => {
-    const author = item.author;
-    authors[author] = (authors[author] || 0) + 1;
+    const autor = item.autor;
+    authors[autor] = (authors[autor] || 0) + 1;
   }, {});
 
   const entries = Object.entries(authors);
@@ -61,14 +61,8 @@ export default function GraficoAutor({ data }) {
 
   return (
     <div styles>
-      {data && data.length > 0 ? (
-        <ReactECharts option={option} style={{ height: "400px" }} />
-      ) : (
-        <>
-          <h1>Empréstimos por Autor</h1>
-          <p>Nenhuma informação</p>
-        </>
-      )}
+      <ReactECharts option={option} style={{ height: "400px" }} />
+      {!(data && data.length > 0) && <p>Nenhuma informação encontrada</p>}
     </div>
   );
 }
