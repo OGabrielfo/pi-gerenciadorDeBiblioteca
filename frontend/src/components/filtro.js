@@ -12,12 +12,14 @@ const CategorySelect = ({ categories = [], onChange, text, type }) => {
   };
 
   return (
-    <div style={{ minWidth: "200px" }}>
+    <div className={styles.selectWrapper}>
       <Select
         isMulti
         options={options}
         onChange={handleChange}
         placeholder={text}
+        className={styles.selectContainer}
+        classNamePrefix="react-select"
       />
     </div>
   );

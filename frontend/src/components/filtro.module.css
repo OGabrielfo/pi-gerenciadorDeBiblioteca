@@ -1,20 +1,92 @@
-.select-wrapper {
-    max-width: 300px;
-    margin: 1rem auto;
-  }
-  
-  .custom-select {
-    width: 100%;
-    padding: 8px 12px;
-    font-size: 1rem;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg fill='gray' viewBox='0 0 24 24' width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    background-size: 16px 16px;
-    cursor: pointer;
-  }
+.selectContainer {
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+  width: 100%;
+  min-width: 220px;
+  max-width: 400px;
+}
+
+/* Select control box */
+.react-select__control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: none;
+  transition: border-color 0.2s ease-in-out;
+  min-height: 45px;
+  padding: 2px 4px;
+}
+
+.react-select__control:hover {
+  border-color: #2980b9;
+}
+
+.react-select__control--is-focused {
+  border-color: #2980b9;
+  box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.2);
+}
+
+/* Selected values (tags) */
+.react-select__multi-value {
+  background-color: #dff6ff;
+  border: 1px solid #a2d4ec;
+  border-radius: 6px;
+  padding: 2px 6px;
+  margin: 3px;
+}
+
+.react-select__multi-value__label {
+  color: #0277bd;
+  font-weight: 500;
+  padding: 0 4px;
+}
+
+.react-select__multi-value__remove {
+  color: #0277bd;
+  font-size: 14px;
+  padding: 0 4px;
+  margin-left: 2px;
+  border-left: 1px solid #a2d4ec;
+  cursor: pointer;
+}
+
+.react-select__multi-value__remove:hover {
+  background-color: transparent;
+  color: #d32f2f;
+}
+
+/* Dropdown menu */
+.react-select__menu {
+  border-radius: 8px;
+  z-index: 100;
+}
+
+.react-select__option {
+  padding: 10px 12px;
+}
+
+.react-select__option--is-focused {
+  background-color: #f0f8ff;
+}
+
+.react-select__option--is-selected {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Makes the selected values scroll horizontally */
+.react-select__value-container {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* Optional scrollbar styling (WebKit) */
+.react-select__value-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.react-select__value-container::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
