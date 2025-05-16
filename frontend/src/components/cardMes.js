@@ -5,11 +5,8 @@ const MetricCard = ({ value, label }) => {
   const date = new Date();
   let total = 0;
   value.forEach((item) => {
-    const itemDate = new Date(item.date);
-    console.log(
-      itemDate.getMonth() == date.getMonth() &&
-        itemDate.getFullYear() == date.getFullYear()
-    );
+    const itemDate = new Date(item["data_emprestimo"]);
+    console.log(itemDate);
     if (itemDate.getMonth() == date.getMonth()) {
       total++;
     }
