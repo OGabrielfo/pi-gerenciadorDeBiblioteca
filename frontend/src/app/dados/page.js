@@ -11,6 +11,10 @@ import GraficoGenero from '@/components/graficoGenero';
 import GraficoLivro from '@/components/graficoLivro';
 import GraficoTurma from '@/components/graficoTurma';
 
+import CategorySelect from "../../components/filtro";
+import MetricCard from "../../components/cardMes";
+import GraficoAutor from "../../components/graficoAutor";
+
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const API_URL_ALUNO = apiUrl+'/aluno/';
 const API_URL_EMPRESTIMO = apiUrl+'/emprestimo/';
@@ -119,8 +123,6 @@ export default function  Dados() {
   if (!authData) {
     return <p>Carregando...</p>;
   }
-
-  console.log(tipoGrafico)
 
   return (
     <>

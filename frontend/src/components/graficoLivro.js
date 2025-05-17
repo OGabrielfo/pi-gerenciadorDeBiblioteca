@@ -24,9 +24,14 @@ export default function GraficoLivro(props) {
 
     const option = {
         title: {
-          text: 'Gráfico por Título do Livro',
-          subtext: '5 livros mais emprestados',
-          left: 'center'
+          text: 'Empréstimos por Título do Livro',
+          subtext: 'Livros mais emprestados',
+          left: 'center',
+          textStyle: {
+            fontSize: 20,
+            fontFamily: "sans-serif",
+            color: "#2e4a4d",
+          },
         },
         tooltip: {
           trigger: 'item'
@@ -39,7 +44,13 @@ export default function GraficoLivro(props) {
           {
             name: 'Access From',
             type: 'pie',
-            radius: '50%',
+            radius: '60%',
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
             data: [
               { value: resultadoOrdenado[0].quantidade, name: resultadoOrdenado[0].nome },
               { value: resultadoOrdenado[1].quantidade, name: resultadoOrdenado[1].nome },
@@ -47,6 +58,9 @@ export default function GraficoLivro(props) {
               { value: resultadoOrdenado[3].quantidade, name: resultadoOrdenado[3].nome },
               { value: resultadoOrdenado[4].quantidade, name: resultadoOrdenado[4].nome }
             ],
+            label: {
+              formatter: "{b} - {d}%",
+            },
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -66,10 +80,9 @@ export default function GraficoLivro(props) {
       };
       return ( 
   <> 
-    <h1>Gráfico por Título do Livro</h1> 
      {props.dados && props.dados.length > 0 ? ( 
       <div className={styles.scrollContainer}>
-        <ReactECharts option={option} />
+        <ReactECharts option={option} style={{ height: "400px" }} />
       </div>
     ) : (
       <p>Nenhuma informação disponível</p>

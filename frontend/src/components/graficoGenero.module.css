@@ -1,8 +1,8 @@
 .scrollContainer {
-    max-height: 300px; /* Limita a altura do contêiner */
-    overflow-y: auto; /* Adiciona barra de rolagem vertical */
+    height: auto; /* Limita a altura do contêiner */
     border: 1px solid #ccc; /* Estiliza o contêiner */
-    padding: 10px;
+    margin-top: 10px;
+    padding: 20px;
     background-color: #f9f9f9; /* Cor de fundo para destacar */
 }
 

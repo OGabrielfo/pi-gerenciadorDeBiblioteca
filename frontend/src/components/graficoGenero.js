@@ -2,6 +2,7 @@
 import { color } from 'echarts';
 import styles from './graficoGenero.module.css'; 
 import ReactECharts from 'echarts-for-react';
+
 export default function GraficoGenero(props) { 
     const contagem = {};
 
@@ -9,7 +10,6 @@ export default function GraficoGenero(props) {
 
     const data = props.dados
 
-    
     data.forEach(item => {
         const chave = item['tipo'];
         if (chave) {
@@ -24,33 +24,34 @@ export default function GraficoGenero(props) {
 
     const option = {
         title: {
-          text: 'Gráfico por Gênero Literário',
+          text: 'Empréstimos por Gênero Literário',
           subtext: '5 gêneros literários mais procurados',
           left: 'center',
+          textStyle: {
+            fontSize: 20,
+            fontFamily: "sans-serif",
+            color: "#2e4a4d",
+          },
         },
         tooltip: {
           trigger: 'item'
         },
         legend: {
-          orient: 'horizontal',
-          top: 'bottom',
-          left: 'center',
+          orient: 'vertical',
+          left: 'left'
         },
         series: [
     {
       name: 'Quantidade',
       type: 'pie',
-      radius: ['40%', '70%'],
+      radius: '60%',
       avoidLabelOverlap: false,
       itemStyle: {
         borderRadius: 10,
         borderColor: '#fff',
         borderWidth: 2
       },
-      label: {
-        show: false,
-        position: 'center'
-      },
+
       emphasis: {
         label: {
           show: true,
@@ -59,9 +60,7 @@ export default function GraficoGenero(props) {
           fontWeight: 'bold'
         }
       },
-      labelLine: {
-        show: false
-      },
+
             data: [
               { value: resultadoOrdenado[0].quantidade, name: resultadoOrdenado[0].tipo },
               { value: resultadoOrdenado[1].quantidade, name: resultadoOrdenado[1].tipo },
@@ -69,6 +68,9 @@ export default function GraficoGenero(props) {
               { value: resultadoOrdenado[3].quantidade, name: resultadoOrdenado[3].tipo  },
               { value: resultadoOrdenado[4].quantidade, name: resultadoOrdenado[4].tipo  }
             ],
+            label: {
+              formatter: "{b} - {d}%",
+            },
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -88,10 +90,9 @@ export default function GraficoGenero(props) {
       };
       return ( 
   <> 
-    <h1>Gráfico por Gênero Literário</h1> 
      {props.dados && props.dados.length > 0 ? ( 
       <div className={styles.scrollContainer}>
-        <ReactECharts option={option} />
+        <ReactECharts option={option} style={{ height: "400px" }} />
       </div>
     ) : (
       <p>Nenhuma informação disponível</p>

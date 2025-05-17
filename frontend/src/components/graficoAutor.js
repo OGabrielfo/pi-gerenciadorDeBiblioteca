@@ -2,30 +2,34 @@
 import styles from "./graficoAutor.module.css";
 import ReactECharts from "echarts-for-react";
 
-export default function GraficoAutor({ data }) {
+export default function GraficoAutor(props) {
   const authors = {};
 
-  data.forEach((item) => {
+  if (!props.dados || props.dados.length === 0) return [];
+
+  const data = props.dados
+
+  data.forEach(item => {
     const autor = item.autor;
     authors[autor] = (authors[autor] || 0) + 1;
-  }, {});
+  });
 
   const entries = Object.entries(authors);
-  entries.sort((a, b) => b[1] - a[1]).slice(0, 5);
+  entries.sort((a, b) => b[1] - a[1]);
 
-  const topAuthors = [];
+  const topEntries = entries.slice(0, 5);
+
+  const topAuthors = topEntries.map(([name, value]) => ({ name, value }));
 
   entries.forEach((item) => {
     topAuthors.push({ name: item[0], value: item[1] });
   });
 
-  console.log(topAuthors);
-
   const option = {
     title: {
       text: "Empréstimos por Autor",
+      subtext: 'Autores mais lidos',
       left: "center",
-      top: 10,
       textStyle: {
         fontSize: 20,
         fontFamily: "sans-serif",
@@ -38,15 +42,32 @@ export default function GraficoAutor({ data }) {
       formatter: "{b}: {c}",
     },
 
-    color: ["#a8e6cf", "#81c784", "#66bb6a", "#388e3c", "#2e7d32"],
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+
+    color: ['#223939', '#335555', '#447171', '#558D8D', '#66A9A9'],
 
     series: [
       {
         type: "pie",
         radius: "60%",
-        data: topAuthors,
+        avoidLabelOverlap: false,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2
+        },
+        data: [
+          { value: topAuthors[0].value, name: topAuthors[0].name },
+          { value: topAuthors[1].value, name: topAuthors[1].name },
+          { value: topAuthors[2].value, name: topAuthors[2].name  },
+          { value: topAuthors[3].value, name: topAuthors[3].name  },
+          { value: topAuthors[4].value, name: topAuthors[4].name  }
+        ],
         label: {
-          formatter: "{b} {d}%",
+          formatter: "{b} - {d}%",
         },
         emphasis: {
           itemStyle: {
@@ -60,9 +81,9 @@ export default function GraficoAutor({ data }) {
   };
 
   return (
-    <div styles>
+    <div className={styles.scrollContainer}>
       <ReactECharts option={option} style={{ height: "400px" }} />
-      {!(data && data.length > 0) && <p>Nenhuma informação encontrada</p>}
+      {!(props.dados && props.dados.length > 0) && <p>Nenhuma informação encontrada</p>}
     </div>
   );
 }
