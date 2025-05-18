@@ -6,7 +6,7 @@ import ReactECharts from 'echarts-for-react';
 export default function GraficoGenero(props) { 
     const contagem = {};
 
-    if (!props.dados || props.dados.length === 0) return [];
+    if (!props.dados || props.dados.length === 0) return <p>Nenhuma informação disponível</p>;
 
     const data = props.dados
 
@@ -21,6 +21,8 @@ export default function GraficoGenero(props) {
     const resultadoOrdenado = Object.entries(contagem)
         .sort((a, b) => b[1] - a[1])
         .map(([tipo, quantidade]) => ({ tipo, quantidade }));
+
+    const topGeneros = resultadoOrdenado.slice(0, 5);
 
     const option = {
         title: {
@@ -41,33 +43,31 @@ export default function GraficoGenero(props) {
           left: 'left'
         },
         series: [
-    {
-      name: 'Quantidade',
-      type: 'pie',
-      radius: '60%',
-      avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 10,
-        borderColor: '#fff',
-        borderWidth: 2
-      },
+            {
+            name: 'Quantidade',
+            type: 'pie',
+            radius: '60%',
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+          
+            emphasis: {
+              label: {
+                show: true,
+                position: 'center',
+                fontSize: 40,
+                fontWeight: 'bold'
+              }
+            },
 
-      emphasis: {
-        label: {
-          show: true,
-          position: 'center',
-          fontSize: 40,
-          fontWeight: 'bold'
-        }
-      },
+            data: topGeneros.map((item) => ({
+                value: item.quantidade,
+                name: item.tipo,
+            })),
 
-            data: [
-              { value: resultadoOrdenado[0].quantidade, name: resultadoOrdenado[0].tipo },
-              { value: resultadoOrdenado[1].quantidade, name: resultadoOrdenado[1].tipo },
-              { value: resultadoOrdenado[2].quantidade, name: resultadoOrdenado[2].tipo  },
-              { value: resultadoOrdenado[3].quantidade, name: resultadoOrdenado[3].tipo  },
-              { value: resultadoOrdenado[4].quantidade, name: resultadoOrdenado[4].tipo  }
-            ],
             label: {
               formatter: "{b} - {d}%",
             },

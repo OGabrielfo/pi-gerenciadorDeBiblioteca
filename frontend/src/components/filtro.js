@@ -20,6 +20,14 @@ const CategorySelect = ({ categories = [], onChange, text, type }) => {
         placeholder={text}
         className={styles.selectContainer}
         classNamePrefix="react-select"
+        menuPortalTarget={document.body} /* Garante que o menu seja renderizado corretamente */
+        styles={{
+          menu: (provided) => ({
+            ...provided,
+            maxHeight: "300px", /* Ajusta a altura do menu */
+            overflowY: "auto", /* Permite rolagem vertical */
+          }),
+        }}
       />
     </div>
   );

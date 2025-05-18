@@ -1,24 +1,30 @@
 .metric-card {
-    border: 1px solid #333;
-    padding: 32px;
-    text-align: center;
-    width: 200px;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-family: sans-serif;
-  }
+  border: 1px solid #a1a1a1;
+  background-color: var(--cor02);
+  padding: 15px;
+  text-align: center;
+  width: auto;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-family: sans-serif;
+  margin-top: -2px;
+}
+
+.metric-label {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  color: var(--cor07);
+}
   
-  .metric-value {
-    font-size: 2.5rem;
-    font-weight: 500;
-    color: #2e4a4d;
-  }
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--cor07);
+}
   
-  .metric-label {
-    margin-top: 8px;
-    font-size: 1rem;
-    color: #2e4a4d;
-  }
+
   

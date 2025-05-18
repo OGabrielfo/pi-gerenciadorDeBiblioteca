@@ -6,15 +6,15 @@ const MetricCard = ({ value, label }) => {
   let total = 0;
   value.forEach((item) => {
     const itemDate = new Date(item["data_emprestimo"]);
-    console.log(itemDate);
+    //console.log(itemDate);
     if (itemDate.getMonth() == date.getMonth()) {
       total++;
     }
   });
   return (
     <div className={styles["metric-card"]}>
-      <div className={styles["metric-value"]}>{total}</div>
       <div className={styles["metric-label"]}>{label}</div>
+      <div className={styles["metric-value"]}>{total}</div>
     </div>
   );
 };

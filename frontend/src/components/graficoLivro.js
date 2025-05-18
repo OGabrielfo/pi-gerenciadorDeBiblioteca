@@ -5,7 +5,7 @@ import ReactECharts from 'echarts-for-react';
 export default function GraficoLivro(props) { 
     const contagem = {};
 
-    if (!props.dados || props.dados.length === 0) return [];
+    if (!props.dados || props.dados.length === 0) return <p>Nenhuma informação disponível</p>;
 
     const data = props.dados
 
@@ -21,6 +21,8 @@ export default function GraficoLivro(props) {
     const resultadoOrdenado = Object.entries(contagem)
         .sort((a, b) => b[1] - a[1])
         .map(([nome, quantidade]) => ({ nome, quantidade }));
+
+    const topLivros = resultadoOrdenado.slice(0, 5);
 
     const option = {
         title: {
@@ -51,13 +53,10 @@ export default function GraficoLivro(props) {
               borderColor: '#fff',
               borderWidth: 2
             },
-            data: [
-              { value: resultadoOrdenado[0].quantidade, name: resultadoOrdenado[0].nome },
-              { value: resultadoOrdenado[1].quantidade, name: resultadoOrdenado[1].nome },
-              { value: resultadoOrdenado[2].quantidade, name: resultadoOrdenado[2].nome },
-              { value: resultadoOrdenado[3].quantidade, name: resultadoOrdenado[3].nome },
-              { value: resultadoOrdenado[4].quantidade, name: resultadoOrdenado[4].nome }
-            ],
+            data: topLivros.map((item) => ({
+                value: item.quantidade,
+                name: item.nome,
+            })),
             label: {
               formatter: "{b} - {d}%",
             },

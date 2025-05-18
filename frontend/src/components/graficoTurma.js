@@ -5,7 +5,7 @@ import styles from './graficoTurma.module.css';
 
 export default function GraficoTurma(props) {
   if (!props.dados || props.dados.length === 0) {
-    return <p>Nenhuma informação encontrada</p>;
+    return <p>Nenhuma informação disponível</p>;
   }
 
   const data = props.dados
@@ -18,6 +18,7 @@ export default function GraficoTurma(props) {
 
   // Converter para um formato adequado para o gráfico
   const nomesFormatados = {
+    "undefined": "Funcionários",
     "6ºA": "6º Ano A",
     "7ºA": "7º Ano A",
     "8ºA": "8º Ano A",

@@ -3,7 +3,7 @@
   font-size: 15px;
   width: 100%;
   min-width: 220px;
-  max-width: 400px;
+  max-width: 600px;
 }
 
 /* Select control box */
@@ -54,10 +54,23 @@
   color: #d32f2f;
 }
 
+/* Estiliza a barra de rolagem vertical */
+.react-select__menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.react-select__menu::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+
 /* Dropdown menu */
 .react-select__menu {
-  border-radius: 8px;
-  z-index: 100;
+  min-height: 250px; /* Ajuste conforme necessário */
+  overflow-y: auto; /* Permite rolagem vertical */
+  overflow-x: hidden; /* Remove rolagem horizontal */
+  white-space: normal; /* Garante que o texto quebre corretamente */
 }
 
 .react-select__option {
@@ -73,13 +86,13 @@
   color: white;
 }
 
-/* Makes the selected values scroll horizontally */
 .react-select__value-container {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: thin; /* For Firefox */
+  flex-wrap: wrap; /* Permite que os itens quebrem linha */
+  overflow-x: hidden; /* Remove rolagem horizontal */
+  overflow-y: auto; /* Mantém rolagem vertical se necessário */
+  max-height: 100px; /* Ajuste conforme necessário */
 }
+
 
 /* Optional scrollbar styling (WebKit) */
 .react-select__value-container::-webkit-scrollbar {

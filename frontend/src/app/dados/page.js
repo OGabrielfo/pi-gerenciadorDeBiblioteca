@@ -13,7 +13,6 @@ import GraficoTurma from '@/components/graficoTurma';
 
 import CategorySelect from "../../components/filtro";
 import MetricCard from "../../components/cardMes";
-import GraficoAutor from "../../components/graficoAutor";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const API_URL_ALUNO = apiUrl+'/aluno/';
@@ -51,8 +50,12 @@ OBS. 2: Para criar este novo objeto vai ser necessário pegar o id do aluno e do
 
 */
 
+
+
 export default function  Dados() {
   const { authData } = useAuth();
+
+  
 
   const [dadosApiAluno, setDadosApiAluno] = useState(null);
   const [dadosApiEmprestimo, setDadosApiEmprestimo] = useState(null);
@@ -102,6 +105,37 @@ export default function  Dados() {
   //TODO Criar lógica de filtros aqui (Imagino que apenas o de aluno e de livro serão necessários no final, mas criei todos já)
     // Obs. 01: Necessário encontrar os livros filtrando quais são os que estão com o id de empréstimo na api dos livros, para conseguir retornar as informações necessárias para os gráficos
     // Obs. 02: Os elementos setDados já estão criados para ter os dados dos filtros inseridos
+
+    const [emprestimosCompletos, setEmprestimosCompletos] = useState([]);
+    const [filters, setFilters] = useState({});
+    const [filteredData, setFilteredData] = useState(emprestimosCompletos);
+
+    useEffect(() => {
+      if (emprestimosCompletos.length > 0) {
+        setFilteredData(emprestimosCompletos);
+      }
+    }, [emprestimosCompletos]);
+
+    useEffect(() => {
+    if (!dadosApiLivroEmprestimo || dadosApiLivroEmprestimo.length === 0) return;
+    
+    const emprestimos = dadosApiLivroEmprestimo.map((le) => {
+      const emprestimo = dadosApiEmprestimo.find(
+        (e) => e.id_emprestimo === le.id_emprestimo
+      );
+      const aluno = dadosApiAluno.find((a) => a.id_aluno === emprestimo?.id_usuario_aluno);
+      const livro = dadosApiLivro.find((l) => l.id_livro === le.id_livro);
+
+      return {
+        ...le,
+        ...emprestimo,
+        ...aluno,
+        ...livro,
+      };
+    });
+
+  setEmprestimosCompletos(emprestimos);
+}, [dadosApiLivroEmprestimo, dadosApiEmprestimo, dadosApiAluno, dadosApiLivro]);
     
     /* 
     useEffect(() => {
@@ -119,6 +153,41 @@ export default function  Dados() {
     const handleChange = (e) => {
       setTipoGrafico(e.target.value);
     }
+
+    const handleFilter = (categories, type) => {
+      const newFilters = { ...filters };
+  
+      newFilters[type] = categories;
+      setFilters(newFilters);
+    };
+  
+    useEffect(() => {
+      // Só filtra se filters não estiver vazio
+      if (Object.keys(filters).length !== 0) {
+        const result = emprestimosCompletos.filter((item) => {
+          let matchCategory = true;
+  
+          Object.keys(filters).forEach((key) => {
+            const filterValues = filters[key];
+  
+            if (!filterValues || filterValues.length === 0) {
+              matchCategory = matchCategory && true;
+            } else {
+              if (filterValues.includes(item[key])) {
+                matchCategory = matchCategory && true;
+              } else {
+                matchCategory = false && matchCategory;
+              }
+            }
+          });
+  
+          return matchCategory;
+        });
+  
+        setFilteredData(result);
+      }
+    }, [filters]);
+
   // Proteção de Rota
   if (!authData) {
     return <p>Carregando...</p>;
@@ -128,31 +197,48 @@ export default function  Dados() {
     <>
       <Header>Consulta</Header>
       <div className={styles.container}>
-        <fieldset className={styles.filtroContainer} name="filtro" onChange={handleChange}>
-          <legend className={styles.filtroLegenda}>Selecione uma visualização</legend>
+        <fieldset className={styles.filtroContainer} name="grafico" onChange={handleChange}>
+          <legend className={styles.filtroLegenda}>Tipo de gráfico</legend>
           <div>
-            <input type="radio" id="autor" value="autor" name="filtro" defaultChecked />
-            <label for="autor">Autor</label>
+            <input type="radio" id="autor" value="autor" name="grafico" defaultChecked />
+            <label htmlFor="autor">Autor</label>
           </div>
           <div>
-            <input type="radio" id="genero" value="genero" name="filtro" />
-            <label for="genero">Gênero</label>
+            <input type="radio" id="genero" value="genero" name="grafico" />
+            <label htmlFor="genero">Gênero</label>
           </div>
           <div>
-            <input type="radio" id="titulo" value="titulo" name="filtro" />
-            <label for="titulo">Título</label>
+            <input type="radio" id="titulo" value="titulo" name="grafico" />
+            <label htmlFor="titulo">Título</label>
           </div>
           <div>
-            <input type="radio" id="turma" value="turma" name="filtro" />
-            <label for="turma">Turma</label>
+            <input type="radio" id="turma" value="turma" name="grafico" />
+            <label htmlFor="turma">Turma</label>
           </div>
         </fieldset>
+        <fieldset className={styles.filtroContainer} name="filtro" >
+          <legend className={styles.filtroLegenda}>Filtrar</legend>
+          <CategorySelect
+            categories={[...new Set(emprestimosCompletos.map((item) => item.tipo))]}
+            onChange={handleFilter}
+            text="Todas categorias"
+            type="tipo"
+          />
+          <CategorySelect
+            categories={[...new Set(emprestimosCompletos.map((item) => item.sala))]}
+            onChange={handleFilter}
+            text="Todas as salas"
+            type="sala"
+          />
+        </fieldset>
+        
+        <MetricCard value={filteredData} label="Empréstimos do Mês: " />
 
-        {tipoGrafico === 'autor' && <GraficoAutor dados={dadosLivro} />}
-        {tipoGrafico === 'genero' && <GraficoGenero dados={dadosLivro} />}
-        {tipoGrafico === 'titulo' && <GraficoLivro dados={dadosLivro} />}
-        {tipoGrafico === 'turma' && <GraficoTurma dados={dadosAluno} />}
-
+        {tipoGrafico === 'autor' && <GraficoAutor dados={filteredData} />}
+        {tipoGrafico === 'genero' && <GraficoGenero dados={filteredData} />}
+        {tipoGrafico === 'titulo' && <GraficoLivro dados={filteredData} />}
+        {tipoGrafico === 'turma' && <GraficoTurma dados={filteredData} />}
+        
       </div>
     </>
   );
